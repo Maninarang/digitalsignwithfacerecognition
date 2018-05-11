@@ -1,0 +1,545 @@
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/signature.css"> 
+<!-- <link rel="stylesheet" href="assets/css/mycustom.css">  -->
+<style>
+  .tooltip-inner {
+    width: 125px;
+    background:#b59848;
+    padding:5px 5px 5px 5px;
+    font-size:14px;
+    font-weight:bolder;
+height:auto;
+  }
+
+.largefilep {
+position:fixed;
+width:100%;
+opacity:0.6;
+filter:alpha(opacity=60);
+top:0px;
+min-height:200px;
+height:100%;
+z-index:9999999999;
+background:#2c846d;
+font-size:20px;
+text-align:center;
+display:none;
+} 
+
+.encryptfilep {
+position:fixed;
+width:100%;
+opacity:0.6;
+filter:alpha(opacity=60);
+top:0px;
+min-height:200px;
+height:100%;
+z-index:9999999999;
+background:#5b4f71;
+font-size:20px;
+text-align:center;
+display:none;
+} 
+
+.digitalfilep {
+position:fixed;
+width:100%;
+opacity:0.6;
+filter:alpha(opacity=60);
+top:0px;
+min-height:200px;
+height:100%;
+z-index:9999999999;
+background:#96450e;
+font-size:20px;
+text-align:center;
+display:none;
+}
+
+.dropdown-menu {
+    left: -15%;
+  min-width: 100px;
+  margin-top:0%;
+  
+}	
+.caret {
+
+  color: #b49948;
+} 
+
+@media screen and (min-width: 1920px)
+{
+.latest-trend-box a img {
+  width: 195px;
+ 
+}
+}
+
+@media screen and (max-width: 699px) {
+  .hide_mob {
+      display: none;
+
+  }
+  
+}
+
+@media screen and (min-width: 699px) {
+  .lm {
+      display: none;
+      
+  }
+  
+}
+
+</style>
+
+
+
+
+
+<section class="hdrsec">
+  <div class="logoimg">
+      <img src="../../assets/img/ezee-logo.png" />
+  </div>
+
+
+
+
+</section>
+
+
+<div class="container">
+                  
+  <div class="list-part">
+
+            <li class="dropdown">
+         
+   <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      
+  <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+         
+    <span class="title">Tarun &nbsp;&nbsp;<b class="caret"></b></span>
+          </a>
+
+              <ul class="dropdown-menu">
+                
+    <li><a href="#">Logout</a></li>
+               
+     <li><a href="#">View Profile</a></li>
+              
+     <li id=""><a href="#">Change Password</a></li>
+           
+     <li><a href="#">Membership Order</a></li>
+  
+              </ul>
+
+           </li>
+     
+</div>
+
+  </div>
+
+
+
+
+<!-- <script language="javascript">
+  $(document).ready(function() {
+      $("#changepass").click(function() {
+          $("#shadow").fadeIn("normal"), $("#changepasswordform").fadeIn("normal")
+      }), $("#cancel_hide").click(function() {
+          $("#changepasswordform").fadeOut("normal"), $("#shadow").fadeOut("normal")
+      }), $(".closepar").click(function() {
+          $("#changepasswordss")[0].reset(), $("#changepasswordform").fadeOut("normal"), $("#error_password").html(""), $("#shadow").fadeOut("normal")
+      })
+  });
+  </script> -->
+
+
+
+  <div class="container middlemargin">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop: true }"></ngx-loading>
+
+    <div class="row">
+    
+      <div class="col-lg-2 col-md-2 col-xs-12">
+         
+         <!--Instructions & logo part start-->		
+             
+         <div style="display:block; margin:0 auto;" class="col-lg-12"> 
+             
+           <a href="#" data-placement="right" data-toggle="tooltip" data-original-title=""><p class="pt51 pt567">&nbsp;&nbsp;<span class="fa fa-home"></span> &nbsp;Home</p></a>
+            
+          </div>	
+               
+           <a href="digital_signature.html">
+               
+             <img class="img-responsive img-portfolio2" src="../../assets/img/signature.png" style="margin-top:10%;" alt="" data-placement="right"> 
+               
+           </a>
+  
+  
+  
+   <!-- <script type="text/javascript">
+    $(function() {
+    $('#showhide').click(function() {
+    $("#slidediv").slideToggle();
+    });
+    });
+    </script> -->
+    
+    <style type="text/css">.arrow-top { top: -1px;}</style>
+     
+     <div class="wrapper2">
+    
+    <li style="list-style:none; cursor:pointer;" class="toggle">
+       
+       <a style="cursor: pointer;" class="list-part2" id="showhide" data-placement="right">
+    
+        <span class="title2">INSTRUCTIONS</span>
+       
+       </a>
+        
+      <ul style="display:none;" class="drop-popup" id="slidediv">
+         
+         <div class="arrow-top"><img src="../../assets/img/arrow-top.png"></div>
+          
+         <div class="inst-popup" style="font-family: Century Gothic; font-size: 14px; text-align: left; font-weight: bold; color: #333;">
+         
+         <ul style="list-style: none; padding: 0;">
+         
+             <li style="margin-bottom: 10px;">Step 1:  Upload or drag and drop PDF file.</li>
+         
+             <li style="margin-bottom: 10px;">Step 2:  Check box, if you require an expiration date (not mandatory).</li>
+             
+           <li style="margin-bottom: 10px;">Step 3:  Add participants.</li>
+             
+           <li style="margin-bottom: 10px;">Step 4:  You can rearrange signing order under "priority". Click on arrow up or down to change signing order (not mandatory). Click next to complete.</li>
+      
+      
+         </ul>
+    
+        </div>
+      
+      </ul>
+      
+      </li>
+    
+    </div>
+  
+  
+      <div class="clearfix"></div>	    <!--Instructions & logo part end-->
+      
+    </div>
+    
+    <div class="col-lg-10 col-md-10 col-xs-12">
+       
+         <div class="inner-part8" style="box-shadow:none !important;">
+        
+             <div class="col-lg-12">
+                  
+          <div class="col-lg-12">
+                   
+           <p class="pt10 encryption">e-signature</p>
+                  </div>
+   </div>           
+         
+      <div class="col-lg-12">
+           
+       <div class="tabs-left">
+  
+  <style type="text/css">
+  .active span.pt6
+  {
+      color:#fff !important;
+  }
+  </style>
+   
+   <ul class="nav nav-tabs6">
+     
+     <li class="active"><a href=""><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
+     
+     <li><a href=""><span class="fa fa-ban"></span>&nbsp;&nbsp;<span class="pt6">Action Required</span></a></li>
+   
+    <li class=""><a href=""><span class="fa fa-check"></span>&nbsp;&nbsp;<span class="pt6">Completed</span></a></li>
+   
+    <li class=""><a href=""><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
+   
+   </ul>            
+       
+   <div id="myTabContent" class="tab-content" style="opacity: 1;">			
+           
+    <div class="tab-pane active" id="home"><div class="col-lg-12 col-md-12 col-xs-12">
+            
+      <div class="table-responsive" style="padding-left:0px;">
+     
+     
+     <div class="col-lg-5">
+     
+     <div class="box-part" style=" border-radius:0px;">
+                 
+       <div id="" style="display:none;"><img src="" style="" class="load-icon">
+       
+       <div id="" style="display:none;">
+       
+       <div class="loading-progress"></div>
+       
+       </div>
+                 
+       <br>
+       
+ 
+                    
+          <!-- <div id='targetLayer'></div>-->
+       
+     </div>
+                 
+
+                   
+         <input  #file type="file" (change)="fileChange($event)" class="fileUpload" style="display: none" >
+       
+          <button id="uploaddocbtn" type="button" (click)="file.click()" data-placement="bottom" data-toggle="tooltip" data-original-title="Browse or drag and drop pdf file here"></button>
+            <file-drop  (onFileDrop)="filedropped($event)" >
+                        <!--<span>optional content (don't set headertext then)</span>-->
+                  </file-drop>   
+         <br>
+
+              
+      </div>
+      <button id="showpdf" style="display:none"  (click)="showpdf()">Hello</button>
+
+       
+     </div>
+       
+  <div class="col-lg-7 um-jam2 smalldivpdf" *ngIf="innerHtml"
+  [innerHTML]="innerHtml">
+   
+ <div class="upload-cross" ></div>
+       
+   <span >
+            
+      <label class="labell">Uploaded Documents</label>
+           
+       
+   </span>
+
+</div>
+
+
+       
+       <form role="form" method="post" id="frmid" enctype="multipart/form-data" name="upload_file" action="">
+                    
+          <input type="hidden" name="srtarr" value="" id="srtarr">
+                   
+         <input type="hidden" name="dociid" value="" id="docii">
+                   
+         <input type="hidden" name="docname" value="" id="docnam">
+                   
+         <input type="hidden" name="refid" value="00000002">
+         
+         <input type="hidden" name="position" value="Top Left" id="position">
+         
+         <div class="col-lg-12">
+               
+       <div class="form-group um-jap" id="refnum" style="margin-left:-3%;">
+                 
+       <label for="inputEmail" class="col-lg-3 control-label2">Reference No.</label>
+                 
+       <div class="col-lg-9">
+                   
+         <input type="text" name="refnumber" id="refnumber" class="form-control pannel-1" placeholder="Ref.0000022" style="color:#000" value="Ref-00000002" readonly="">
+                 
+       </div>
+               
+       </div>				  
+               
+       <div class="form-group groups_group1" style="margin-left:-3%;">
+       
+       <span id="expirationdate" style="margin-top:0px;">
+                
+        <label for="inputEmail" class="col-lg-3 control-label2" style="float: left;">Expiration Date</label>
+                 
+       <div class="col-lg-1" style="margin-top:0px;"> <input type="checkbox" id="chk" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" value="1"> </div>             
+                  
+        <div class="col-lg-8" style="margin-top:10px;">				  
+                     
+         <input type="text" name="expiredt" id="expiredt" class="form-control pannel" style="width:89%;display:none;border: 3px #b49948 solid;" placeholder="03-30-2018">
+               
+       </div>
+       
+       </span>
+             
+     </div>	
+             
+
+        
+
+
+     <div class="col-md-12 Umang" id="added" style="padding:0px 0 0 0;border: 2px #858f03 solid; margin-top:10px; background: #ffff;"> 
+                     
+         <div class="col-sm-12" style=" padding:0 0 2px 0; font-family:&#39;Century Gothic&#39; !important; color: #fff;">
+                     
+         <!-- <div class="col-sm-4" style="font-family:&#39;Century Gothic&#39; !important;">
+                    
+          <h4>Name</h4>
+                     
+         </div>
+         
+         <div class="col-sm-3">
+                     
+         <h4>Priority</h4>
+                     
+         </div>
+                    
+          <div class="col-sm-3">
+                     
+         <h4>Type</h4>
+                     
+         </div>
+                    
+          <div class="col-sm-2">
+                     
+         <h4>Action</h4>
+                    
+          </div>
+                    -->
+
+
+        <div class="tablediv">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Priority</th>
+                    <th>Type</th>
+                    <th>Auction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                    <td>john@example.com</td>
+                  </tr>
+                
+                </tbody>
+              </table>
+        </div>
+
+
+
+
+         </div>
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <a><button class="bottom-nextbtn">Add Participants</button></a>
+</div>
+
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <a  *ngIf="innerHtml" routerLink="/pdfsign"><button class="bottom-nextbtn tofloat">Next</button></a>
+</div>
+        
+                   
+                   </div> 
+             
+             <!--</table>disableddisabled -->				
+             
+     <div class="form-group"><input type="button" id="particiapnt" class="buttonimg" style="float:left; border-radius:0px; margin-left:0%; margin-top:4%;" title="Add Participant for Signature" data-toggle="tooltip" data-placement="top" disabled=""> <input type="submit" id="submitnext" class="buttonimg2" value="" style="display:none; float:right; border-radius:0px;margin-top:4%;" title="Hit next to place signature position of participants " data-toggle="tooltip" data-placement="top">                  
+             
+     </div>
+             
+     <div class="clearfix"></div>
+     
+     <div class="particiapnt34" style="margin-left:1%; margin-top:4%; font-size:22px; color:000; font-family:&#39;Century Gothic&#39;">Note: Please upload PDF before adding participants</div>
+           
+     </div>
+     
+     </form>
+    
+    </div>			  
+        
+    </div>
+         
+   <!-- /tab-content -->
+       
+   </div></div>
+
+      <div class="clearfix"></div>
+       
+     </div>
+     
+     </div>
+   
+   </div>
+  
+   </div>
+
+   <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
+    </script>
+<div class="shade">
+  
+  <div class="popmsg">
+   
+   <p style="color:#FFFFFF; text-align:center;font-weight:900;font-size:16px;padding:10px 0; margin:0;" id="ses"></p>
+ 
+ </div>
+
+ </div> 
+</div>
+</div>   
+  
+
+
+<footer>
+  <div class="container">
+      <div class="col-md-2 col-sm-2 col-xs-12">
+          <div class="msgimgdiv">
+              <img src="../../assets/img/chat.png" />
+          </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="copyrighttext">
+              <p>COPYRIGHT &copy; 2018.ALL RIGHTS RESERVED</p>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="social-icondiv">
+              <ul>
+                  <li>
+                      <a href="#">
+                          <img src="../../assets/img/insta.png" />
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <img src="../../assets/img/fb.png" />
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <img src="../../assets/img/twitter.png" />
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <img src="../../assets/img/google-plus.png" />
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <img src="../../assets/img/you.png" />
+                      </a>
+                  </li>
+                  <li>
+                      <a href="#">
+                          <img src="../../assets/img/test.png" />
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</footer>
+

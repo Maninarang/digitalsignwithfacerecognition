@@ -1,0 +1,355 @@
+<!-- <div>
+  <label>PDF src</label>
+  <input  [(ngModel)]="pdfSrc" (change)="onFileSelected()" type="file" id="file">
+</div>
+<pdf-viewer [src]="pdfSrc" 
+          [render-text]="true"
+          style="display: block;"
+></pdf-viewer> -->
+
+<style>
+    .hdrsec {
+        background-image: url(../../assets/img/header-bg1.png) !important;
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+
+
+
+
+    .logoimg {
+        text-align: center;
+    }
+
+    .left[_ngcontent-c0] {
+        margin-left: 0px !important;
+    }
+
+    .backdrop {
+        height: 1000px !important;
+    }
+
+    .tooltip-inner {
+        width: 125px;
+        background: #b59848;
+        padding: 5px 5px 5px 5px;
+        font-size: 14px;
+        font-weight: bolder;
+        height: auto;
+    }
+
+    .largefilep {
+        position: fixed;
+        width: 100%;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        top: 0px;
+        min-height: 200px;
+        height: 100%;
+        z-index: 9999999999;
+        background: #2c846d;
+        font-size: 20px;
+        text-align: center;
+        display: none;
+    }
+
+    .encryptfilep {
+        position: fixed;
+        width: 100%;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        top: 0px;
+        min-height: 200px;
+        height: 100%;
+        z-index: 9999999999;
+        background: #5b4f71;
+        font-size: 20px;
+        text-align: center;
+        display: none;
+    }
+
+    .digitalfilep {
+        position: fixed;
+        width: 100%;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        top: 0px;
+        min-height: 200px;
+        height: 100%;
+        z-index: 9999999999;
+        background: #96450e;
+        font-size: 20px;
+        text-align: center;
+        display: none;
+    }
+
+    /*.carousel-inner {
+   height: 315px;
+}	*/
+
+    .dropdown-menu {
+        left: -15%;
+        min-width: 100px;
+        margin-top: 0%;
+
+    }
+      .drop-zone img{
+      width: 100%;
+  }
+
+    .caret {
+
+        color: #b49948;
+    }
+
+    @media screen and (min-width: 1920px) {
+        .latest-trend-box a img {
+            width: 195px;
+
+        }
+    }
+
+    @media screen and (max-width: 699px) {
+        .hide_mob {
+            display: none;
+
+        }
+
+    }
+
+    @media screen and (min-width: 699px) {
+        .lm {
+            display: none;
+
+        }
+
+    }
+</style>
+
+
+<!-- <section class="hdrsec">
+    <div class="logoimg">
+        <img src="../../assets/img/ezee-logo.png" />
+    </div>
+
+    <div class="drp drpnw">
+
+        <div class="col-lg-12 col-md-12  col-xs-12">
+
+            <div class="hide_mob">
+                <a href=''>
+                    <div class="list-part-home loginbtn">
+                        Logout
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</section> -->
+
+<section>
+    <div class="my-container">
+        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop: true }"></ngx-loading>
+
+    </div>
+    <div class="">
+        <div class="boxdiv">
+            <div class="col-md-4 col-sm-5 col-xs-12 thefixeddiv">
+                <div class="electronicsig-div">
+                    <img src="../../assets/img/elec.png" />
+                </div>
+                <div class="electronicsig-div1">
+                    <h5>SELECT PARTCIPANT</h5>
+                    <div class="radiobtnbox">
+                        <form >
+
+                            <!--<div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Jack</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Ben</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Rony</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Max</label>
+                                </div>
+                            </div>-->
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <label class="container345">
+                                    Jack
+                                    <input type="checkbox" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <label class="container345">
+                                    Ben
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <label class="container345">
+                                    Rony
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                <label class="container345">
+                                    Max
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="electronicsig-div2">
+                    <h5>DRAG & DROP</h5>
+                    <div>
+                        <!--<label>PDF src</label>-->
+
+                        <!-- <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" 
+                     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                         <span>optional content (don't set headertext then)</span>
+                     </file-drop> -->
+                        <!-- <app-dragndrop></app-dragndrop> -->
+                        <!--  <input  [(ngModel)]="pdfSrc" (change)="onFileSelected()" type="file" id="file"> -->
+                        <!-- <input type="file" (change)="onChange($event)"/> -->
+                        <!-- <input type="file" [(ngModel)]="pdfSrc" (change)="fileChangeEvent($event)" id="file" placeholder="Upload file..." />
+  <button type="button" (click)="upload()">Upload</button> -->
+                    </div>
+                    <div class="radiobtnbox1">
+                        <form>
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="hdgtop">
+                                    <h4>Signature</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="form-group">
+                                    <h6>Initial</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="form-group">
+                                    <h6>Name</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="form-group">
+                                    <h6>Email</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="form-group">
+                                    <h6>Date</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="form-group">
+                                    <h6>Text</h6>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="electronicsig-div2">
+                    <div class="btndiv">
+                        <div class="col-md-6 col-sm-6 col-xs-12 pd0">
+                            <div class="btn1">
+                                <button>
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 pd0">
+                            <div class="btn2">
+                                <button>Instructions</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btndiv">
+                        <div class="col-md-6 col-sm-6 col-xs-12 pd0">
+                            <div class="btn3">
+                                <button>
+                                    <i class="fa fa-floppy-o" aria-hidden="true"></i> Save File</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 pd0">
+                            <div class="btn2">
+                                <button>
+                                    <i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-1 col-sm-1"></div>
+
+
+            <input type="hidden" [(ngModel)]="initialurl">
+            <div class="col-md-8 col-sm-6 col-xs-12 divsize">
+                <div class="pdf-div">
+
+                    <!-- <iframe  width="100%" height="100%" src="https://thiara-photography-5a4b2.firebaseapp.com/" ></iframe> -->
+                    <!-- <img src="../../assets/img/img1.png" />
+                     -->
+                </div>
+                <!-- <div *ngIf="url" > -->
+                <!-- <p> {{ url }}</p> -->
+                <!-- <iframe   class="pdfsrc" width="100%"height="200%" [src]="pdfSrc" ></iframe> -->
+                <!-- </div> -->
+                <!-- {{ pdfURL }} -->
+                <!-- <input  (change)="onFileSelected()" type="file" id="file"> -->
+                <div >
+<div *ngFor="let image of pdfimages;let i= index" attr.id="image{{i}}" class="pdfimg droppable" >
+
+<img src="{{image}}"> 
+
+</div>
+
+
+                    <!-- <file-drop  (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                        <!--<span>optional content (don't set headertext then)</span>-->
+                <!--    </file-drop> -->
+                </div>
+                <!--   <div *ngIf="pdfURL">
+                            <iframe [src]="pdfURL" width="100%" height="700" dnd-droppable-iframe></iframe>
+
+                     </div> -->
+
+                <!-- <pdf-viewer [src]="pdfSrc" 
+            [render-text]="true"
+            style="display: block;"
+  ></pdf-viewer> -->
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
