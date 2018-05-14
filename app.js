@@ -30,7 +30,11 @@ global.__basedir = __dirname;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+const corsOptions = {
+    origin: 'https://localhost:4200',
+    credentials: true,
 
+}
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
@@ -38,7 +42,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb',extended: true,parameterLimit: 1000000}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.static('__dirname'));
 app.use(express.static('images/'));
 app.use(express.static('html/'));

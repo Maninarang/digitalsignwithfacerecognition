@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UploadEvent, UploadFile, FileSystemFileEntry } from 'ngx-file-drop';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AuthenticationService, UserDetails } from '../authentication.service';
+
 
 
 @Component({
@@ -9,12 +12,21 @@ import { UploadEvent, UploadFile, FileSystemFileEntry } from 'ngx-file-drop';
   templateUrl: './digital-sign.component.html',
   styleUrls: ['./digital-sign.component.css']
 })
-export class DigitalSignComponent {
+export class DigitalSignComponent implements OnInit {
+    details: UserDetails;
     innerHtml: SafeHtml;
     pdfpath: any;
     loading = false;
     files: UploadFile[] = [];
-  constructor(private http: HttpClient, private domSanitizer: DomSanitizer) { }
+    fullname: string;
+  constructor(private http: HttpClient, private domSanitizer: DomSanitizer, private auth: AuthenticationService) { }
+
+  ngOnInit() {
+    this.auth.profile().subscribe(user => {
+      this.details = user;
+      this.fullname = this.details.name;
+    });
+  }
 
   fileChange(event) {
     const fileList: FileList = event.target.files;
@@ -23,27 +35,28 @@ export class DigitalSignComponent {
         const formData: FormData = new FormData();
         this.loading = true;
         formData.append('filetoupload', file, file.name);
-        this.http.post('http://localhost:3000/api/uploadfile', formData)
+        this.http.post('https://mybitrade.com:3000/api/uploadfile', formData)
         .subscribe(data => {
             this.pdfpath = data;
             localStorage.setItem('pdfid', this.pdfpath.pdfid);
             this.innerHtml = this.domSanitizer.bypassSecurityTrustHtml(
-                '<object data="' + 'http://localhost:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
+                // tslint:disable-next-line:max-line-length
+                '<object data="' + 'https://mybitrade.com:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
                 'Object' + this.pdfpath.path + ' failed' +
                 '</object>');
                 this.loading = false;
           });
     }
 }
- showpdf() {
+  showpdf() {
     this.innerHtml = this.domSanitizer.bypassSecurityTrustHtml(
-        '<object data="' + 'http://localhost:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
+        '<object data="' + 'https://mybitrade.com:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
         'Object' + this.pdfpath.path + ' failed' +
         '</object>');
         this.loading = false;
  }
 
-filedropped(event: UploadEvent) {
+  filedropped(event: UploadEvent) {
     this.files = event.files;
     for (const droppedFile of event.files) {
       if (droppedFile.fileEntry.isFile) {
@@ -55,7 +68,7 @@ filedropped(event: UploadEvent) {
           const formData = new FormData();
           formData.append('filetoupload', file, droppedFile.relativePath);
           //  this.http.post('http://127.0.0.1:3000/api/uploadfile', formData, { headers: headers })
-          this.http.post('http://localhost:3000/api/uploadfile', formData)
+          this.http.post('https://mybitrade.com:3000/api/uploadfile', formData)
           .subscribe(data => {
             this.pdfpath = data;
             localStorage.setItem('pdfid', this.pdfpath.pdfid);
@@ -68,6 +81,10 @@ filedropped(event: UploadEvent) {
       } else {
       }
     }
+  }
+
+  logout() {
+    this.auth.logout();
   }
 
 }

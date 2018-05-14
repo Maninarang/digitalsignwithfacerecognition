@@ -1,11 +1,4 @@
-<!-- <div>
-  <label>PDF src</label>
-  <input  [(ngModel)]="pdfSrc" (change)="onFileSelected()" type="file" id="file">
-</div>
-<pdf-viewer [src]="pdfSrc" 
-          [render-text]="true"
-          style="display: block;"
-></pdf-viewer> -->
+
 
 <style>
     .hdrsec {
@@ -83,9 +76,6 @@
         display: none;
     }
 
-    /*.carousel-inner {
-   height: 315px;
-}	*/
 
     .dropdown-menu {
         left: -15%;
@@ -127,26 +117,6 @@
 </style>
 
 
-<!-- <section class="hdrsec">
-    <div class="logoimg">
-        <img src="../../assets/img/ezee-logo.png" />
-    </div>
-
-    <div class="drp drpnw">
-
-        <div class="col-lg-12 col-md-12  col-xs-12">
-
-            <div class="hide_mob">
-                <a href=''>
-                    <div class="list-part-home loginbtn">
-                        Logout
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-</section> -->
 
 <section>
     <div class="my-container">
@@ -162,88 +132,25 @@
                 <div class="electronicsig-div1">
                     <h5>SELECT PARTCIPANT</h5>
                     <div class="radiobtnbox">
-                        <form >
-
-                            <!--<div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Jack</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Ben</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Rony</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Max</label>
-                                </div>
-                            </div>-->
-
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <label class="container345">
-                                    Jack
-                                    <input type="checkbox" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <label class="container345">
-                                    Ben
-                                    <input type="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <label class="container345">
-                                    Rony
-                                    <input type="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <label class="container345">
-                                    Max
-                                    <input type="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-
-                        </form>
+                            <select class="electronicsig-div1" #u (change)="userselection(u.value)">
+                                    <option value="">Select User</option>
+                                    <option *ngFor="let user of userlist" value= {{user._id}}>
+                                      {{user.name}}
+                                    </option>
+                                  </select>
+      
                     </div>
                 </div>
                 <div class="electronicsig-div2">
                     <h5>DRAG & DROP</h5>
                     <div>
-                        <!--<label>PDF src</label>-->
-
-                        <!-- <file-drop headertext="Drop files here" (onFileDrop)="dropped($event)" 
-                     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                         <span>optional content (don't set headertext then)</span>
-                     </file-drop> -->
-                        <!-- <app-dragndrop></app-dragndrop> -->
-                        <!--  <input  [(ngModel)]="pdfSrc" (change)="onFileSelected()" type="file" id="file"> -->
-                        <!-- <input type="file" (change)="onChange($event)"/> -->
-                        <!-- <input type="file" [(ngModel)]="pdfSrc" (change)="fileChangeEvent($event)" id="file" placeholder="Upload file..." />
-  <button type="button" (click)="upload()">Upload</button> -->
+  
                     </div>
                     <div class="radiobtnbox1">
                         <form>
                             <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
                                 <div class="hdgtop">
-                                    <h4>Signature</h4>
+                                    <h6>Signature</h6>
                                 </div>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
@@ -268,7 +175,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
                                 <div class="form-group">
-                                    <h6>Text</h6>
+                                    <h6>Sign Here</h6>
                                 </div>
                             </div>
 
@@ -293,7 +200,7 @@
                     <div class="btndiv">
                         <div class="col-md-6 col-sm-6 col-xs-12 pd0">
                             <div class="btn3">
-                                <button>
+                                <button (click)="savehtml();">
                                     <i class="fa fa-floppy-o" aria-hidden="true"></i> Save File</button>
                             </div>
                         </div>
@@ -308,23 +215,13 @@
 
             </div>
 
-            <div class="col-md-1 col-sm-1"></div>
 
-
-            <input type="hidden" [(ngModel)]="initialurl">
+            <div class="gethtml">
             <div class="col-md-8 col-sm-6 col-xs-12 divsize">
                 <div class="pdf-div">
 
-                    <!-- <iframe  width="100%" height="100%" src="https://thiara-photography-5a4b2.firebaseapp.com/" ></iframe> -->
-                    <!-- <img src="../../assets/img/img1.png" />
-                     -->
                 </div>
-                <!-- <div *ngIf="url" > -->
-                <!-- <p> {{ url }}</p> -->
-                <!-- <iframe   class="pdfsrc" width="100%"height="200%" [src]="pdfSrc" ></iframe> -->
-                <!-- </div> -->
-                <!-- {{ pdfURL }} -->
-                <!-- <input  (change)="onFileSelected()" type="file" id="file"> -->
+      
                 <div >
 <div *ngFor="let image of pdfimages;let i= index" attr.id="image{{i}}" class="pdfimg droppable" >
 
@@ -332,22 +229,10 @@
 
 </div>
 
-
-                    <!-- <file-drop  (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                        <!--<span>optional content (don't set headertext then)</span>-->
-                <!--    </file-drop> -->
                 </div>
-                <!--   <div *ngIf="pdfURL">
-                            <iframe [src]="pdfURL" width="100%" height="700" dnd-droppable-iframe></iframe>
-
-                     </div> -->
-
-                <!-- <pdf-viewer [src]="pdfSrc" 
-            [render-text]="true"
-            style="display: block;"
-  ></pdf-viewer> -->
+             
             </div>
-
+</div>
         </div>
 
     </div>

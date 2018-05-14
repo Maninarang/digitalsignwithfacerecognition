@@ -108,24 +108,24 @@ display:none;
 </section>
 
 
-<div class="container">
+<div class="container" >
                   
-  <div class="list-part">
+  <div class="list-part" >
 
-            <li class="dropdown">
+            <li class="dropdown" dropdown >
          
-   <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+   <a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>
       
   <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
          
-    <span class="title">Tarun &nbsp;&nbsp;<b class="caret"></b></span>
+    <span class="title">{{fullname}} &nbsp;&nbsp;<b class="caret"></b></span>
           </a>
 
-              <ul class="dropdown-menu">
+              <ul *dropdownMenu class="dropdown-menu">
                 
-    <li><a href="#">Logout</a></li>
+    <li><a (click)="logout();">Logout</a></li>
                
-     <li><a href="#">View Profile</a></li>
+     <li><a routerLink="/profile">View Profile</a></li>
               
      <li id=""><a href="#">Change Password</a></li>
            
@@ -139,20 +139,6 @@ display:none;
 
   </div>
 
-
-
-
-<!-- <script language="javascript">
-  $(document).ready(function() {
-      $("#changepass").click(function() {
-          $("#shadow").fadeIn("normal"), $("#changepasswordform").fadeIn("normal")
-      }), $("#cancel_hide").click(function() {
-          $("#changepasswordform").fadeOut("normal"), $("#shadow").fadeOut("normal")
-      }), $(".closepar").click(function() {
-          $("#changepasswordss")[0].reset(), $("#changepasswordform").fadeOut("normal"), $("#error_password").html(""), $("#shadow").fadeOut("normal")
-      })
-  });
-  </script> -->
 
 
 
@@ -171,7 +157,7 @@ display:none;
             
           </div>	
                
-           <a href="digital_signature.html">
+           <a href="">
                
              <img class="img-responsive img-portfolio2" src="../../assets/img/signature.png" style="margin-top:10%;" alt="" data-placement="right"> 
                
@@ -473,11 +459,7 @@ display:none;
   
    </div>
 
-   <script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();   
-    });
-    </script>
+
 <div class="shade">
   
   <div class="popmsg">

@@ -10,11 +10,11 @@ export interface UserDetails {
   name: string;
   exp: number;
   iat: number;
-  first_name:string;
-  last_name:string;
-  phonenumber:string;
-  sec_email:string;
-  secEmail:string;
+  first_name: string;
+  last_name: string;
+  phonenumber: string;
+  sec_email: string;
+  secEmail: string;
 }
 
 interface TokenResponse {
@@ -27,10 +27,10 @@ export interface TokenPayload {
   name?: string;
   image: string;
   imag?: string;
-  phonenumber:string;
+  phonenumber: string;
   cpassword: string;
-  lname:string;
-fname:string;
+  lname: string;
+  fname: string;
 }
 
 @Injectable()
@@ -76,13 +76,9 @@ export class AuthenticationService {
     let base;
 
     if (method === 'post') {
-      base = this.http.post(`http://localhost:3000/api/${type}`, user);
-      
-      // base = this.http.post(`http://127.0.0.1:3000/api/${type}`, user);
+      base = this.http.post(`https://mybitrade.com:3000/api/${type}`, user);
     } else {
-      base = this.http.get(`http://localhost:3000/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
-      
-      // base = this.http.get(`http://127.0.0.1:3000/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      base = this.http.get(`https://mybitrade.com:3000/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
     }
 
     const request = base.pipe(
@@ -111,7 +107,7 @@ export class AuthenticationService {
 
   public logout(): void {
     this.token = '';
-    window.localStorage.removeItem('user');
+    localStorage.clear();
     this.router.navigateByUrl('/');
   }
 }

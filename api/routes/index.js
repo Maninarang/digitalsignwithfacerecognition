@@ -4,6 +4,7 @@ var express = require('express');
 // var multer = require('multer');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Document = mongoose.model('Document');
 var formidable = require('formidable');
 var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
@@ -12,7 +13,7 @@ var base64Img = require('base64-img');
 var urlencodedParser = bodyParser.urlencoded({
 	extended: true
 })
-
+var nodemailer = require('nodemailer');
 var fs=require('fs');
 var router = express.Router();
 var jwt = require('express-jwt');
@@ -21,6 +22,7 @@ var auth = jwt({
   userProperty: 'payload'
 });
 var PDFImage = require("pdf-image").PDFImage;
+var createHTML = require('create-html');
 
 
 router.use(bodyParser.urlencoded({limit: '50mb',extended: true,parameterLimit: 1000000}));   // { extended: true} to parse everything.if false it will parse only String
@@ -308,5 +310,121 @@ router.post("/pdfdetail", function(req,res){
    });
 })
 
+// ----------------------------- get users's list ----------------------- // 
+
+
+router.get("/userlist", function(req,res){
+  User.find({},'name',function(err, users) {
+  if (err) {
+    res.status('400').json({
+    msg:"user not found",
+    data:err
+    })
+  }else{
+        res.status('200').json({
+        data:users
+    });
+  }
+})
+})
+
+// -------------------------  get user detail ---------------------------- //
+
+router.get("/userdetail/:userid", function(req,res){
+  User.findOne({_id:req.params.userid},'name email',function(err, user) {
+    if (err) {
+      res.status('400').json({
+      msg:"user not found",
+      data:err
+      })
+    }else{
+          res.status('200').json({
+          data:user
+      });
+    }
+  })
+})
+
+// -------------------------  save html --------------------------------- //
+
+router.post('/savehtml', function (req, res) {
+  // var html = createHTML({
+  //   body: req.body.html
+  // })
+  // fs.writeFile(path.join(__basedir,'/uploadedpdf/uploadedpdf/')+req.body.pdfid+'/'+req.body.pdfid+'.html', html, function (err) {
+  //   if (err) {
+  //     res.status(400).json({
+  //       message : err
+  //     })
+  //   } else {
+  var document = new Document();
+  document.documentid = req.body.pdfid;
+  document.userid = req.body.userid;
+  document.documenthtml = req.body.html;
+  document.save(function(err,document) {
+    if(err){
+      res.status(400).json({
+        message : err
+      });
+    } else {
+      console.log(document._id);
+      var mailAccountUser = 'work.jagveer@gmail.com'
+	  	var mailAccountPassword = 'jagveer@123'
+		  var fromEmailAddress = 'work.jagveer@gmail.com'
+		  var toEmailAddress = req.body.useremail;
+      var transport = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: mailAccountUser,
+          pass: mailAccountPassword
+        }
+      })
+      var mail = {
+        from: fromEmailAddress,
+        to: toEmailAddress,
+        subject: "EzeeSteve Document Sign ",
+        html: '<p>Click <a href="https://localhost:4200/signpdf/' + req.body.userid + '/' + document._id + '">here</a></p>' 
+      }
+  
+      transport.sendMail(mail, function (error, response) {
+        if (error) {
+          res.json({
+            success: error,
+            message: "Something went wrong.Please Try Again"
+          })
+        } else {
+         res.status(200).json({
+           message: 'Email Sent Successfully'
+         })
+        }
+  
+        transport.close();
+      });
+  
+    }
+ 
+  })
+// }
+//   })
+})
+
+
+// --------------------------- get document -------------------------//\
+
+router.get('/getdocument/:userid/:documentid',function(req,res) {
+
+  Document.findOne({_id:req.params.documentid,userid:req.params.userid},'documenthtml',function(err,dochtml) {
+   if(err) {
+     res.status(400).json({
+       message:err
+     })
+   } else {
+     res.status(200).json({
+       data:dochtml
+     })
+   }
+  
+  })
+})
 
 module.exports = router;

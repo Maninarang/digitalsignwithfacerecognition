@@ -1,0 +1,18 @@
+.pdfimg img{
+    width: 100%;
+}
+.pdfimg {
+    border-bottom: 2px solid #333333;
+}
+.divsize {
+    border: 3px solid #858f03;
+    /* max-height: 854px;
+    overflow: hidden;
+    overflow-y: scroll; */
+    float: right;
+    height: 100%;
+}
+
+.webcam-wrapper video {
+    width :430px !important;
+}
