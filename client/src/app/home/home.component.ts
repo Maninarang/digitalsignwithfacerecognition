@@ -5,7 +5,7 @@ import { NgxCarousel } from 'ngx-carousel';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   imgags: string[];
   public carouselBannerItems: Array<any> = [];
   public carouselBanner: NgxCarousel;
@@ -14,8 +14,8 @@ export class HomeComponent implements OnInit{
   ngOnInit() {
     this.imgags = [
       'assets/img/bg1.png',
-      'assets/img/bg2.jpg',
       'assets/img/bg3.jpg',
+      'assets/img/bg2.jpg',
       'assets/img/bg4.jpg',
       'assets/img/bg5.jpg'
     ];
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit{
       touch: true,
       loop: true,
       easing: 'cubic-bezier(0, 0, 0.2, 1)'
-    }
+    };
     this.carouselBannerLoad();
 }
 public carouselBannerLoad() {
@@ -71,8 +71,28 @@ public carouselBannerLoad() {
        // this.imgags[Math.floor(Math.random() * this.imgags.length)]
        this.imgags[i]
       );
+      // console.log( this.imgags[i]);
     }
   }
 }
+
+    setcarouselimage(image) {
+    //  alert(image);
+      this.carouselBannerItems = [];
+      this.carouselBannerItems.push(
+        // this.imgags[Math.floor(Math.random() * this.imgags.length)]
+        this.imgags[image]
+       );
+       const len = this.carouselBannerItems.length;
+       if (len <= 5) {
+        for (let i = len; i < this.imgags.length; i++) {
+      //  this.carouselBannerItems.splice(image, 1);
+        this.carouselBannerItems.push(
+         // this.imgags[Math.floor(Math.random() * this.imgags.length)]
+         this.imgags[i]
+        );
+      }
+    }
+    }
 
 }
