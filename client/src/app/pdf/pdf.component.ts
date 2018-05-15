@@ -30,7 +30,7 @@ export class PdfComponent implements OnInit {
    ngOnInit() {
    //  $('.pdfimg').addClass('droppable');
 
-    this.http.get('http://localhost:3000/api/userlist')
+    this.http.get('https://mybitrade.com:3000/api/userlist')
     .subscribe(data => {
       this.userdata = data;
       this.userlist = this.userdata.data;
@@ -53,7 +53,7 @@ export class PdfComponent implements OnInit {
 
   }
   userselection(uservalue: string) {
-   this.http.get('http://localhost:3000/api/userdetail/' + uservalue)
+   this.http.get('https://mybitrade.com:3000/api/userdetail/' + uservalue)
    .subscribe(data => {
   //   console.log(data);
     this.userdetail = data;
@@ -69,7 +69,7 @@ export class PdfComponent implements OnInit {
   savehtml() {
     this.loading = true;
     // tslint:disable-next-line:max-line-length
-    this.http.post('http://localhost:3000/api/savehtml', {html: $('.gethtml').html(), pdfid: localStorage.getItem('pdfid'), userid: userid , useremail: useremail})
+    this.http.post('https://mybitrade.com:3000/api/savehtml', {html: $('.gethtml').html(), pdfid: localStorage.getItem('pdfid'), userid: userid , useremail: useremail})
     .subscribe(data => {
       this.loading = false;
       alert('Email Sent Successfully');

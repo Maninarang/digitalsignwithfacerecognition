@@ -6,7 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {WebcamImage} from 'ngx-webcam';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
-import {DatePipe} from '@angular/common';
+
 
 @Component({
   selector: 'app-signpdf',
@@ -45,7 +45,6 @@ export class SignpdfComponent implements OnInit {
      private auth: AuthenticationService,
      private router: Router,
      private sanitized: DomSanitizer,
-     private datePipe: DatePipe
     ) {}
 
   ngOnInit() {
@@ -59,7 +58,7 @@ export class SignpdfComponent implements OnInit {
         if (userid !== this.userid) {
           this.router.navigateByUrl('/');
         } else {
-        this.http.get('http://localhost:3000/api/getdocument/' + this.userid + '/' + documentid)
+        this.http.get('https://mybitrade.com:3000/api/getdocument/' + this.userid + '/' + documentid)
         .subscribe(
           data => {
             this.html = data;
@@ -72,6 +71,7 @@ export class SignpdfComponent implements OnInit {
   }
 
    toggleWebcam(): void {
+     this.error = null;
     this.camera = true;
     this.imagecaptured = null;
     // console.log("im");
@@ -101,8 +101,6 @@ export class SignpdfComponent implements OnInit {
 
    verifyuser() {
     this.loading = true;
-    this.webcamImage = null;
-    this.imagecaptured = null;
     this.auth.profile().subscribe(user => {
     this.details = user;
     this.useremail = this.details.email;
@@ -126,7 +124,8 @@ export class SignpdfComponent implements OnInit {
               //  this.router.navigateByUrl('/digital_sign');
               // alert('Verified');
               this.loading = false;
-              $('.signhere div div').append('<button type="button" class="signbutton">Click to Sign</button>');
+              // tslint:disable-next-line:max-line-length
+              $('.signhere div div').append('<button type="button" class="signbutton" style="background-color: #715632; font-size: 22px; padding: 8px 12px; color: white; border: none; box-shadow: -1px 0px 5px 0px #191919;">Click to Sign</button>');
               $('.signbutton').click(function() {
                 $(this).parent().css({
                   'font-family': 'serif',

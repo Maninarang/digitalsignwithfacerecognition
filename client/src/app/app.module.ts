@@ -18,7 +18,7 @@ import { PdfComponent } from './pdf/pdf.component';
 import { FileDropModule } from 'ngx-file-drop';
 import { DragndropComponent } from './dragndrop/dragndrop.component';
 import { LoadingModule } from 'ngx-loading';
-import {DatePipe} from '@angular/common';
+import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 import { ActionrequestComponent } from './actionrequest/actionrequest.component';
 import { DigitalSignComponent } from './digital-sign/digital-sign.component';
@@ -82,13 +82,13 @@ const routes: Routes = [
     FileDropModule,
     LoadingModule,
     NgxCarouselModule,
+    NgxHmCarouselModule,
     DragAndDropModule.forRoot(),
     BsDropdownModule.forRoot()
   ],
   providers: [
     AuthenticationService,
     AuthGuardService,
-    DatePipe
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,7 @@ import { AuthenticationService, UserDetails } from '../authentication.service';
 })
 export class ProfileComponent {
   details: UserDetails;
-  public res :any;
+  public res: any;
   public response :any;
   public msg :any;
   public class :any;

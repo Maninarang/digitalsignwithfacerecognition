@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
       'assets/img/bg3.jpg',
       'assets/img/bg2.jpg',
       'assets/img/bg4.jpg',
+      'assets/img/bg6.jpg',
       'assets/img/bg5.jpg'
     ];
     this.carouselBanner = {
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
         visible: true,
         pointStyles: `
           .ngxcarouselPoint {
- display: none;
+            display: none;
             list-style-type: none;
             text-align: center;
             padding: 12px;
@@ -77,22 +78,33 @@ public carouselBannerLoad() {
 }
 
     setcarouselimage(image) {
-    //  alert(image);
+      const len = this.carouselBannerItems.length;
       this.carouselBannerItems = [];
-      this.carouselBannerItems.push(
-        // this.imgags[Math.floor(Math.random() * this.imgags.length)]
-        this.imgags[image]
-       );
-       const len = this.carouselBannerItems.length;
-       if (len <= 5) {
-        for (let i = len; i < this.imgags.length; i++) {
-      //  this.carouselBannerItems.splice(image, 1);
-        this.carouselBannerItems.push(
-         // this.imgags[Math.floor(Math.random() * this.imgags.length)]
-         this.imgags[i]
-        );
+      if (len <= 5) {
+          for (let i = image; i < this.imgags.length; i++) {
+          this.carouselBannerItems.push(
+           // this.imgags[Math.floor(Math.random() * this.imgags.length)]
+           this.imgags[i]
+          );
+          // console.log( this.imgags[i]);
+        }
       }
-    }
+    //  alert(image);
+    //   this.carouselBannerItems = [];
+    //   this.carouselBannerItems.push(
+    //     // this.imgags[Math.floor(Math.random() * this.imgags.length)]
+    //     this.imgags[image]
+    //    );
+    //    const len = this.carouselBannerItems.length;
+    //    if (len <= 5) {
+    //     for (let i = len; i < this.imgags.length; i++) {
+    //   //  this.carouselBannerItems.splice(image, 1);
+    //     this.carouselBannerItems.push(
+    //      // this.imgags[Math.floor(Math.random() * this.imgags.length)]
+    //      this.imgags[i]
+    //     );
+    //   }
+    // }
     }
 
 }

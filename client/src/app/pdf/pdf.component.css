@@ -238,6 +238,7 @@ footer {
     float: left;
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .electronicsig-div1{
     width: 100%;
@@ -266,10 +267,23 @@ footer {
 }
 .radiobtnbox{
     width: 100%;
+    float: left;    
+}
+.radiobtnbox select{
+    width: 100%;
     float: left;
-    border: 2px solid #b59848;
-    /* padding: 10px 0 0; */
-    padding: 6px 0 0;
+    border: 2px solid #715732;
+    padding: 8px 4px;
+    background-color: #b59848;
+    color: #715732;
+    font-weight: 600;
+    font-size: 16px;
+}
+.radiobtnbox select option {
+    background-color: #c5ac69;  
+}
+.radiobtnbox select:focus{
+    outline: none;
 }
 .radiobtnbox form{
     width: 100%;
