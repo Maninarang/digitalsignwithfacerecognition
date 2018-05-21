@@ -1,10 +1,13 @@
 var mongoose = require( 'mongoose' );
 var documentSchema = new mongoose.Schema({
   documentid: String,
-  userid: {
+  userid: [{
      type: mongoose.Schema.Types.ObjectId,
-     ref: 'User'
-  },
-  documenthtml: String
+     ref: 'User',
+     priority : Number,
+     signed: Boolean
+  }],
+  documenthtml: String,
+  withimage: Boolean
 });
 mongoose.model('Document', documentSchema);

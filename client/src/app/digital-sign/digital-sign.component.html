@@ -56,6 +56,14 @@ text-align:center;
 display:none;
 }
 
+  .active span.pt6
+  {
+      color:#fff !important;
+  }
+.arrow-top { 
+    top: -1px;
+    }
+
 .dropdown-menu {
     left: -15%;
   min-width: 100px;
@@ -153,7 +161,7 @@ display:none;
              
          <div style="display:block; margin:0 auto;" class="col-lg-12"> 
              
-           <a href="#" data-placement="right" data-toggle="tooltip" data-original-title=""><p class="pt51 pt567">&nbsp;&nbsp;<span class="fa fa-home"></span> &nbsp;Home</p></a>
+           <a  data-placement="right" data-toggle="tooltip" data-original-title=""><p class="pt51 pt567">&nbsp;&nbsp;<span class="fa fa-home"></span> &nbsp;Home</p></a>
             
           </div>	
                
@@ -162,30 +170,20 @@ display:none;
              <img class="img-responsive img-portfolio2" src="../../assets/img/signature.png" style="margin-top:10%;" alt="" data-placement="right"> 
                
            </a>
-  
-  
-  
-   <!-- <script type="text/javascript">
-    $(function() {
-    $('#showhide').click(function() {
-    $("#slidediv").slideToggle();
-    });
-    });
-    </script> -->
+
     
-    <style type="text/css">.arrow-top { top: -1px;}</style>
      
      <div class="wrapper2">
     
     <li style="list-style:none; cursor:pointer;" class="toggle">
        
-       <a style="cursor: pointer;" class="list-part2" id="showhide" data-placement="right">
+       <a style="cursor: pointer;" class="list-part2" (click)="showinstructions = !showinstructions" data-placement="right">
     
         <span class="title2">INSTRUCTIONS</span>
        
        </a>
         
-      <ul style="display:none;" class="drop-popup" id="slidediv">
+      <ul *ngIf="showinstructions" class="drop-popup" >
          
          <div class="arrow-top"><img src="../../assets/img/arrow-top.png"></div>
           
@@ -233,12 +231,7 @@ display:none;
            
        <div class="tabs-left">
   
-  <style type="text/css">
-  .active span.pt6
-  {
-      color:#fff !important;
-  }
-  </style>
+
    
    <ul class="nav nav-tabs6">
      
@@ -311,28 +304,285 @@ display:none;
 </div>
 
 
+ <modal #participantModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
+  
+        <modal-content class="custom-mod-cont"> 
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nullvoid">
+                <div class="row nullvoid" style="border-radius:0px; box-shadow:none !important;">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 partpnt_poup" style="border-radius:0px; font-family:'Century Gothic';"> <span class="partagselect"> Participant</span>
+                    <input type="button" class="btn btn-danger closepar commn_btn" id="" value="Cancel" (click)="participantModal.close()" style="background:#cc3100; font-family:'Century Gothic'; font-size:14px; border-radius:0px; border:0px solid transparent; float:right;">
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nullvoid" id="selectpati1">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addparticipantModal.open();participantModal.close();"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="mycontactsModal.open();participantModal.close();"><span  style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add From Contact</span></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addyourselfModal.open();participantModal.close();"><span class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add <br>Yourself</span></div>
+                  </div>
+                </div>
+              </div>   
+                 </modal-content>
        
-       <form role="form" method="post" id="frmid" enctype="multipart/form-data" name="upload_file" action="">
-                    
-          <input type="hidden" name="srtarr" value="" id="srtarr">
-                   
-         <input type="hidden" name="dociid" value="" id="docii">
-                   
-         <input type="hidden" name="docname" value="" id="docnam">
-                   
-         <input type="hidden" name="refid" value="00000002">
+    </modal>
+
+
+ <modal #addparticipantModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
+    <modal-content>
+      <form method="post" novalidate="" [formGroup]="addparticipantForm" (ngSubmit)="addnewparticipant($event)">
+    <div class=""  >
+          <div class="col-lg-12 nullvoid" id="newparticipant">
+            <div class="row nullvoid">
+                <div class="col-lg-12 partpnt_poup">
+                  <button type="button" class="btn btn-danger closepar commn_btn" (click)="addparticipantModal.close();" style="background:#cc3100; font-size:14px; font-family:'Century Gothic'; border-radius:0px; border:0px solid transparent; float:left;">Cancel</button>
+                  <span class="partag myparttag">Add New Participant</span>
+                  <button type="submit" class="btn btn-success" id="parbutton"  style="font-size:14px; font-family:'Century Gothic'; background-color:#8ec230 !important; border:0px; border-radius:0px; float:right; color:#FFFFFF;">Add</button>
+                </div>
+                <div class="main-box infographic-box" style="box-shadow:none !important; border-radius:0px;">
+                  <div class="navbar-collapse nullvoid" style="box-shadow:none !important; border-radius:0px;">
+                    <div class="col-md-12" style="padding:20px 0">
+                      <div class="col-sm-12">
+                        <div class="col-md-2 nullvoid"> <span style="font-size:21px;"><span class="error">*</span>Type:</span> </div>
+                        <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp;
+                           <input type="radio"  value="Remote Signer" tabindex="0" formControlName="type" [checked]="true" > 
+                         <label>Remote Signer</label>
+                          
+                         <!-- <input type="radio" value="Remote Signer" id="test1" name="radio-group" checked>
+                         <label for="test1">Apple</label> -->
+                        
+                        </div>
+                        <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp; 
+                        <input type="radio"  value="Reviewer" tabindex="0" formControlName="type"> 
+                        <label>Reviewer</label>
+                        </div>
+                  
+                      <br>
+                      <br>
+                      <br>
+                      <div class="col-md-6">              
+                        <div class="col-sm-12"><span class="fontlabel">First Name</span>
+                          <input type="text" formControlName="firstName" class="form-control commn_text" tabindex="1">
+                        </div>
+                        <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
+                          <input type="text" formControlName="email" class="form-control commn_text"  tabindex="3">
+            
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
+                          <input type="text" formControlName="lastName" class="form-control commn_text" tabindex="2">
+                        </div>
+                        <div class="col-sm-12"> <span class="fontlabel">Address</span>
+                          <input type="text" formControlName="address" class="form-control commn_text"  tabindex="4">
+                        </div>
+                      </div>              
+                      <div class="col-md-12"> 
+                      <div class="col-sm-12">
+                      <span class="fontlabel"><span class="fontlabel"></span>Subject</span>
+                       <input type="text" formControlName="subject" class="form-control commn_text"  tabindex="5">
+                      </div>
+                      </div>  
+                      <div class="col-md-12"> 
+                      <div class="col-sm-12">
+                      <br>
+                      <span class="fontlabel"><span class="fontlabel"></span>Message</span>
+                        <textarea formControlName="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
+                      </div>
+                      </div>
+                      <span *ngIf="error">{{error}}</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+         </div>
+         </div>
+        </form>
+    </modal-content>
+       
+</modal>
+
+<modal #mycontactsModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
+<modal-content>
+    <div class=""> 
+        <div id="fade" class="popup2"></div>
+        
+         <div class="col-lg-12 nullvoid">
+           <div class="row nullvoid">
+             <div class="col-lg-12 partpnt_poup"> <span id="partagcontact"> Add From Contact</span>
+               <button type="button" (click)="mycontactsModal.close();" class="btn btn-danger closepar commn_btn"  style="background:#cc3100; font-size:14px; font-family:'Century Gothic'; border-radius:0px; border:0px solid transparent; float:right;">Cancel</button>
+             </div>
+           </div>
+           <div>
+               <div class="col-lg-12 contact" (click)="contactdetail(contact.email);" *ngFor = "let contact of mycontacts"> 
+             <span>{{contact.firstName}}  {{contact.lastName}} </span><br/> 
+               <span>({{contact.email}})</span> 
+           </div>
+               </div>
+         </div>
+         <!--</div>-->
+       </div>
+
+</modal-content>
+</modal>
+
+
+<modal #addyourselfModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
+  <modal-content>
+    <form method="post" novalidate=""   [formGroup]="addyourselfForm" (ngSubmit)="addyourself($event)">
+  <div class=""  >
+        <div class="col-lg-12 nullvoid">
+          <div class="row nullvoid">
+              <div class="col-lg-12 partpnt_poup">
+                <button type="button" class="btn btn-danger closepar commn_btn" (click)="addyourselfModal.close();" style="background:#cc3100; font-size:14px; font-family:'Century Gothic'; border-radius:0px; border:0px solid transparent; float:left;">Cancel</button>
+                <span class="partag myparttag">Add Yourself</span>
+                <button type="submit"  class="btn btn-success"  style="font-size:14px; font-family:'Century Gothic'; background-color:#8ec230 !important; border:0px; border-radius:0px; float:right; color:#FFFFFF;">Add</button>
+              </div>
+              <div class="main-box infographic-box" style="box-shadow:none !important; border-radius:0px;">
+                <div class="navbar-collapse nullvoid" style="box-shadow:none !important; border-radius:0px;">
+                  <div class="col-md-12" style="padding:20px 0">
+                    <div class="col-sm-12">
+                      <div class="col-md-2 nullvoid"> <span style="font-size:21px;"><span class="error">*</span>Type:</span> </div>
+                      <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp;
+                         <input type="radio"  value="Remote Signer" tabindex="0" formControlName="type" [checked]="true" > 
+                       <label>Remote Signer</label>
+                        
+                       <!-- <input type="radio" value="Remote Signer" id="test1" name="radio-group" checked>
+                       <label for="test1">Apple</label> -->
+                      
+                      </div>
+                      <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp; 
+                      <input type="radio"  value="Reviewer" tabindex="0" formControlName="type"> 
+                      <label>Reviewer</label>
+                      </div>
+                
+                    <br>
+                    <br>
+                    <br>
+                    <div class="col-md-6">              
+                      <div class="col-sm-12"><span class="fontlabel">First Name</span>
+                        <input type="text" formControlName="firstName" [value]="firstName" class="form-control commn_text" tabindex="1">
+                      </div>
+                      <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
+                        <input type="text" formControlName="email" [value]="email" class="form-control commn_text"  tabindex="3">
+          
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
+                        <input type="text" formControlName="lastName" value="{{lastName}}" class="form-control commn_text" tabindex="2">
+                      </div>
+                      <div class="col-sm-12"> <span class="fontlabel">Address</span>
+                        <input type="text" formControlName="address" class="form-control commn_text"  tabindex="4">
+                      </div>
+                    </div>              
+                    <div class="col-md-12"> 
+                    <div class="col-sm-12">
+                    <span class="fontlabel"><span class="fontlabel"></span>Subject</span>
+                     <input type="text" formControlName="subject" class="form-control commn_text"  tabindex="5">
+                    </div>
+                    </div>  
+                    <div class="col-md-12"> 
+                    <div class="col-sm-12">
+                    <br>
+                    <span class="fontlabel"><span class="fontlabel"></span>Message</span>
+                      <textarea formControlName="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
+                    </div>
+                    </div>
+                    <span *ngIf="error">{{error}}</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+       </div>
+       </div>
+      </form>
+  </modal-content>
+     
+</modal>
          
-         <input type="hidden" name="position" value="Top Left" id="position">
-         
+
+<modal #contactdetailModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
+  <modal-content>
+    <form method="post" novalidate="" #formCtrl="ngForm" [formGroup]="contactdetailForm" (ngSubmit)="addfromcontact($event)">
+  <div class=""  >
+        <div class="col-lg-12 nullvoid">
+          <div class="row nullvoid">
+              <div class="col-lg-12 partpnt_poup">
+                <button type="button" class="btn btn-danger closepar commn_btn" (click)="contactdetailModal.close();" style="background:#cc3100; font-size:14px; font-family:'Century Gothic'; border-radius:0px; border:0px solid transparent; float:left;">Cancel</button>
+                <span class="partag myparttag">Add New Participant</span>
+                <button type="submit"  class="btn btn-success"  style="font-size:14px; font-family:'Century Gothic'; background-color:#8ec230 !important; border:0px; border-radius:0px; float:right; color:#FFFFFF;">Add</button>
+              </div>
+              <div class="main-box infographic-box" style="box-shadow:none !important; border-radius:0px;">
+                <div class="navbar-collapse nullvoid" style="box-shadow:none !important; border-radius:0px;">
+                  <div class="col-md-12" style="padding:20px 0">
+                    <div class="col-sm-12">
+                      <div class="col-md-2 nullvoid"> <span style="font-size:21px;"><span class="error">*</span>Type:</span> </div>
+                      <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp;
+                         <input type="radio"  value="Remote Signer" tabindex="0" formControlName="type" [checked]="true" > 
+                       <label>Remote Signer</label>
+                        
+                       <!-- <input type="radio" value="Remote Signer" id="test1" name="radio-group" checked>
+                       <label for="test1">Apple</label> -->
+                      
+                      </div>
+                      <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp; 
+                      <input type="radio"  value="Reviewer" tabindex="0" formControlName="type"> 
+                      <label>Reviewer</label>
+                      </div>
+                
+                    <br>
+                    <br>
+                    <br>
+                    <div class="col-md-6">              
+                      <div class="col-sm-12"><span class="fontlabel">First Name</span>
+                        <input type="text" formControlName="firstName" value="{{contactfirstName}}" class="form-control commn_text" tabindex="1">
+                      </div>
+                      <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
+                        <input type="text" formControlName="email" value= "{{contactemail}}" class="form-control commn_text"  tabindex="3">
+          
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
+                        <input type="text" formControlName="lastName" value="{{contactlastName}}" class="form-control commn_text" tabindex="2">
+                      </div>
+                      <div class="col-sm-12"> <span class="fontlabel">Address</span>
+                        <input type="text" formControlName="address" class="form-control commn_text"  tabindex="4">
+                      </div>
+                    </div>              
+                    <div class="col-md-12"> 
+                    <div class="col-sm-12">
+                    <span class="fontlabel"><span class="fontlabel"></span>Subject</span>
+                     <input type="text" formControlName="subject" class="form-control commn_text"  tabindex="5">
+                    </div>
+                    </div>  
+                    <div class="col-md-12"> 
+                    <div class="col-sm-12">
+                    <br>
+                    <span class="fontlabel"><span class="fontlabel"></span>Message</span>
+                      <textarea formControlName="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
+                    </div>
+                    </div>
+                    <span *ngIf="error">{{error}}</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+       </div>
+       </div>
+      </form>
+  </modal-content>
+     
+</modal>
          <div class="col-lg-12">
                
-       <div class="form-group um-jap" id="refnum" style="margin-left:-3%;">
+       <div class="form-group um-jap"  style="margin-left:-3%;">
                  
        <label for="inputEmail" class="col-lg-3 control-label2">Reference No.</label>
                  
        <div class="col-lg-9">
                    
-         <input type="text" name="refnumber" id="refnumber" class="form-control pannel-1" placeholder="Ref.0000022" style="color:#000" value="Ref-00000002" readonly="">
+         <input type="text" name="refnumber" class="form-control pannel-1" placeholder="Ref.0000022" style="color:#000" value="Ref-{{documentcount}}" readonly="">
                  
        </div>
                
@@ -344,18 +594,31 @@ display:none;
                 
         <label for="inputEmail" class="col-lg-3 control-label2" style="float: left;">Expiration Date</label>
                  
-       <div class="col-lg-1" style="margin-top:0px;"> <input type="checkbox" id="chk" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" value="1"> </div>             
+       <div class="col-lg-1" style="margin-top:0px;">
+            <input type="checkbox" id="chk" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" [(ngModel)]="showexpdate"> </div>             
                   
         <div class="col-lg-8" style="margin-top:10px;">				  
                      
-         <input type="text" name="expiredt" id="expiredt" class="form-control pannel" style="width:89%;display:none;border: 3px #b49948 solid;" placeholder="03-30-2018">
+           
+      <div *ngIf="showexpdate">
+            <input class="form-control pannel calinput" placeholder="Select a date" ngx-mydatepicker name="mydate"
+                   [(ngModel)]="model" [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)"/>
+    
+           
                
+                <button type="button" class="calbtn" (click)="dp.toggleCalendar()">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </div>
+        
+
+
        </div>
        
        </span>
              
      </div>	
-             
+      
 
         
 
@@ -364,33 +627,10 @@ display:none;
                      
          <div class="col-sm-12" style=" padding:0 0 2px 0; font-family:&#39;Century Gothic&#39; !important; color: #fff;">
                      
-         <!-- <div class="col-sm-4" style="font-family:&#39;Century Gothic&#39; !important;">
-                    
-          <h4>Name</h4>
-                     
-         </div>
-         
-         <div class="col-sm-3">
-                     
-         <h4>Priority</h4>
-                     
-         </div>
-                    
-          <div class="col-sm-3">
-                     
-         <h4>Type</h4>
-                     
-         </div>
-                    
-          <div class="col-sm-2">
-                     
-         <h4>Action</h4>
-                    
-          </div>
-                    -->
+      
 
 
-        <div class="tablediv">
+        <div class="tablediv" >
             <table class="table table-hover">
                 <thead>
                   <tr>
@@ -401,13 +641,15 @@ display:none;
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>john@example.com</td>
+                  <tr *ngFor="let contact of contacts ; let i = index">
+                      <td>{{contact.name}}</td>
+                      <td>{{i+1}}</td>
+                      <td>{{contact.type}}</td>
+                      <td>
+                        <span class="fa fa-trash-o sign_icon" aria-hidden="true" style="padding-right:15px; display:inline !important;" title="Click this to delete the participant from list" data-toggle="tooltip" data-palcement="bottom"></span>
+                        <span class="fa fa-pencil sign_icon" aria-hidden="true" title="Click this to edit the participant" data-toggle="tooltip" data-palcement="bottom"></span>
+                      </td>
                   </tr>
-                
                 </tbody>
               </table>
         </div>
@@ -417,11 +659,11 @@ display:none;
 
          </div>
 <div class="col-md-6 col-sm-6 col-xs-12">
-    <a><button class="bottom-nextbtn">Add Participants</button></a>
+    <a><button  class="bottom-nextbtn" (click)="participantModal.open()">Add Participants</button></a>
 </div>
 
 <div class="col-md-6 col-sm-6 col-xs-12">
-    <a  *ngIf="innerHtml" routerLink="/pdfsign"><button class="bottom-nextbtn tofloat">Next</button></a>
+    <a  *ngIf="contactList" routerLink="/pdfsign"><button class="bottom-nextbtn tofloat">Next</button></a>
 </div>
         
                    
@@ -429,9 +671,7 @@ display:none;
              
              <!--</table>disableddisabled -->				
              
-     <div class="form-group"><input type="button" id="particiapnt" class="buttonimg" style="float:left; border-radius:0px; margin-left:0%; margin-top:4%;" title="Add Participant for Signature" data-toggle="tooltip" data-placement="top" disabled=""> <input type="submit" id="submitnext" class="buttonimg2" value="" style="display:none; float:right; border-radius:0px;margin-top:4%;" title="Hit next to place signature position of participants " data-toggle="tooltip" data-placement="top">                  
-             
-     </div>
+   
              
      <div class="clearfix"></div>
      
@@ -439,7 +679,7 @@ display:none;
            
      </div>
      
-     </form>
+  
     
     </div>			  
         

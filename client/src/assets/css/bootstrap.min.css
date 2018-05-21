@@ -5021,8 +5021,9 @@ button.close {
 	opacity:.5
 }
 .modal-header {
-	padding:15px;
-	border-bottom:1px solid #e5e5e5
+	display:none !important;
+	/* padding:15px;
+	border-bottom:1px solid #e5e5e5 */
 }
 .modal-header .close {
 	margin-top:-2px
@@ -5031,10 +5032,10 @@ button.close {
 	margin:0;
 	line-height:1.42857143
 }
-.modal-body {
+/* .modal-body {
 	position:relative;
 	padding:15px
-}
+} */
 .modal-footer {
 	padding:15px;
 	text-align:right;

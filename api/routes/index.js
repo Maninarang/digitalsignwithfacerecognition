@@ -5,6 +5,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Document = mongoose.model('Document');
+var Contact= mongoose.model('Contact');
 var formidable = require('formidable');
 var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
@@ -425,6 +426,115 @@ router.get('/getdocument/:userid/:documentid',function(req,res) {
    }
   
   })
+})
+
+// ----------------------- get document count ------------------------- //
+
+router.get('/documentcount/:userid',function(req,res) {
+
+  Document.find({userid:req.params.userid}).count(function(err,count) {
+  if(err) {
+    res.status(400).json({
+      message:err
+    })
+  } else {
+    var documentcount = count+"";
+    while (documentcount.length < 8) documentcount = "0" + documentcount;
+    res.status(200).json({
+      data:documentcount
+    })
+  }
+
+  }) 
+
+})
+
+//--------------------------- add new participant --------------------- //
+
+router.post('/addnewparticipant', function(req,res) {
+  const contact = new Contact();
+  contact.userId = req.body.userId;
+  contact.firstName = req.body.firstName;
+  contact.lastName = req.body.lastName;
+  contact.email = req.body.email;
+  contact.address = req.body.address;
+  contact.subject = req.body.subject;
+  contact.message = req.body.message;
+  User.findOne({email:req.body.email}).count(function(err,count) {
+    if(err) {
+      res.status(400).json({
+        message:err
+      })
+    } else {
+      if(count>0) {
+        res.status(200).json({
+          message : 2                    // 2 = user already in your contact list
+        })
+      }
+      else {
+  Contact.findOne({email:req.body.email,userId:req.body.userId}).count(function(err,count) {
+    if(err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      if(count>0) {
+        res.status(200).json({
+          message : 1               // 1 = contact created successfully
+        })
+      }
+      else {
+        contact.save(function(err,contact) {
+          if(err){
+            res.status(400).json({
+              message : err
+            });
+          } else {
+            res.status(200).json({
+              message : 1               // 1 = contact created successfully
+            })
+          }
+      })
+      }
+    }
+  })
+ 
+      }
+    }
+  })
+})
+
+
+// ------------------------------ get user contacts ----------------------//
+
+router.get('/mycontacts/:userid',function(req,res) {
+Contact.find({userId:req.params.userid},'email firstName lastName',function(err,contacts) {
+  if(err) {
+    res.status(400).json({
+     message: err
+    })
+  } else {
+    res.status(200).json({
+      data:contacts
+    })
+  }
+})
+})
+
+//------------------------------ get user contact detail ------------------ //
+
+router.get('/contactdetail/:email/:userid',function(req,res) {
+Contact.find({userId:req.params.userid,email:req.params.email},'email firstName lastName',function(err,contactdetail) {
+  if(err) {
+    res.status(400).json({
+      message:err
+    })
+  } else {
+    res.status(200).json({
+      data: contactdetail
+    })
+  }
+})
 })
 
 module.exports = router;
