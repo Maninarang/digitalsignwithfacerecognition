@@ -54,7 +54,8 @@ const routes: Routes = [
   { path: 'saved_image', component: SavedImageComponent },
   { path: 'contact_list', component: ContactListComponent },
   { path: 'completed', component: CompletedComponent },
-  { path: 'signpdf/:userid/:documentid', component: SignpdfComponent, canActivate: [AuthGuardService]}
+  { path: 'actionrequired', component: ActionrequiredComponent },
+  { path: 'signpdf/:documentid', component: SignpdfComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

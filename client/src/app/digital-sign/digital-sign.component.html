@@ -426,7 +426,7 @@ display:none;
 
 <modal #addyourselfModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
   <modal-content>
-    <form method="post" novalidate=""   [formGroup]="addyourselfForm" (ngSubmit)="addyourself($event)">
+    <form method="post" novalidate=""  #ay="ngForm"   (ngSubmit)="addyourself(ay.value)">
   <div class=""  >
         <div class="col-lg-12 nullvoid">
           <div class="row nullvoid">
@@ -441,7 +441,7 @@ display:none;
                     <div class="col-sm-12">
                       <div class="col-md-2 nullvoid"> <span style="font-size:21px;"><span class="error">*</span>Type:</span> </div>
                       <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp;
-                         <input type="radio"  value="Remote Signer" tabindex="0" formControlName="type" [checked]="true" > 
+                         <input type="radio"  value="Remote Signer" tabindex="0" name="type" [(ngModel)]="type" required  > 
                        <label>Remote Signer</label>
                         
                        <!-- <input type="radio" value="Remote Signer" id="test1" name="radio-group" checked>
@@ -449,7 +449,7 @@ display:none;
                       
                       </div>
                       <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp; 
-                      <input type="radio"  value="Reviewer" tabindex="0" formControlName="type"> 
+                      <input type="radio" value="Reviewer"   [(ngModel)]="type" tabindex="0" name="type" required > 
                       <label>Reviewer</label>
                       </div>
                 
@@ -458,35 +458,35 @@ display:none;
                     <br>
                     <div class="col-md-6">              
                       <div class="col-sm-12"><span class="fontlabel">First Name</span>
-                        <input type="text" formControlName="firstName" [value]="firstName" class="form-control commn_text" tabindex="1">
+                        <input type="text" name="firstName" [(ngModel)]="firstName"  class="form-control commn_text" tabindex="1">
                       </div>
                       <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
-                        <input type="text" formControlName="email" [value]="email" class="form-control commn_text"  tabindex="3">
-          
+                        <input type="text" name="email" [(ngModel)]="email"  class="form-control commn_text"  tabindex="3">
+                        <span style="color:red" *ngIf="error">{{error}}</span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
-                        <input type="text" formControlName="lastName" value="{{lastName}}" class="form-control commn_text" tabindex="2">
+                        <input type="text" name="lastName" [(ngModel)]="lastName" class="form-control commn_text" tabindex="2">
                       </div>
                       <div class="col-sm-12"> <span class="fontlabel">Address</span>
-                        <input type="text" formControlName="address" class="form-control commn_text"  tabindex="4">
+                        <input type="text" name="address" [(ngModel)]="address" class="form-control commn_text"  tabindex="4">
                       </div>
                     </div>              
                     <div class="col-md-12"> 
                     <div class="col-sm-12">
                     <span class="fontlabel"><span class="fontlabel"></span>Subject</span>
-                     <input type="text" formControlName="subject" class="form-control commn_text"  tabindex="5">
+                     <input type="text" name="subject" [(ngModel)]="subject" class="form-control commn_text"  tabindex="5">
                     </div>
                     </div>  
                     <div class="col-md-12"> 
                     <div class="col-sm-12">
                     <br>
                     <span class="fontlabel"><span class="fontlabel"></span>Message</span>
-                      <textarea formControlName="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
+                      <textarea name="message" [(ngModel)]="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
                     </div>
                     </div>
-                    <span *ngIf="error">{{error}}</span>
+                   
                   </div>
                 </div>
               </div>
@@ -502,7 +502,7 @@ display:none;
 
 <modal #contactdetailModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
   <modal-content>
-    <form method="post" novalidate="" #formCtrl="ngForm" [formGroup]="contactdetailForm" (ngSubmit)="addfromcontact($event)">
+    <form method="post" novalidate="" #cf="ngForm"  (ngSubmit)="addfromcontact(cf.value)">
   <div class=""  >
         <div class="col-lg-12 nullvoid">
           <div class="row nullvoid">
@@ -517,7 +517,7 @@ display:none;
                     <div class="col-sm-12">
                       <div class="col-md-2 nullvoid"> <span style="font-size:21px;"><span class="error">*</span>Type:</span> </div>
                       <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp;
-                         <input type="radio"  value="Remote Signer" tabindex="0" formControlName="type" [checked]="true" > 
+                         <input type="radio"  value="Remote Signer" tabindex="0" name="type" [(ngModel)]="type" [checked]="type==='Remote Signer'"> 
                        <label>Remote Signer</label>
                         
                        <!-- <input type="radio" value="Remote Signer" id="test1" name="radio-group" checked>
@@ -525,7 +525,7 @@ display:none;
                       
                       </div>
                       <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp; 
-                      <input type="radio"  value="Reviewer" tabindex="0" formControlName="type"> 
+                      <input type="radio"  value="Reviewer" [(ngModel)]="type" tabindex="0" name="type" [checked]="type==='Reviewer'"> 
                       <label>Reviewer</label>
                       </div>
                 
@@ -534,35 +534,35 @@ display:none;
                     <br>
                     <div class="col-md-6">              
                       <div class="col-sm-12"><span class="fontlabel">First Name</span>
-                        <input type="text" formControlName="firstName" value="{{contactfirstName}}" class="form-control commn_text" tabindex="1">
+                        <input type="text" name="firstName" [(ngModel)]="contactfirstName" class="form-control commn_text" tabindex="1">
                       </div>
                       <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
-                        <input type="text" formControlName="email" value= "{{contactemail}}" class="form-control commn_text"  tabindex="3">
-          
+                        <input type="text" name="email" [(ngModel)]="contactemail" class="form-control commn_text"  tabindex="3">
+                        <span style="color:red" *ngIf="error">{{error}}</span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
-                        <input type="text" formControlName="lastName" value="{{contactlastName}}" class="form-control commn_text" tabindex="2">
+                        <input type="text" name="lastName" [(ngModel)]="contactlastName" class="form-control commn_text" tabindex="2">
                       </div>
                       <div class="col-sm-12"> <span class="fontlabel">Address</span>
-                        <input type="text" formControlName="address" class="form-control commn_text"  tabindex="4">
+                        <input type="text" name="address" [(ngModel)]="address" class="form-control commn_text"  tabindex="4">
                       </div>
                     </div>              
                     <div class="col-md-12"> 
                     <div class="col-sm-12">
                     <span class="fontlabel"><span class="fontlabel"></span>Subject</span>
-                     <input type="text" formControlName="subject" class="form-control commn_text"  tabindex="5">
+                     <input type="text" name="subject" [(ngModel)]="address" class="form-control commn_text"  tabindex="5">
                     </div>
                     </div>  
                     <div class="col-md-12"> 
                     <div class="col-sm-12">
                     <br>
                     <span class="fontlabel"><span class="fontlabel"></span>Message</span>
-                      <textarea formControlName="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
+                      <textarea name="message"  [(ngModel)]="message" placeholder="Send a note with your contract" class="form-control commn_text"  tabindex="6"></textarea>
                     </div>
                     </div>
-                    <span *ngIf="error">{{error}}</span>
+                   
                   </div>
                 </div>
               </div>
@@ -582,7 +582,7 @@ display:none;
                  
        <div class="col-lg-9">
                    
-         <input type="text" name="refnumber" class="form-control pannel-1" placeholder="Ref.0000022" style="color:#000" value="Ref-{{documentcount}}" readonly="">
+         <input type="text" name="refnumber" class="form-control pannel-1" placeholder="Ref.0000022" style="color:#000" value="{{documentcount}}" readonly="">
                  
        </div>
                
@@ -595,13 +595,13 @@ display:none;
         <label for="inputEmail" class="col-lg-3 control-label2" style="float: left;">Expiration Date</label>
                  
        <div class="col-lg-1" style="margin-top:0px;">
-            <input type="checkbox" id="chk" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" [(ngModel)]="showexpdate"> </div>             
+            <input type="checkbox" (change)="defauldate($event)" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" [(ngModel)]="showexpdate"> </div>             
                   
         <div class="col-lg-8" style="margin-top:10px;">				  
                      
            
       <div *ngIf="showexpdate">
-            <input class="form-control pannel calinput" placeholder="Select a date" ngx-mydatepicker name="mydate"
+            <input class="form-control pannel calinput" #date placeholder="Select a date" ngx-mydatepicker name="mydate"
                    [(ngModel)]="model" [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)"/>
     
            
@@ -637,7 +637,7 @@ display:none;
                     <th>Name</th>
                     <th>Priority</th>
                     <th>Type</th>
-                    <th>Auction</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -646,8 +646,8 @@ display:none;
                       <td>{{i+1}}</td>
                       <td>{{contact.type}}</td>
                       <td>
+                        <span class="fa fa-pencil sign_icon" aria-hidden="true" title="Click this to edit the participant" data-toggle="tooltip" data-palcement="bottom" (click)="editcontacts(contact.email);"></span>
                         <span class="fa fa-trash-o sign_icon" aria-hidden="true" style="padding-right:15px; display:inline !important;" title="Click this to delete the participant from list" data-toggle="tooltip" data-palcement="bottom"></span>
-                        <span class="fa fa-pencil sign_icon" aria-hidden="true" title="Click this to edit the participant" data-toggle="tooltip" data-palcement="bottom"></span>
                       </td>
                   </tr>
                 </tbody>

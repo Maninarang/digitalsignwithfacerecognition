@@ -63,6 +63,8 @@
            <!-- <img *ngIf="!Camera " type="button" (click)="toggleWebcam();" src="../../assets/img/camm11.png" class="regimg" />
         </div> -->
     </div>
+    <button (click)="verifyuser();">Verify</button>
+    <button (click)="updatesignature();">Send</button>
 </div>
 <div class="col-md-3 signdiv">
     <!-- <div class="form-group"> -->
@@ -74,4 +76,5 @@
         Verify</button> -->
 </div>
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop: true }"></ngx-loading>
-<div [innerHTML]="documenthtml"></div>
+
+<div class="gethtml" [innerHTML]="documenthtml"></div>

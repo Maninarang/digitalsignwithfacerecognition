@@ -7,7 +7,7 @@ import { AuthenticationService, UserDetails } from '../authentication.service';
 import { INgxMyDpOptions, IMyDateModel } from 'ngx-mydatepicker';
 import { FormBuilder, Validators, FormGroup, FormControl} from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ContactsarrayService } from '../contactsarray.service';
+import { TypeCheckCompiler } from '@angular/compiler/src/view_compiler/type_check_compiler';
 // import {ModalModule} from 'ngx-modal';
 // import { DialogService } from 'ng2-bootstrap-modal';
 // import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -36,12 +36,15 @@ export class DigitalSignComponent implements OnInit {
     mycontacts: any;
     showcontacts: any;
     contactdata: any;
+    contactid: String;
+    type: String;
     contactfirstName: String;
     contactlastName: String;
     contactemail: String;
     contactaddress: String;
-    documentcount: String;
+    documentcount: string;
     showexpdate = false;
+    expirationdate: String;
     myOptions: INgxMyDpOptions = {
       // other options...
       dateFormat: 'mm-dd-yyyy',
@@ -53,8 +56,7 @@ export class DigitalSignComponent implements OnInit {
   constructor(private http: HttpClient,
               private domSanitizer: DomSanitizer,
               private auth: AuthenticationService,
-              private fb: FormBuilder,
-              private contactarray: ContactsarrayService
+              private fb: FormBuilder
              // private dialogService: DialogService
              ) {}
    addparticipantForm = this.fb.group({
@@ -66,16 +68,6 @@ export class DigitalSignComponent implements OnInit {
     subject: [],
     message: []
     });
-
-    addyourselfForm = this.fb.group({
-      type: ['', Validators.required],
-      firstName: ['', Validators.required],
-      email: ['', Validators.required],
-      lastName: ['', Validators.required],
-      address: [],
-      subject: [],
-      message: []
-      });
 
     contactdetailForm = this.fb.group({
         type: ['', Validators.required],
@@ -93,7 +85,6 @@ export class DigitalSignComponent implements OnInit {
       this.fullname = this.details.name;
       this.email = this.details.email;
       const nameArr = this.fullname.split(' ');
-
       if (nameArr.length > 2) {
         this.lastName = nameArr.pop();
         this.firstName = nameArr.join(' ');
@@ -103,9 +94,10 @@ export class DigitalSignComponent implements OnInit {
       }
       this.userid = this.details._id;
       this.http.get('http://localhost:3000/api/documentcount/' + this.userid)
-    .subscribe(data => {
+      .subscribe(data => {
       this.count = data;
-      this.documentcount = this.count.data;
+      this.documentcount = 'Ref-' + this.count.data;
+      localStorage.setItem('docid', this.documentcount);
       this.http.get('http://localhost:3000/api/mycontacts/' + this.userid)
       // tslint:disable-next-line:no-shadowed-variable
       .subscribe(data => {
@@ -171,8 +163,30 @@ export class DigitalSignComponent implements OnInit {
     }
   }
 
+  defauldate(event) {
+    if ( event.target.checked) {
+      const date = new Date();
+      let dd = date.getDate();
+      let mm = date.getMonth() + 1; //January is 0!
+      const yyyy = date.getFullYear();
+      if (dd < 10) {
+          dd = '0' + dd;
+      }
+      if (mm < 10) {
+          mm = '0' + mm;
+      }
+      const today =  mm + '-' + dd + '-' + yyyy;
+      localStorage.setItem('expdate', today);
+    } else {
+      localStorage.setItem('expdate', '');
+    }
+   // this.expirationdate = today;
+    // console.log(this.expirationdate);
+  }
+
   onDateChanged(event: IMyDateModel): void {
-    // date selected
+    localStorage.setItem('expdate', event.formatted);
+ // console.log(event.formatted);
   }
 
  // ------------------------ add new participant --------------------- //
@@ -192,23 +206,22 @@ export class DigitalSignComponent implements OnInit {
     return el.email === email;
   });
   if (!emailalreadyexist) {
-    this.contactarray.pushcontacts(firstName, lastName, email, address, subject, message, this.userid);
-
-  //  this.http.post('http://localhost:3000/api/addnewparticipant',
-  //    { firstName: firstName, lastName: lastName, email: email, address: address,
-  //      subject: subject, message: message, userId: this.userid })
-  //    .subscribe(data => {
-  //      this.contactList = data;
-  //      if (this.contactList.message === 1) {
-  //       this.contacts.push({name: firstName + ' ' + lastName, type: type, email: email });
-  //       this.addparticipantForm.reset();
-  //       this.addparticipantModal.close();
-  //      } else {
-  //       this.error = 'This Email is already in your Contacts.You can add from there!!!';
-  //      }
-  //    }, err => {
-  //      this.error = 'Something Went Wrong.Please Try Again !!!';
-  //    });
+   this.http.post('http://localhost:3000/api/addnewparticipant',
+     { firstName: firstName, lastName: lastName, email: email, address: address,
+       subject: subject, message: message, userId: this.userid, docId: this.documentcount,
+        type: type, priority: this.contacts.length + 1, expiration: this.myOptions})
+     .subscribe(data => {
+       this.contactList = data;
+       if (this.contactList.message === 1) {
+        this.contacts.push({name: firstName + ' ' + lastName, type: type, email: email });
+        this.addparticipantForm.reset();
+        this.addparticipantModal.close();
+       } else {
+        this.error = 'This Email is already in your Contacts.You can add from there!!!';
+       }
+     }, err => {
+       this.error = 'Something Went Wrong.Please Try Again !!!';
+     });
   }  else {
     this.error = 'Email Already Exists';
     }
@@ -216,11 +229,14 @@ export class DigitalSignComponent implements OnInit {
    // ------------------------ get contact details ------------- //
 
    contactdetail(email: String) {
+   this.error = null;
    this.mycontactsModal.close();
    this.loading = true;
    this.http.get('http://localhost:3000/api/contactdetail/' + email + '/' + this.userid)
    .subscribe(data => {
     this.contactdata = data;
+    this.type = this.contactdata.data[0].type;
+    this.contactid = this.contactdata.data[0]._id;
     this.contactfirstName = this.contactdata.data[0].firstName;
     this.contactlastName = this.contactdata.data[0].lastName;
     this.contactemail = this.contactdata.data[0].email;
@@ -233,22 +249,22 @@ export class DigitalSignComponent implements OnInit {
 
    // ------------------------ add new participant --------------------- //
 
-   addfromcontact() {
-    let type = this.contactdetailForm.controls.type.value;
+   addfromcontact(form) {
+    let type = form.type;
     if (type === '') {
      type = 'Remote Signer';
      }
-    const firstName = this.contactdetailForm.controls.firstName.value;
-    const lastName = this.contactdetailForm.controls.lastName.value;
-    const email = this.contactdetailForm.controls.email.value;
-    const address = this.contactdetailForm.controls.address.value;
-    const subject = this.contactdetailForm.controls.subject.value;
-    const message = this.contactdetailForm.controls.message.value;
+    const firstName = form.firstName;
+    const lastName = form.lastName;
+    const email = form.email;
+    const address = form.address;
+    const subject = form.subject;
+    const message = form.message;
     const emailalreadyexist = this.contacts.some(function (el) {
      return el.email === email;
    });
    if (!emailalreadyexist) {
-
+         this.contactList = 'a';
          this.contacts.push({name: firstName + ' ' + lastName, type: type, email: email });
          this.contactdetailForm.reset();
          this.contactdetailModal.close();
@@ -259,24 +275,22 @@ export class DigitalSignComponent implements OnInit {
 
    // ------------------------ add youself --------------------- //
 
-   addyourself() {
-    let type = this.addyourselfForm.controls.type.value;
-    if (type === '') {
-    type = 'Remote Signer';
-    }
-    const firstName = this.addyourselfForm.controls.firstName.value;
-    const lastName = this.addyourselfForm.controls.lastName.value;
-    const email = this.addyourselfForm.controls.email.value;
-    const address = this.addyourselfForm.controls.address.value;
-    const subject = this.addyourselfForm.controls.subject.value;
-    const message = this.addyourselfForm.controls.message.value;
+   addyourself(form) {
+     // console.log(form.type);
+    const type = form.type;
+    const firstName = form.firstName;
+    const lastName = form.lastName;
+    const email = form.email;
+    const address = form.address;
+    const subject = form.subject;
+    const message = form.message;
     const emailalreadyexist = this.contacts.some(function (el) {
      return el.email === email;
    });
    if (!emailalreadyexist) {
     this.http.post('http://localhost:3000/api/addnewparticipant',
       { firstName: firstName, lastName: lastName, email: email, address: address,
-        subject: subject, message: message, userId: this.userid })
+        subject: subject, message: message, type: type, userId: this.userid })
       .subscribe(data => {
         this.contactList = data;
         if (this.contactList.message === 1) {
@@ -293,6 +307,36 @@ export class DigitalSignComponent implements OnInit {
      this.error = 'Email Already Exists';
      }
    }
+
+   // --------------------------- edit contacts ---------------------//
+
+  editcontacts(email: String) {
+    this.loading = true;
+    this.http.get('http://localhost:3000/api/contactdetail/' + email + '/' + this.userid)
+    .subscribe(data => {
+     this.contactdata = data;
+     this.contactfirstName = this.contactdata.data[0].firstName;
+     this.contactlastName = this.contactdata.data[0].lastName;
+     this.contactemail = this.contactdata.data[0].email;
+     this.contactdetailModal.open();
+     this.loading = false;
+    });
+   }
+  // ----------------------------- delete contact --------------------------- //
+
+  deletecontact(email: String) {
+    const emailalreadyexist = this.contacts.some(function (el) {
+      return el.email === email;
+    });
+    if (emailalreadyexist) {
+      for (let i = 0; i < this.contacts.length; i ++) {
+        if (this.contacts[i].email && this.contacts[i].email === email) {
+          this.contacts.splice(i, 1);
+            break;
+        }
+    }
+    }
+  }
 
   logout() {
     this.auth.logout();

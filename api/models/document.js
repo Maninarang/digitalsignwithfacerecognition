@@ -8,6 +8,8 @@ var documentSchema = new mongoose.Schema({
      signed: Boolean
   }],
   documenthtml: String,
-  withimage: Boolean
+  withimage: Boolean,
+  actionrequired:String,
+  expiration : String
 });
 mongoose.model('Document', documentSchema);

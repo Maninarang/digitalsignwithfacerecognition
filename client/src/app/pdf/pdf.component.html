@@ -135,7 +135,7 @@
                             <select class="electronicsig-div1" #u (change)="userselection(u.value)">
                                     <option value="">Select User</option>
                                     <option *ngFor="let user of userlist" value= {{user._id}}>
-                                      {{user.name}}
+                                      {{user.firstName}} {{user.lastName}}
                                     </option>
                                   </select>
       
@@ -211,10 +211,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="stickit thefixeddiv" id="stickit" style="">
+                            <div class="col-md-12">
+                            <span class="col-md-6 col-sm-12 col-xs-12" style="color:#0000;font-family: 'Century Gothic' !important;">Click Complete, to Send the Document. 
+                                <!--Textboxes will be added here -->
+                            </span>
+                            <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="right_btn_pannel" style="display:none;"><a class="finish btn btn-success" style="border-radius:0px; background-color:#8ec230 !important;border:none !important;" id="finish">SEND</a> </div>
+                             
+                            </div>
+                            </div>
+                            </div>
                 </div>
 
             </div>
-
+         
+                
+                         
 
             <div class="gethtml">
             <div class="col-md-8 col-sm-6 col-xs-12 divsize">
@@ -238,3 +251,4 @@
     </div>
 
 </section>
+

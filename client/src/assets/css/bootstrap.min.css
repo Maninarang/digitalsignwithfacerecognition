@@ -6119,23 +6119,26 @@ p.pt5 {
 .nav-tabs6 li {
 	float: none;
 	margin: 0;
+	border-bottom: 1px solid;
 }
 .nav-tabs6 li a {
 	margin-right: 0;
 	border: 0;
-	background:#fff;
+	background:#7a6220;
 	border-radius:0px;
 	text-decoration:none;
+	
 }
 .nav-tabs6 li a:hover {
 	background-color: #d3c191;
 }
 .nav-tabs6 .fa {
 	color: #fff;
-	background:#858f03;
+	background:#b49948;
 	padding: 10px 10px;
 	z-index:100;
 	width:38px;
+	
 }
 .nav-tabs6 .active .fa {
 	color: #fff;
@@ -6220,7 +6223,7 @@ p.pt5 {
 	display: block;
 }
 span.pt6 {
-	color:#000;
+	color:#fff;
 	padding:10px 10px;
 	font-family:"Century Gothic";
 	font-size:16px;
@@ -6360,6 +6363,7 @@ p.pt10 {
 	font-size:25px;
 	margin-top:22px;
 	margin-left:0px;
+	float:right;
 	font-family:"Copperplate Gothic Light";
 	text-transform:uppercase !important;
 }

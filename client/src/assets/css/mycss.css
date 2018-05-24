@@ -1470,6 +1470,13 @@ input {
     padding-bottom: 0px;
 	width: 100%;
 }
+.nav-tabs66 {
+    float: left;
+    border-right: 2px #96450e solid;
+    border-bottom: 2px #96450e solid;
+    padding-bottom: 0px;
+	width: 100%;
+}
 .nav-tabs1 {
     float: left;
     border-bottom: 0;

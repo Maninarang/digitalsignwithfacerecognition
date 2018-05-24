@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AuthenticationService, UserDetails } from '../authentication.service';
 import * as jquery from 'jquery';
 import 'jqueryui';
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -14,10 +15,7 @@ let userid, username, useremail , userinitials, todaydate;
 })
 
 export class PdfComponent implements OnInit {
-  constructor(private http: HttpClient) {
-
-
-  }
+  details: UserDetails;
   loading = true;
   pdfimages= [];
   userdata: any;
@@ -27,15 +25,25 @@ export class PdfComponent implements OnInit {
   // useremail: string;
   fileslength: any;
   today: number = Date.now();
+  constructor(
+    private http: HttpClient,
+    private auth: AuthenticationService
+  ) {
+
+
+  }
+
    ngOnInit() {
    //  $('.pdfimg').addClass('droppable');
-
-    this.http.get('https://mybitrade.com:3000/api/userlist')
+   this.auth.profile().subscribe(user => {
+    this.details = user;
+    this.http.get('http://localhost:3000/api/userlist/' + this.details._id + '/' + localStorage.getItem('docid'))
     .subscribe(data => {
       this.userdata = data;
       this.userlist = this.userdata.data;
      // console.log(this.userlist);
     });
+  });
     const pdfid = localStorage.getItem('pdfid');
     this.http.post('https://mybitrade.com:3000/api/pdfdetail', {pdfid: pdfid})
     .subscribe(data => {
@@ -53,12 +61,12 @@ export class PdfComponent implements OnInit {
 
   }
   userselection(uservalue: string) {
-   this.http.get('https://mybitrade.com:3000/api/userdetail/' + uservalue)
+   this.http.get('http://localhost:3000/api/userdetail/' + uservalue + '/' + localStorage.getItem('docid'))
    .subscribe(data => {
   //   console.log(data);
     this.userdetail = data;
     useremail = this.userdetail.data.email;
-    username = this.userdetail.data.name;
+    username = this.userdetail.data.firstName + ' ' + this.userdetail.data.lastName;
     userid = this.userdetail.data._id;
     userinitials = username.match(/\b\w/g) || [];
     userinitials = ((userinitials.shift() || '') + (userinitials.pop() || '')).toUpperCase();
@@ -69,7 +77,7 @@ export class PdfComponent implements OnInit {
   savehtml() {
     this.loading = true;
     // tslint:disable-next-line:max-line-length
-    this.http.post('https://mybitrade.com:3000/api/savehtml', {html: $('.gethtml').html(), pdfid: localStorage.getItem('pdfid'), userid: userid , useremail: useremail})
+    this.http.post('http://localhost:3000/api/savehtml', {html: $('.gethtml').html(), pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate')})
     .subscribe(data => {
       this.loading = false;
       alert('Email Sent Successfully');
@@ -99,6 +107,7 @@ export class PdfComponent implements OnInit {
          //  containment: '#image2'
           });
           $('#' + droppablediv).append(canvasElement);
+          $('#finish').show();
           // tslint:disable-next-line:max-line-length
           if (draggablediv === 'Initial') {
           canvasElement.append('<div style="border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;border: 3px solid black;margin-left: 3px;min-width: 280px;width: 50px;height: 45px;"><div style="word-wrap: break-word; text-align: left; font-family: Cursive, Sans-Serif; font-size: 24px; font-weight: 400; font-style: italic; color: rgb(20, 83, 148);"><div id="signtypeval5" style="height: 35px; width: auto; ">' + userinitials + '</div></div></div>');
