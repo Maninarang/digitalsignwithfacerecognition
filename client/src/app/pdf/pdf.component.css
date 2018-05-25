@@ -1,3 +1,18 @@
+.stickit {
+    width: 100%;
+   /* // position: fixed; */
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    border-top: 1px solid #cecece;
+    line-height: 40px;
+    background: #ccc;
+    text-align: center;
+    bottom: 0;
+    padding: 7px 24px;
+}
 .loginform-outerdiv{
     width: 100%;
     float: left;
@@ -507,4 +522,12 @@ footer {
 .thefixeddiv{
     position: fixed;
     float: left;
+}
+
+#stickit {
+    font-size: 18px;
+    text-transform: none;
+}
+.btn {
+    padding: 10px 30px !important;
 }

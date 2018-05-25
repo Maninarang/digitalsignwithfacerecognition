@@ -209,19 +209,9 @@
                                 <button>
                                     <i class="fa fa-times-circle" aria-hidden="true"></i> Cancel</button>
                             </div>
-                        </div>
+                        </div> 
                     </div>
-                    <div class="stickit thefixeddiv" id="stickit" style="">
-                            <div class="col-md-12">
-                            <span class="col-md-6 col-sm-12 col-xs-12" style="color:#0000;font-family: 'Century Gothic' !important;">Click Complete, to Send the Document. 
-                                <!--Textboxes will be added here -->
-                            </span>
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                            <div class="right_btn_pannel" style="display:none;"><a class="finish btn btn-success" style="border-radius:0px; background-color:#8ec230 !important;border:none !important;" id="finish">SEND</a> </div>
-                             
-                            </div>
-                            </div>
-                            </div>
+                   
                 </div>
 
             </div>
@@ -249,6 +239,18 @@
         </div>
 
     </div>
-
+    <div style='display:none' class="stickit thefixeddiv" id="stickit" >
+            <div class="col-md-12">
+            <span class="col-md-6 col-sm-12 col-xs-12" style="color:#0000;font-family: 'Century Gothic' !important;">Click Complete, to Send the Document. 
+                <!--Textboxes will be added here -->
+            </span>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+            <div style="width: 40% !important;" class="right_btn_pannel" >
+                <a class="finish btn " (click)='sendmail();' style="border-radius:0px; background-color:#6DD217 !important;border:none !important;" id="finish">SEND</a>
+               <a  (click)='hideme()' id="hideme"><i class="fa fa-times-circle"></i>Hide</a>  </div>
+             
+            </div>
+            </div>
+            </div>
 </section>
 

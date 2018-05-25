@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService, UserDetails } from '../authentication.service';
 import * as jquery from 'jquery';
+import { Router } from '@angular/router';
 import 'jqueryui';
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
@@ -24,10 +25,12 @@ export class PdfComponent implements OnInit {
   // username: string;
   // useremail: string;
   fileslength: any;
+  dragged: null;
   today: number = Date.now();
   constructor(
     private http: HttpClient,
-    private auth: AuthenticationService
+    private auth: AuthenticationService,
+    private router: Router,
   ) {
 
 
@@ -80,10 +83,25 @@ export class PdfComponent implements OnInit {
     this.http.post('http://localhost:3000/api/savehtml', {html: $('.gethtml').html(), pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate')})
     .subscribe(data => {
       this.loading = false;
-      alert('Email Sent Successfully');
+      // alert('Email Sent Successfully');
+      this.router.navigateByUrl('/actionrequired');
     });
   }
+  sendmail() {
+    this.loading = true;
+    // tslint:disable-next-line:max-line-length
+    this.http.post('http://localhost:3000/api/senddocument', {html: $('.gethtml').html(), pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate')})
+    .subscribe(data => {
+      this.loading = false;
+      alert('Email Sent Successfully');
+      this.router.navigateByUrl('/actionrequired');
+    });
+  }
+  hideme() {
 
+      $('#stickit').css('display', 'none');
+
+  }
   adddroppablehandler() {
   let droppablediv = '';
   let draggablediv = '';
@@ -98,9 +116,14 @@ export class PdfComponent implements OnInit {
     helper: 'clone',
     cursor: 'move'
   });
+
+ 
+ 
   jquery('.droppable').droppable({
     drop: function (event, ui) {
       if (!ui.draggable.hasClass('canvas-element')) {
+          console.log('dragged');
+          // this.dragged = 'dragged';
           const canvasElement = ui.draggable.clone();
           canvasElement.addClass('canvas-element');
           canvasElement.draggable({
@@ -135,6 +158,8 @@ export class PdfComponent implements OnInit {
               position: 'absolute'
           });
       }
+     // this.dragged = 'dragged';
+          $('#stickit').css('display', 'block');
   }
 });
 }

@@ -233,7 +233,7 @@ display:none;
   
 
    
-   <ul class="nav nav-tabs6">
+   <!-- <ul class="nav nav-tabs6">
      
      <li class="active"><a href=""><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
      
@@ -243,7 +243,18 @@ display:none;
    
     <li class=""><a href=""><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
    
-   </ul>            
+   </ul>  -->
+   <ul class="nav nav-tabs6">
+     
+      <li class=""><a routerLink=""><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
+      
+      <li class="active"><a routerLink="actionrequired"><span class="fa fa-ban"></span>&nbsp;&nbsp;<span class="pt6">Action Required</span></a></li>
+    
+     <li class=""><a routerLink=""><span class="fa fa-check"></span>&nbsp;&nbsp;<span class="pt6">Completed</span></a></li>
+    
+     <li class=""><a routerLink=""><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
+    
+    </ul>             
        
    <div id="myTabContent" class="tab-content" style="opacity: 1;">			
            
@@ -313,7 +324,9 @@ display:none;
                     <input type="button" class="btn btn-danger closepar commn_btn" id="" value="Cancel" (click)="participantModal.close()" style="background:#cc3100; font-family:'Century Gothic'; font-size:14px; border-radius:0px; border:0px solid transparent; float:right;">
                   </div>
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nullvoid" id="selectpati1">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addparticipantModal.open();participantModal.close();"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div>
+                    <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addparticipantModal.open();participantModal.close();"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div> -->
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addnewpaticipant()"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div>
+                   
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="mycontactsModal.open();participantModal.close();"><span  style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add From Contact</span></div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addyourselfModal.open();participantModal.close();"><span class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add <br>Yourself</span></div>
                   </div>
@@ -359,15 +372,18 @@ display:none;
                       <div class="col-md-6">              
                         <div class="col-sm-12"><span class="fontlabel">First Name</span>
                           <input type="text" formControlName="firstName" class="form-control commn_text" tabindex="1">
+                        
+                          <span style="color:red" *ngIf="firstnameerror"> {{firstnameerror}}</span>
                         </div>
                         <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
                           <input type="text" formControlName="email" class="form-control commn_text"  tabindex="3">
-            
+                          <span style="color:red" *ngIf="emailerror"> {{emailerror}}</span>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
                           <input type="text" formControlName="lastName" class="form-control commn_text" tabindex="2">
+                          <span style="color:red" *ngIf="lasterror"> {{lasterror}}</span>
                         </div>
                         <div class="col-sm-12"> <span class="fontlabel">Address</span>
                           <input type="text" formControlName="address" class="form-control commn_text"  tabindex="4">
@@ -459,15 +475,21 @@ display:none;
                     <div class="col-md-6">              
                       <div class="col-sm-12"><span class="fontlabel">First Name</span>
                         <input type="text" name="firstName" [(ngModel)]="firstName"  class="form-control commn_text" tabindex="1">
+                        <span style="color:red" *ngIf="firstnameerror"> {{firstnameerror}}</span>
+                    
                       </div>
                       <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
                         <input type="text" name="email" [(ngModel)]="email"  class="form-control commn_text"  tabindex="3">
                         <span style="color:red" *ngIf="error">{{error}}</span>
+                        <span style="color:red" *ngIf="emailerror"> {{emailerror}}</span>
+                        
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
                         <input type="text" name="lastName" [(ngModel)]="lastName" class="form-control commn_text" tabindex="2">
+                        <span style="color:red" *ngIf="lasterror"> {{lasterror}}</span>
+                     
                       </div>
                       <div class="col-sm-12"> <span class="fontlabel">Address</span>
                         <input type="text" name="address" [(ngModel)]="address" class="form-control commn_text"  tabindex="4">
@@ -508,7 +530,7 @@ display:none;
           <div class="row nullvoid">
               <div class="col-lg-12 partpnt_poup">
                 <button type="button" class="btn btn-danger closepar commn_btn" (click)="contactdetailModal.close();" style="background:#cc3100; font-size:14px; font-family:'Century Gothic'; border-radius:0px; border:0px solid transparent; float:left;">Cancel</button>
-                <span class="partag myparttag">Add New Participant</span>
+                <span class="partag myparttag">Add New Participant </span>
                 <button type="submit"  class="btn btn-success"  style="font-size:14px; font-family:'Century Gothic'; background-color:#8ec230 !important; border:0px; border-radius:0px; float:right; color:#FFFFFF;">Add</button>
               </div>
               <div class="main-box infographic-box" style="box-shadow:none !important; border-radius:0px;">
@@ -533,17 +555,20 @@ display:none;
                     <br>
                     <br>
                     <div class="col-md-6">              
-                      <div class="col-sm-12"><span class="fontlabel">First Name</span>
+                      <div class="col-sm-12"><span class="fontlabel">First Namew</span>
                         <input type="text" name="firstName" [(ngModel)]="contactfirstName" class="form-control commn_text" tabindex="1">
+                        <span style="color:red" *ngIf="firstnameerror"> {{firstnameerror}}</span>
                       </div>
                       <div class="col-sm-12"><span class="fontlabel">Email ID</span> 
                         <input type="text" name="email" [(ngModel)]="contactemail" class="form-control commn_text"  tabindex="3">
                         <span style="color:red" *ngIf="error">{{error}}</span>
+                        <span style="color:red" *ngIf="emailerror"> {{emailerror}}</span>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="col-sm-12"> <span class="fontlabel">Last Name</span>
                         <input type="text" name="lastName" [(ngModel)]="contactlastName" class="form-control commn_text" tabindex="2">
+                        <span style="color:red" *ngIf="lasterror"> {{lasterror}}</span>
                       </div>
                       <div class="col-sm-12"> <span class="fontlabel">Address</span>
                         <input type="text" name="address" [(ngModel)]="address" class="form-control commn_text"  tabindex="4">
@@ -646,8 +671,8 @@ display:none;
                       <td>{{i+1}}</td>
                       <td>{{contact.type}}</td>
                       <td>
-                        <span class="fa fa-pencil sign_icon" aria-hidden="true" title="Click this to edit the participant" data-toggle="tooltip" data-palcement="bottom" (click)="editcontacts(contact.email);"></span>
-                        <span class="fa fa-trash-o sign_icon" aria-hidden="true" style="padding-right:15px; display:inline !important;" title="Click this to delete the participant from list" data-toggle="tooltip" data-palcement="bottom"></span>
+                        <!-- <span class="fa fa-pencil sign_icon" aria-hidden="true" title="Click this to edit the participant" data-toggle="tooltip" data-palcement="bottom" (click)="editcontacts(contact.email);"></span> -->
+                        <span class="fa fa-trash-o sign_icon" aria-hidden="true" style="padding-right:15px; display:inline !important;" title="Click this to delete the participant from list" data-toggle="tooltip" (click)="deletecontact(contact.email);"  data-palcement="bottom"></span>
                       </td>
                   </tr>
                 </tbody>
@@ -659,7 +684,7 @@ display:none;
 
          </div>
 <div class="col-md-6 col-sm-6 col-xs-12">
-    <a><button  class="bottom-nextbtn" (click)="participantModal.open()">Add Participants</button></a>
+    <a><button  class="bottom-nextbtn" (click)="addpatipant()">Add Participants</button></a>
 </div>
 
 <div class="col-md-6 col-sm-6 col-xs-12">
