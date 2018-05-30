@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AuthenticationService, UserDetails, TokenPayload} from '../authentication.service';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+
 
 @Component({
   selector: 'app-actionrequired',
@@ -6,10 +10,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./actionrequired.component.css']
 })
 export class ActionrequiredComponent implements OnInit {
-
-  constructor() { }
+   details: UserDetails;
+   fullname: String;
+   userid: String;
+   documents: any;
+   documentdetail: any;
+   constructor(
+    private http: HttpClient,
+    private auth: AuthenticationService
+  ) { }
 
   ngOnInit() {
+    this.auth.profile().subscribe(user => {
+      this.details = user;
+      this.fullname = this.details.name;
+      this.userid = this.details._id;
+      this.http.get('http://localhost:3000/api/mydocuments/' + this.userid)
+      .subscribe(data => {
+       this.documentdetail = data;
+       this.documents = this.documentdetail.data;
+      });
+    });
   }
 
 }

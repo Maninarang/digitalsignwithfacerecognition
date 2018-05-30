@@ -70,7 +70,8 @@
 .formdiv .form-group input{
     border: 1px solid #b59748;
     position: relative;
-    color: #b59748;
+    color: #555;
+    font-size: 15px;
 }
 .formdiv .form-group span{
     position: absolute;

@@ -34,12 +34,7 @@ import { SignpdfComponent } from './signpdf/signpdf.component';
 import { ModalModule } from 'ngx-modal';
 import { ActionrequiredComponent } from './actionrequired/actionrequired.component';
 import { ContactsarrayService } from './contactsarray.service';
-
-
-
-
-
-
+import { DocumentdetailComponent } from './documentdetail/documentdetail.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'header', component: HeaderComponent },
@@ -55,7 +50,8 @@ const routes: Routes = [
   { path: 'contact_list', component: ContactListComponent },
   { path: 'completed', component: CompletedComponent },
   { path: 'actionrequired', component: ActionrequiredComponent },
-  { path: 'signpdf/:documentid', component: SignpdfComponent, canActivate: [AuthGuardService]}
+  { path: 'documentdetail/:documentid', component: DocumentdetailComponent },
+  { path: 'signpdf/:documentid/:userid', component: SignpdfComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
@@ -76,6 +72,7 @@ const routes: Routes = [
     CompletedComponent,
     SignpdfComponent,
     ActionrequiredComponent,
+    DocumentdetailComponent,
     // AddparticipantdialogComponent
     ],
   imports: [

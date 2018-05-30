@@ -118,7 +118,7 @@ display:none;
             
         <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
                
-          <span class="title">{{fullname}} &nbsp;&nbsp;<b class="caret"></b></span>
+          <span class="title">sdsd&nbsp;&nbsp;<b class="caret"></b></span>
                 </a>
       
                     <ul *dropdownMenu class="dropdown-menu">
@@ -352,11 +352,11 @@ display:none;
                        
            <table id="hor-zebra" summary="Employee Pay Sheet" style="width:100%">
                        
-           <tbody style="background:  #fff;" *ngFor ="let document of documents" >
+           <tbody style="background:  #fff;" >
          
                  <tr style="height:120px">
                        
-                 <td colspan="4" style="width: 120%; padding:10px">
+                 <td colspan="3" style="width: 80%; padding:10px">
                   
                 <label>
                                 
@@ -364,22 +364,30 @@ display:none;
                                 
                         </label>
                                 
-                &nbsp;&nbsp;<a routerLink="/documentdetail/{{document.id}}" title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
-                   pdf-{{document.documentname}}.pdf</a><div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;"><div class="tooltip-arrow" style="left: 50%;"></div><div class="tooltip-inner">click this to see all participants list of this document</div></div> </td>
+                &nbsp;&nbsp;<a  title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
+                  sadsd</a><div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;"><div class="tooltip-arrow" style="left: 50%;"></div><div class="tooltip-inner">click this to see all participants list of this document</div></div>
+                 </td>
                               
-                <td colspan="1">
+              
+
+                  <td colspan="1">
                           
-                  <a href="#"><img src="../../assets/img/Layer.png" style=" width: 48px;    margin-bottom: 2px;"> Need to sign</a>
                          
-                          <a href="#"><input type="button" value="DOCUMENTS" style="margin-right: -13px;background: #7a6220;  box-shadow: 5px 5px 5px rgba(68,68,68,0.6)!important;" class="btn btn-primary" title="" data-toggle="tooltip" data-placement="bottom" data-original-title=""></a>
-                       
-                  </td>
+                      <a href="#"><img src="../../assets/img/Layer.png" style=" width: 48px;    margin-bottom: 2px;"> Need to sign</a>
+                   
+              </td>
+              <td colspan="1">
+                          
+                         
+                  <a href="#"><input type="button" value="DOCUMENTS" style="margin-right: -13px;background: #7a6220;  box-shadow: 5px 5px 5px rgba(68,68,68,0.6)!important;" class="btn btn-primary" title="" data-toggle="tooltip" data-placement="bottom" data-original-title=""></a>
+               
+          </td>
                             
               </tr>
                                  
                     <tr class="odd" style="background: #fac701;border: none;height:35px">
                                  
-                 <td colspan="5">Needs to {{document.documentstatus}}   {{document.date}} Time : {{document.time}}</td>
+                 <td colspan="5">Needs to  Time :</td>
                        
                               </tr>
            

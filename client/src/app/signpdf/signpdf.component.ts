@@ -54,13 +54,13 @@ export class SignpdfComponent implements OnInit {
    // this.loading = true;
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];
-     // const userid = params['userid'];
+      const userid = params['userid'];
       this.auth.profile().subscribe(user => {
         this.details = user;
         this.userid = this.details._id;
         this.useremail = this.details.email;
         this.username = this.details.name;
-        this.http.get('http://localhost:3000/api/checkeligibility/' + this.useremail + '/' + documentid)
+        this.http.get('http://localhost:3000/api/checkeligibility/' + this.useremail + '/' + documentid + '/' + userid)
         .subscribe(data => {
           this.eligibility = data;
           this.eligible = this.eligibility.data;
@@ -197,7 +197,7 @@ export class SignpdfComponent implements OnInit {
   updatesignature() {
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];
-    this.http.post('http://localhost:3000/api/updatedoc', { html: $('.gethtml').html(), useremail: this.useremail, docid: documentid })
+    this.http.post('http://localhost:3000/api/updatedoc', { html: $('.gethtml').html(), userid: this.userid, docid: documentid })
     .subscribe(
       data => {
 

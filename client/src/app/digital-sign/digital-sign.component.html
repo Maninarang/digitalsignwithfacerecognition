@@ -325,7 +325,7 @@ display:none;
                   </div>
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 nullvoid" id="selectpati1">
                     <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addparticipantModal.open();participantModal.close();"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div> -->
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addnewpaticipant()"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addnewparticipantmodal()"><span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div>
                    
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="mycontactsModal.open();participantModal.close();"><span  style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add From Contact</span></div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addyourselfModal.open();participantModal.close();"><span class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add <br>Yourself</span></div>
@@ -341,7 +341,7 @@ display:none;
     <modal-content>
       <form method="post" novalidate="" [formGroup]="addparticipantForm" (ngSubmit)="addnewparticipant($event)">
     <div class=""  >
-          <div class="col-lg-12 nullvoid" id="newparticipant">
+          <div class="col-lg-12 nullvoid">
             <div class="row nullvoid">
                 <div class="col-lg-12 partpnt_poup">
                   <button type="button" class="btn btn-danger closepar commn_btn" (click)="addparticipantModal.close();" style="background:#cc3100; font-size:14px; font-family:'Century Gothic'; border-radius:0px; border:0px solid transparent; float:left;">Cancel</button>
@@ -354,7 +354,7 @@ display:none;
                       <div class="col-sm-12">
                         <div class="col-md-2 nullvoid"> <span style="font-size:21px;"><span class="error">*</span>Type:</span> </div>
                         <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp;
-                           <input type="radio"  value="Remote Signer" tabindex="0" formControlName="type" [checked]="true" > 
+                           <input type="radio"  value="Remote Signer" tabindex="0" formControlName="newtype" [(ngModel)]="newtype" [checked]="newtype==='Remote Signer'" > 
                          <label>Remote Signer</label>
                           
                          <!-- <input type="radio" value="Remote Signer" id="test1" name="radio-group" checked>
@@ -362,7 +362,7 @@ display:none;
                         
                         </div>
                         <div class="col-md-5 myradiodiv nullvoid"> &nbsp;&nbsp;&nbsp; 
-                        <input type="radio"  value="Reviewer" tabindex="0" formControlName="type"> 
+                        <input type="radio"  value="Reviewer" tabindex="0" formControlName="newtype" [(ngModel)]="newtype" [checked]="newtype==='Reviewer'"> 
                         <label>Reviewer</label>
                         </div>
                   
@@ -371,7 +371,7 @@ display:none;
                       <br>
                       <div class="col-md-6">              
                         <div class="col-sm-12"><span class="fontlabel">First Name</span>
-                          <input type="text" formControlName="firstName" class="form-control commn_text" tabindex="1">
+                          <input type="text" formControlName="firstName" [(ngModel)]="firstName" class="form-control commn_text" tabindex="1">
                         
                           <span style="color:red" *ngIf="firstnameerror"> {{firstnameerror}}</span>
                         </div>
@@ -427,10 +427,14 @@ display:none;
              </div>
            </div>
            <div>
-               <div class="col-lg-12 contact" (click)="contactdetail(contact.email);" *ngFor = "let contact of mycontacts"> 
+               <div class="col-lg-12 contact" (click)="contactdetail(contact._id);" *ngFor = "let contact of mycontacts"> 
              <span>{{contact.firstName}}  {{contact.lastName}} </span><br/> 
                <span>({{contact.email}})</span> 
            </div>
+
+           <div class="col-lg-12" *ngIf="nocontacts" > 
+              <span>Please Add Contacts To your List</span><br/> 
+            </div>
                </div>
          </div>
          <!--</div>-->
@@ -554,8 +558,11 @@ display:none;
                     <br>
                     <br>
                     <br>
-                    <div class="col-md-6">              
-                      <div class="col-sm-12"><span class="fontlabel">First Namew</span>
+                    <div class="col-md-6">  
+                        <div class="col-sm-12" style="display:none;"><span class="fontlabel"></span>
+                          <input type="text" name="contactid" [(ngModel)]="contactid" class="form-control commn_text" tabindex="0">
+                        </div>            
+                      <div class="col-sm-12"><span class="fontlabel">First Name</span>
                         <input type="text" name="firstName" [(ngModel)]="contactfirstName" class="form-control commn_text" tabindex="1">
                         <span style="color:red" *ngIf="firstnameerror"> {{firstnameerror}}</span>
                       </div>
@@ -688,7 +695,7 @@ display:none;
 </div>
 
 <div class="col-md-6 col-sm-6 col-xs-12">
-    <a  *ngIf="contactList" routerLink="/pdfsign"><button class="bottom-nextbtn tofloat">Next</button></a>
+    <a  *ngIf="contactList" (click)="adduserstodocument();"><button class="bottom-nextbtn tofloat">Next</button></a>
 </div>
         
                    

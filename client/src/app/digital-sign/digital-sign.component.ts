@@ -9,6 +9,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { TypeCheckCompiler } from '@angular/compiler/src/view_compiler/type_check_compiler';
 import { variable } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 // import {ModalModule} from 'ngx-modal';
 // import { DialogService } from 'ng2-bootstrap-modal';
 // import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -39,6 +40,7 @@ export class DigitalSignComponent implements OnInit {
   contactdata: any;
   contactid: String;
   type: String;
+  newtype: String;
   contactfirstName: String;
   contactlastName: String;
   contactemail: String;
@@ -49,6 +51,9 @@ export class DigitalSignComponent implements OnInit {
   firstnameerror: String;
   lasterror: String;
   emailerror: String;
+  nocontacts: String;
+  adduserarray = [];
+  adduserresult: any;
   myOptions: INgxMyDpOptions = {
     // other options...
     dateFormat: 'mm-dd-yyyy',
@@ -61,11 +66,12 @@ export class DigitalSignComponent implements OnInit {
   constructor(private http: HttpClient,
     private domSanitizer: DomSanitizer,
     private auth: AuthenticationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
     // private dialogService: DialogService
   ) { }
   addparticipantForm = this.fb.group({
-    type: ['', Validators.required],
+    newtype: ['', Validators.required],
     firstName: ['', Validators.required],
     email: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -108,6 +114,9 @@ export class DigitalSignComponent implements OnInit {
             .subscribe(data => {
               this.showcontacts = data;
               this.mycontacts = this.showcontacts.data;
+               if (!this.mycontacts.length) {
+                 this.nocontacts = 'No Contacts';
+               }
             });
         });
     });
@@ -197,7 +206,7 @@ export class DigitalSignComponent implements OnInit {
   // ------------------------ add new participant --------------------- //
 
   addnewparticipant() {
-    let type = this.addparticipantForm.controls.type.value;
+    let type = this.addparticipantForm.controls.newtype.value;
     if (type === '') {
       type = 'Remote Signer';
     }
@@ -246,7 +255,7 @@ export class DigitalSignComponent implements OnInit {
         .subscribe(data => {
           this.contactList = data;
           if (this.contactList.message === 1) {
-            this.contacts.push({ name: firstName + ' ' + lastName, type: type, email: email });
+            this.contacts.push({ id: this.contactList.id, name: firstName + ' ' + lastName, type: type, email: email });
             this.addparticipantForm.reset();
             this.addparticipantModal.close();
           } else {
@@ -261,32 +270,36 @@ export class DigitalSignComponent implements OnInit {
   }
   // ------------------------ get contact details ------------- //
 
-  contactdetail(email: String) {
+  contactdetail(id: String) {
     this.error = null;
     this.mycontactsModal.close();
     this.loading = true;
-    this.http.get('http://localhost:3000/api/contactdetail/' + email + '/' + this.userid)
+    this.http.get('http://localhost:3000/api/contactdetail/' + id)
       .subscribe(data => {
         this.contactdata = data;
-        this.type = this.contactdata.data[0].type;
+        this.type = 'Remote Signer';
         this.contactid = this.contactdata.data[0]._id;
         this.contactfirstName = this.contactdata.data[0].firstName;
         this.contactlastName = this.contactdata.data[0].lastName;
         this.contactemail = this.contactdata.data[0].email;
         this.contactdetailModal.open();
         this.loading = false;
+      }, err => {
+        this.error = err;
+        this.loading = false;
       });
   }
 
   // ------------------------ add participant from contacts------ //
 
-  // ------------------------ add new participant --------------------- //
 
   addfromcontact(form) {
     let type = form.type;
     if (type === '') {
       type = 'Remote Signer';
     }
+
+    const contactId = form.contactid;
     const firstName = form.firstName;
     const lastName = form.lastName;
     const email = form.email;
@@ -321,12 +334,9 @@ export class DigitalSignComponent implements OnInit {
       }
       this.emailerror = null;
     }
-
-
-
     if (!emailalreadyexist) {
       this.contactList = 'a';
-      this.contacts.push({ name: firstName + ' ' + lastName, type: type, email: email });
+      this.contacts.push({ id: contactId, name: firstName + ' ' + lastName, type: type, email: email });
       this.contactdetailForm.reset();
       this.contactdetailModal.close();
     } else {
@@ -422,6 +432,9 @@ export class DigitalSignComponent implements OnInit {
       return el.email === email;
     });
     if (emailalreadyexist) {
+     if (this.contacts.length === 1) {
+      this.contactList = '';
+     }
       for (let i = 0; i < this.contacts.length; i++) {
         if (this.contacts[i].email && this.contacts[i].email === email) {
           this.contacts.splice(i, 1);
@@ -431,6 +444,29 @@ export class DigitalSignComponent implements OnInit {
     }
   }
 
+ // ----------------------------------------- add users to document -------------------------- //
+
+ adduserstodocument() {
+   this.loading = true;
+  for (let i = 0; i < this.contacts.length; i++) {
+    this.adduserarray.push({id: this.contacts[i].id});
+    }
+   // tslint:disable-next-line:max-line-length
+   this.http.post('http://localhost:3000/api/addusertodocument', {pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray})
+   .subscribe(data => {
+     this.loading = false;
+    this.adduserresult = data;
+    if (this.adduserresult.message === 'success') {
+      this.router.navigateByUrl('/pdfsign');
+    } else {
+      this.loading = false;
+      alert(this.adduserresult.message);
+    }
+     // console.log(data);
+   });
+ }
+
+ // ------------------------------------------
   logout() {
     this.auth.logout();
   }
@@ -442,13 +478,15 @@ export class DigitalSignComponent implements OnInit {
     this.emailerror = null;
   this.participantModal.open();
 }
-addnewpaticipant()
-{
+addnewparticipantmodal() {
   this.firstnameerror = null;
   this.lasterror  = null;
   this.emailerror = null;
+  this.firstName = null;
+  this.addparticipantForm.reset();
+  this.newtype = 'Remote Signer';
   this.addparticipantModal.open();
- this.participantModal.close();
+  this.participantModal.close();
 }
 }
 // @Component({

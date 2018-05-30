@@ -1,15 +1,20 @@
 var mongoose = require( 'mongoose' );
 var documentSchema = new mongoose.Schema({
   documentid: String,
-  userid: [{
+  userid: {
      type: mongoose.Schema.Types.ObjectId,
-     ref: 'User',
-     priority : Number,
-     signed: Boolean
-  }],
-  documenthtml: String,
+     ref: 'User'
+  },
+  usertosign: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Contact'
+ },
+  documenthtml: {type:String,default: ''},
   withimage: Boolean,
-  actionrequired:String,
-  expiration : String
+  priority : Number,
+  actionrequired:{type:String,default:'Not Signed'},
+  expiration : String,
+  dateadded:{type : Date,default: Date.now},
+
 });
 mongoose.model('Document', documentSchema);
