@@ -6,17 +6,17 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Document = mongoose.model('Document');
 var DocStatus = mongoose.model('DocumentStatus');
-var Contact= mongoose.model('Contact');
+var Contact = mongoose.model('Contact');
 var formidable = require('formidable');
 var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
 var pdftohtml = require('pdftohtmljs');
 var base64Img = require('base64-img');
 var urlencodedParser = bodyParser.urlencoded({
-	extended: true
+  extended: true
 })
 var nodemailer = require('nodemailer');
-var fs=require('fs');
+var fs = require('fs');
 var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({
@@ -27,8 +27,8 @@ var PDFImage = require("pdf-image").PDFImage;
 var createHTML = require('create-html');
 
 
-router.use(bodyParser.urlencoded({limit: '50mb',extended: true,parameterLimit: 1000000}));   // { extended: true} to parse everything.if false it will parse only String
-router.use(bodyParser.json({limit: '50mb'}));
+router.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1000000 }));   // { extended: true} to parse everything.if false it will parse only String
+router.use(bodyParser.json({ limit: '50mb' }));
 
 router.use(cors())
 var ctrlProfile = require('../controllers/profile');
@@ -42,139 +42,141 @@ router.get('/profile', auth, ctrlProfile.profileRead);
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 router.post('/update', update);
-router.post('/upload',upload);
-router.post('/delete',userdelete);
-router.post('/email',useremail);
+router.post('/upload', upload);
+router.post('/delete', userdelete);
+router.post('/email', useremail);
 
 
 
-function update(req,res){
-//  console.log(req.body)
- var userid      = req.body.user_id;
-var phonenumber =req.body.phonenumber;
-var name       =req.body.name;
-var sec_email   =req.body.sec_email;
+function update(req, res) {
+  //  console.log(req.body)
+  var userid = req.body.user_id;
+  var phonenumber = req.body.phonenumber;
+  var name = req.body.name;
+  var sec_email = req.body.sec_email;
 
 
-User.find({_id :userid},function(err, result) {
-  if (err) {
-    res.status('400').json({
-      msg:"user not found",
-    data:err
-    })
-  }else{
-    // console.log(result);
-    var myquery = {_id :userid };
-  var newvalues = { $set: {
-     phonenumber :phonenumber,
-     name       :name,
-     secEmail  :sec_email
-  } };
-    User.updateOne(myquery, newvalues, function(err, result) {
-      if (err) {
-        console.log("failed to updated");
-        res.status('400').json({
-          msg:"data upadted failed",
-        data:err
-        })
-      }else{
-        User.find({_id :userid},function(err, result) {
-          if (err) {
-            res.status('400').json({
-              msg:"user not found",
-            data:err
-            })
-          }else{
+  User.find({ _id: userid }, function (err, result) {
+    if (err) {
+      res.status('400').json({
+        msg: "user not found",
+        data: err
+      })
+    } else {
+      // console.log(result);
+      var myquery = { _id: userid };
+      var newvalues = {
+        $set: {
+          phonenumber: phonenumber,
+          name: name,
+          secEmail: sec_email
+        }
+      };
+      User.updateOne(myquery, newvalues, function (err, result) {
+        if (err) {
+          console.log("failed to updated");
+          res.status('400').json({
+            msg: "data upadted failed",
+            data: err
+          })
+        } else {
+          User.find({ _id: userid }, function (err, result) {
+            if (err) {
+              res.status('400').json({
+                msg: "user not found",
+                data: err
+              })
+            } else {
 
 
-        console.log("1 document updated");
-        res.status('200').json({
-          msg:"data upadted sucessfully",
-        data:result
-        })
-      }
-    })
-  }
-      
-    });
+              console.log("1 document updated");
+              res.status('200').json({
+                msg: "data upadted sucessfully",
+                data: result
+              })
+            }
+          })
+        }
 
-  }
-  // db.close();
-});
+      });
 
- console.log("req")
+    }
+    // db.close();
+  });
+
+  console.log("req")
 
 }
 
 // ---------------------------------------------------
-function userdelete(req,res){
-  userid=req.body.id;
+function userdelete(req, res) {
+  userid = req.body.id;
   console.log(userid)
-  User.find({_id :userid},function(err, result) {
+  User.find({ _id: userid }, function (err, result) {
     if (err) {
       console.log('user not found')
       res.status('400').json({
-                msg:"user not found",
-    })}
-    else{
- console.log('user found')
- User.remove({_id :userid},function(err, result) {
-  if (err) {
-    console.log('user deleted not found')
-    res.status('400').json({
-      msg:"failed to delete user",
-})
-  }
-  else{
-console.log('user deleted')
-res.status('200').json({
-  msg:"sucess",
-})
-  }
-    // }
- } )
+        msg: "user not found",
+      })
+    }
+    else {
+      console.log('user found')
+      User.remove({ _id: userid }, function (err, result) {
+        if (err) {
+          console.log('user deleted not found')
+          res.status('400').json({
+            msg: "failed to delete user",
+          })
+        }
+        else {
+          console.log('user deleted')
+          res.status('200').json({
+            msg: "sucess",
+          })
+        }
+        // }
+      })
 
     }
-})
+  })
 }
 
 // =========================================================/
-function useremail(req,res){
+function useremail(req, res) {
   var ts = new Date().getTime();
-  email=req.body.email;
-  image64=req.body.image;
+  email = req.body.email;
+  image64 = req.body.image;
   // console.log(userid)
-  User.find({email :email},function(err, result) {
+  User.find({ email: email }, function (err, result) {
     if (err) {
       console.log('user not found')
       res.status('400').json({
-                msg:"user not found",
-    })
-  }
-    else{
-      var dir =path.join(__basedir,'/images/images/login/')+ts;
-      if(!fs.existsSync(dir)){
+        msg: "user not found",
+      })
+    }
+    else {
+      var dir = path.join(__basedir, '/images/images/login/') + ts;
+      if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
-        base64Img.img(image64, dir, 'image_'+ts, function(err, filepath) {
-          if(err) 
-          {
+        base64Img.img(image64, dir, 'image_' + ts, function (err, filepath) {
+          if (err) {
             console.log(err)
             res.send(err)
           }
-        var token;
-        //token = user.generateJwt();
-        var image=__basedir+'/images/images/login/'+ts+'/'+'image_'+ts;
-        res.status(200);
-        res.json({
-          knownimage:__basedir+'/images/images/'+ result[0]._id +"/"+result[0].image,
-         unknownimage:image,
-         
+          var token;
+          //token = user.generateJwt();
+          var image = __basedir + '/images/images/login/' + ts + '/' + 'image_' + ts;
+          res.status(200);
+          res.json({
+            knownimage: __basedir + '/images/images/' + result[0]._id + "/" + result[0].image,
+            unknownimage: image,
 
 
+
+          });
         });
-      });
+      }
     }
-  }
   });
 }
 //  console.log('user found')
@@ -212,42 +214,43 @@ function useremail(req,res){
 //   })
 // }
 // ----------------------------------------------------
- function upload (req, res) {
- // console.log("upload")
+function upload(req, res) {
+  // console.log("upload")
   // var form = new formidable.IncomingForm();
   //   form.parse(req, function (err, fields, files) {
-      var oldpath = files.filetoupload.path;
-      var newpath = '../pdf/' + files.filetoupload.name;
-      sampleFile = req.files.filetoupload;
-      sampleFile.mv('../' + newfilename[0], function (err,suc) {
-				if (err) {
-					res.status(500).send(err);
-				} else {
-          res.status(200).send(suc);
-        }})
-      // fs.rename(oldpath, newpath, function (err) {
-      //   if (err) {Request header field security-token is not allowed by Access-Control-Allow-Headers in preflight response
-      //     throw err;
-      //     console.log('im')
-      //   }
-      //   //res.write('File uploaded and moved!');
-      //   //res.end();
-      //   else{
-      //     console.log('im')
-          
-      //     res.status(200).json({
-      //       url:'/home/pc/Desktop/jagveer/face-recognition/pdf/' + files.filetoupload.name
-      //     })
-      //   }
-        
-      // });
-//  });
+  var oldpath = files.filetoupload.path;
+  var newpath = '../pdf/' + files.filetoupload.name;
+  sampleFile = req.files.filetoupload;
+  sampleFile.mv('../' + newfilename[0], function (err, suc) {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(suc);
+    }
+  })
+  // fs.rename(oldpath, newpath, function (err) {
+  //   if (err) {Request header field security-token is not allowed by Access-Control-Allow-Headers in preflight response
+  //     throw err;
+  //     console.log('im')
+  //   }
+  //   //res.write('File uploaded and moved!');
+  //   //res.end();
+  //   else{
+  //     console.log('im')
+
+  //     res.status(200).json({
+  //       url:'/home/pc/Desktop/jagveer/face-recognition/pdf/' + files.filetoupload.name
+  //     })
+  //   }
+
+  // });
+  //  });
 }
 
 
 
 
-router.post("/uploadfile", function(req,res){
+router.post("/uploadfile", function (req, res) {
   //global.appRoot = path.resolve(__dirname);
   console.log(global.appRoot)
   // var str= global.appRoot;
@@ -255,38 +258,38 @@ router.post("/uploadfile", function(req,res){
   // var last = rest.substring(0, rest.lastIndexOf("/") + 1);
 
   var ts = new Date().getTime();
-  var dir =path.join(__basedir,'/uploadedpdf/uploadedpdf/')+ts;
-  if(!fs.existsSync(dir)){
+  var dir = path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts;
+  if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
       var oldpath = files.filetoupload.path;
-      var timestamp =new Date().getTime();
+      var timestamp = new Date().getTime();
       // /home/pc/Desktop/ezeesteve/pdf
-      var newpath = path.join(__basedir,'/uploadedpdf/uploadedpdf/')+ts+'/' + 'pdf.pdf';
+      var newpath = path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf';
       console.log(newpath)
       fs.rename(oldpath, newpath, function (err) {
         if (err) {
-         res.status(503).json({
-           error: "Something went Wrong.Please Try Agiain.."
-         })
+          res.status(503).json({
+            error: "Something went Wrong.Please Try Agiain.."
+          })
         }
         else {
           // res.status(200).json({
           //   // file:"http://127.0.0.1:3000/html/"+new_name+".html"
           //   file:path.join(__basedir,'/uploadedpdf/uploadedpdf/')+ts +'/'+ files.filetoupload.name
-            
+
           //   })
-           
-          var pdfImage = new PDFImage(path.join(__basedir,'/uploadedpdf/uploadedpdf/')+ts +'/'+ 'pdf.pdf');
+
+          var pdfImage = new PDFImage(path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf');
           pdfImage.convertFile().then(function (imagePaths) {
             res.status(200).json({
-                // file:"http://127.0.0.1:3000/html/"+new_name+".html"
-                path:'/uploadedpdf/'+ts +'/'+ 'pdf.pdf',
-                pdfid:ts
-                
-                })
-           }, function (err) {
+              // file:"http://127.0.0.1:3000/html/"+new_name+".html"
+              path: '/uploadedpdf/' + ts + '/' + 'pdf.pdf',
+              pdfid: ts
+
+            })
+          }, function (err) {
             res.status(503).json({
               error: "Something went Wrong.Please Try Agiain.."
             })
@@ -294,76 +297,76 @@ router.post("/uploadfile", function(req,res){
         }
       });
     })
-}
+  }
 
 })
 
- 
-router.post("/pdfdetail", function(req,res){
- // console.log(req.body.pdfid)
-  const pdfid = req.body.pdfid;
-  const dir = path.join(__basedir,'/uploadedpdf/uploadedpdf/')+pdfid;
 
-   fs.readdir(dir, (err, files) => {
- // console.log(files.length);
-  res.status(200).json({
-    fileslength: files.length - 1,
-  })
-   });
+router.post("/pdfdetail", function (req, res) {
+  // console.log(req.body.pdfid)
+  const pdfid = req.body.pdfid;
+  const dir = path.join(__basedir, '/uploadedpdf/uploadedpdf/') + pdfid;
+
+  fs.readdir(dir, (err, files) => {
+    // console.log(files.length);
+    res.status(200).json({
+      fileslength: files.length - 1,
+    })
+  });
 })
 
 // ----------------------------- get users's list ----------------------- // 
 
 
-router.get("/userlist/:userId/:docId", function(req,res){
+router.get("/userlist/:userId/:docId", function (req, res) {
   var userlist = [];
   var userdata = [];
   var count = 0;
-  Document.find({userid: req.params.userId,documentid: req.params.docId},'usertosign',function(err, users) {
-  if (err) {
-    res.status(400).json({
-    data:err
-    })
-  }else{
-  //  console.log(users)
-    for(let i=0;i<users.length;i++) {
-      userlist.push({id:users[i].usertosign});
-    }
-    for(let i= 0;i<userlist.length;i++) {
-    Contact.findOne({_id:userlist[i].id},'firstName lastName email',function(err,contact) {
-     if(err) {
+  Document.find({ userid: req.params.userId, documentid: req.params.docId }, 'usertosign', function (err, users) {
+    if (err) {
       res.status(400).json({
-        data:err
+        data: err
+      })
+    } else {
+      //  console.log(users)
+      for (let i = 0; i < users.length; i++) {
+        userlist.push({ id: users[i].usertosign });
+      }
+      for (let i = 0; i < userlist.length; i++) {
+        Contact.findOne({ _id: userlist[i].id }, 'firstName lastName email', function (err, contact) {
+          if (err) {
+            res.status(400).json({
+              data: err
+            })
+          } else {
+
+            //  console.log(userlist)
+            userdata.push({ _id: contact._id, firstName: contact.firstName, lastName: contact.lastName, email: contact.email })
+            count++;
+            if (count === userlist.length) {
+              res.status(200).json({
+                data: userdata
+              })
+            }
+          }
         })
-     } else {
-       
-     //  console.log(userlist)
-      userdata.push({_id:contact._id,firstName:contact.firstName,lastName:contact.lastName,email:contact.email}) 
-      count++;
-      if(count === userlist.length) {
-        res.status(200).json({
-          data: userdata
-        })
-      } 
+      }
     }
-   })   
-    }
-  }
-})
+  })
 })
 
 // -------------------------  get user detail ---------------------------- //
 
-router.get("/userdetail/:userid", function(req,res){
-  Contact.findOne({_id:req.params.userid},'firstName lastName email',function(err, user) {
+router.get("/userdetail/:userid", function (req, res) {
+  Contact.findOne({ _id: req.params.userid }, 'firstName lastName email', function (err, user) {
     if (err) {
       res.status(400).json({
-      msg:"user not found",
-      data:err
+        msg: "user not found",
+        data: err
       })
-    }else{
+    } else {
       res.status(200).json({
-      data:user
+        data: user
       });
     }
   })
@@ -400,37 +403,37 @@ router.post('/savehtml', function (req, res) {
   //          message: err
   //        })
   //      } else {
-       
+
   //       res.status(200).json({
   //                message: 'Success'
   //              })
   //      }
   //    })
-   
+
   //   }
- 
+
   // })
-// }
-//   })
-  Document.update({documentid:req.body.pdfid}, {$set:{documenthtml:req.body.html}},{multi: true},function(err,update){
-    if(err) {
-             res.status(400).json({
-               message: err
-             })
-           } else {
-  DocStatus.updateOne({documentid:req.body.pdfid},{$set:{documentstatus :'Pending'}},function(err,updatestatus) {
-    if(err) {
+  // }
+  //   })
+  Document.update({ documentid: req.body.pdfid }, { $set: { documenthtml: req.body.html } }, { multi: true }, function (err, update) {
+    if (err) {
       res.status(400).json({
         message: err
       })
     } else {
-      res.status(200).json({
-        message: 'Success'
+      DocStatus.updateOne({ documentid: req.body.pdfid }, { $set: { documentstatus: 'Pending' } }, function (err, updatestatus) {
+        if (err) {
+          res.status(400).json({
+            message: err
+          })
+        } else {
+          res.status(200).json({
+            message: 'Success'
+          })
+        }
       })
     }
-  })           
-}
-})
+  })
 })
 
 
@@ -439,203 +442,203 @@ router.post('/savehtml', function (req, res) {
 
 router.post('/senddocument', function (req, res) {
 
-  Document.update({documentid:req.body.pdfid}, {$set:{documenthtml:req.body.html}},{multi: true},function(err,update){
-    if(err) {
-             res.status(400).json({
-               message: err
-             })
-           } else {
-
-   Document.findOne({documentid:req.body.pdfid,priority:1},'usertosign',function(err,doc) {
-    if(err) {
+  Document.update({ documentid: req.body.pdfid }, { $set: { documenthtml: req.body.html } }, { multi: true }, function (err, update) {
+    if (err) {
       res.status(400).json({
         message: err
       })
     } else {
-   DocStatus.updateOne({documentid:req.body.pdfid},{$set:{documentstatus:'Completed'}},function(err,status){
-     if(err) {
-      res.status(400).json({
-        message: err
-      })
-     } else {
-      Contact.findOne({_id: doc.usertosign}, 'email',function(err,data) {
-        var toEmailAddress = data.email;
-        var mailAccountUser = 'work.jagveer@gmail.com'
-        var mailAccountPassword = 'jagveer@123'
-        var fromEmailAddress = 'work.jagveer@gmail.com'
-        var transport = nodemailer.createTransport({
-          service: 'gmail',
-          auth: {
-            user: mailAccountUser,
-            pass: mailAccountPassword
-          }
-        })
-        var mail = {
-          from: fromEmailAddress,
-          to: toEmailAddress,
-          subject: "EzeeSteve Document Sign ",
-          html: '<p>Click <a href="https://localhost:4200/signpdf/' +  doc._id + '/' + req.body.userid+'">here</a></p>' 
-        }
-    
-        transport.sendMail(mail, function (error, response) {
-          if (error) {
-            res.json({
-              success: error,
-              message: "Something went wrong.Please Try Again"
-            })
-          } else {
-           res.status(200).json({
-             message: 'Email Sent Successfully'
-           })
-          }
-    
-          transport.close();
-        });
-      }) 
-     }
-   })
-    }
-   })         
 
-           }
-}) 
+      Document.findOne({ documentid: req.body.pdfid, priority: 1 }, 'usertosign', function (err, doc) {
+        if (err) {
+          res.status(400).json({
+            message: err
+          })
+        } else {
+          DocStatus.updateOne({ documentid: req.body.pdfid }, { $set: { documentstatus: 'Completed' } }, function (err, status) {
+            if (err) {
+              res.status(400).json({
+                message: err
+              })
+            } else {
+              Contact.findOne({ _id: doc.usertosign }, 'email', function (err, data) {
+                var toEmailAddress = data.email;
+                var mailAccountUser = 'work.jagveer@gmail.com'
+                var mailAccountPassword = 'jagveer@123'
+                var fromEmailAddress = 'work.jagveer@gmail.com'
+                var transport = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                    user: mailAccountUser,
+                    pass: mailAccountPassword
+                  }
+                })
+                var mail = {
+                  from: fromEmailAddress,
+                  to: toEmailAddress,
+                  subject: "EzeeSteve Document Sign ",
+                  html: '<p>Click <a href="https://localhost:4200/signpdf/' + doc._id + '/' + req.body.userid + '">here</a></p>'
+                }
+
+                transport.sendMail(mail, function (error, response) {
+                  if (error) {
+                    res.json({
+                      success: error,
+                      message: "Something went wrong.Please Try Again"
+                    })
+                  } else {
+                    res.status(200).json({
+                      message: 'Email Sent Successfully'
+                    })
+                  }
+
+                  transport.close();
+                });
+              })
+            }
+          })
+        }
+      })
+
+    }
+  })
 })
-  // var document = new Document();
-  // document.documentid = req.body.pdfid;
-  // document.userid = req.body.userid;
-  // document.documenthtml = req.body.html;
-  // document.actionrequired = 'Completed';
-  // document.expiration = req.body.expdate;
-  // document.save(function(err,document) {
-  //   if(err){
-  //     res.status(400).json({
-  //       message : err
-  //     });
-  //   } else {
-  //    // console.log(document._id);
-  //    Contact.update({docrefId: req.body.docid},{$set:{saveddocId: document._id}},function(err,update) {
-  //      if(err) {
-  //        res.status(400).json({
-  //          message: err
-  //        })
-  //      } else {
-  //       Contact.findOne({docrefId: req.body.docid,priority : 1}, 'email',function(err,data) {
-  //         var toEmailAddress = data.email;
-  //         var mailAccountUser = 'work.jagveer@gmail.com'
-  //         var mailAccountPassword = 'jagveer@123'
-  //         var fromEmailAddress = 'work.jagveer@gmail.com'
-  //         var transport = nodemailer.createTransport({
-  //           service: 'gmail',
-  //           auth: {
-  //             user: mailAccountUser,
-  //             pass: mailAccountPassword
-  //           }
-  //         })
-  //         var mail = {
-  //           from: fromEmailAddress,
-  //           to: toEmailAddress,
-  //           subject: "EzeeSteve Document Sign ",
-  //           html: '<p>Click <a href="https://localhost:4200/signpdf/' +  document._id + '">here</a></p>' 
-  //         }
-      
-  //         transport.sendMail(mail, function (error, response) {
-  //           if (error) {
-  //             res.json({
-  //               success: error,
-  //               message: "Something went wrong.Please Try Again"
-  //             })
-  //           } else {
-  //            res.status(200).json({
-  //              message: 'Email Sent Successfully'
-  //            })
-  //           }
-      
-  //           transport.close();
-  //         });
-  //       })
-  //      }
-  //    })
-   
-  //   }
- 
-  // })
+// var document = new Document();
+// document.documentid = req.body.pdfid;
+// document.userid = req.body.userid;
+// document.documenthtml = req.body.html;
+// document.actionrequired = 'Completed';
+// document.expiration = req.body.expdate;
+// document.save(function(err,document) {
+//   if(err){
+//     res.status(400).json({
+//       message : err
+//     });
+//   } else {
+//    // console.log(document._id);
+//    Contact.update({docrefId: req.body.docid},{$set:{saveddocId: document._id}},function(err,update) {
+//      if(err) {
+//        res.status(400).json({
+//          message: err
+//        })
+//      } else {
+//       Contact.findOne({docrefId: req.body.docid,priority : 1}, 'email',function(err,data) {
+//         var toEmailAddress = data.email;
+//         var mailAccountUser = 'work.jagveer@gmail.com'
+//         var mailAccountPassword = 'jagveer@123'
+//         var fromEmailAddress = 'work.jagveer@gmail.com'
+//         var transport = nodemailer.createTransport({
+//           service: 'gmail',
+//           auth: {
+//             user: mailAccountUser,
+//             pass: mailAccountPassword
+//           }
+//         })
+//         var mail = {
+//           from: fromEmailAddress,
+//           to: toEmailAddress,
+//           subject: "EzeeSteve Document Sign ",
+//           html: '<p>Click <a href="https://localhost:4200/signpdf/' +  document._id + '">here</a></p>' 
+//         }
+
+//         transport.sendMail(mail, function (error, response) {
+//           if (error) {
+//             res.json({
+//               success: error,
+//               message: "Something went wrong.Please Try Again"
+//             })
+//           } else {
+//            res.status(200).json({
+//              message: 'Email Sent Successfully'
+//            })
+//           }
+
+//           transport.close();
+//         });
+//       })
+//      }
+//    })
+
+//   }
+
+// })
 
 
 
 // --------------------------- get document -------------------------//\
 
-router.get('/getdocument/:userid/:documentid',function(req,res) {
+router.get('/getdocument/:userid/:documentid', function (req, res) {
 
-  Document.findOne({_id:req.params.documentid,userid:req.params.userid},'documenthtml',function(err,dochtml) {
-   if(err) {
-     res.status(400).json({
-       message:err
-     })
-   } else {
-     res.status(200).json({
-       data:dochtml
-     })
-   }
-  
+  Document.findOne({ _id: req.params.documentid, userid: req.params.userid }, 'documenthtml', function (err, dochtml) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      res.status(200).json({
+        data: dochtml
+      })
+    }
+
   })
 })
 
 // ----------------------- get document count ------------------------- //
 
-router.get('/documentcount/:userid',function(req,res) {
+router.get('/documentcount/:userid', function (req, res) {
 
-  Document.find({userid:req.params.userid}).count(function(err,count) {
-  if(err) {
-    res.status(400).json({
-      message:err
-    })
-  } else {
-    var documentcount = count+"";
-    while (documentcount.length < 8) documentcount = "0" + documentcount;
-    res.status(200).json({
-      data:documentcount
-    })
-  }
+  Document.find({ userid: req.params.userid }).count(function (err, count) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      var documentcount = count + "";
+      while (documentcount.length < 8) documentcount = "0" + documentcount;
+      res.status(200).json({
+        data: documentcount
+      })
+    }
 
-  }) 
+  })
 
 })
 
 // ----------------------- check user is eligible to open doc or not ------------------------- //
 
-router.get('/checkeligibility/:useremail/:docid/:userid',function(req,res) {
+router.get('/checkeligibility/:useremail/:docid/:userid', function (req, res) {
 
-  Contact.findOne({userId:req.params.userid,email:req.params.useremail},function(err,user) {
-    if(err) {
+  Contact.findOne({ userId: req.params.userid, email: req.params.useremail }, function (err, user) {
+    if (err) {
       res.status(400).json({
-        message:err
+        message: err
       })
     } else {
-      if(!user) {
+      if (!user) {
         res.status(400).json({
-          data:0                  // 0 - user is  not eligible
+          data: 0                  // 0 - user is  not eligible
         })
 
-       
+
       } else {
-        Document.find({usertosign:user._id,_id:req.params.docid}).count(function(err,count) {
-          if(err) {
+        Document.find({ usertosign: user._id, _id: req.params.docid }).count(function (err, count) {
+          if (err) {
             res.status(400).json({
-              message:err
+              message: err
             })
           } else {
-            if(count>0) {
+            if (count > 0) {
               res.status(200).json({
-                data:1                   // 1 - user is eligible
+                data: 1                   // 1 - user is eligible
               })
             } else {
               res.status(200).json({
-                data:0                   // 0 - user is  not eligible
+                data: 0                   // 0 - user is  not eligible
               })
             }
           }
-        
-          }) 
+
+        })
       }
     }
   })
@@ -645,7 +648,7 @@ router.get('/checkeligibility/:useremail/:docid/:userid',function(req,res) {
 
 //--------------------------- add new participant --------------------- //
 
-router.post('/addnewparticipant', function(req,res) {
+router.post('/addnewparticipant', function (req, res) {
   const contact = new Contact();
   contact.userId = req.body.userId;
   contact.firstName = req.body.firstName;
@@ -657,30 +660,30 @@ router.post('/addnewparticipant', function(req,res) {
   // contact.docrefId = req.body.docId;
   // contact.priority = req.body.priority;
   // contact.type = req.body.type;
-  Contact.findOne({email:req.body.email,userId:req.body.userId}).count(function(err,count) {
-    if(err) {
+  Contact.findOne({ email: req.body.email, userId: req.body.userId }).count(function (err, count) {
+    if (err) {
       res.status(400).json({
-        message:err
+        message: err
       })
     } else {
-      if(count>0) {
+      if (count > 0) {
         res.status(200).json({
-          message : 2                    // 2 = user already in your contact list
+          message: 2                    // 2 = user already in your contact list
         })
       } else {
-        contact.save(function(err,contact) {
-          if(err){
+        contact.save(function (err, contact) {
+          if (err) {
             res.status(400).json({
-              message : err
+              message: err
             });
           } else {
             res.status(200).json({
-              id:contact._id,
-              message : 1               // 1 = contact created successfully
+              id: contact._id,
+              message: 1               // 1 = contact created successfully
             })
           }
-      })
-    }
+        })
+      }
     }
   })
 })
@@ -688,166 +691,164 @@ router.post('/addnewparticipant', function(req,res) {
 
 // ------------------------------ get user contacts ----------------------//
 
-router.get('/mycontacts/:userid',function(req,res) {
-Contact.find({userId:req.params.userid},'email firstName lastName',function(err,contacts) {
-  if(err) {
-    res.status(400).json({
-     message: err
-    })
-  } else {
-    res.status(200).json({
-      data:contacts
-    })
-  }
-})
+router.get('/mycontacts/:userid', function (req, res) {
+  Contact.find({ userId: req.params.userid }, 'email firstName lastName', function (err, contacts) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      res.status(200).json({
+        data: contacts
+      })
+    }
+  })
 })
 
 //------------------------------ get user contact detail ------------------ //
 
-router.get('/contactdetail/:id',function(req,res) {
-Contact.find({_id:req.params.id},'email firstName lastName type',function(err,contactdetail) {
-  if(err) {
-    res.status(400).json({
-      message:err
-    })
-  } else {
-    res.status(200).json({
-      data: contactdetail
-    })
-  }
-})
+router.get('/contactdetail/:id', function (req, res) {
+  Contact.find({ _id: req.params.id }, 'email firstName lastName type', function (err, contactdetail) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      res.status(200).json({
+        data: contactdetail
+      })
+    }
+  })
 })
 
 // ------------------------ add users to document ----------------------------------------//
 
-router.post('/addusertodocument', function(req,res) {
- // var usertosign  = 
-//console.log(req.body.usertosign.length)
-var success = [];
-var count = 0;
-var docstatus = new DocStatus();
-docstatus.documentid = req.body.pdfid;
-docstatus.userid = req.body.userid;
-docstatus.save(function(err,status) {
-if(err) {
-  res.status(400).json({
-    message : err
-  });
-} else {
-  for( let i = 0;i<req.body.usertosign.length;i++) {
-    //console.log(req.body.usertosign[i].id)
-    var document = new Document();
-    document.documentid = req.body.pdfid;
-    document.userid = req.body.userid;
-    document.usertosign = req.body.usertosign[i].id;
-    document.priority = i+1;
-    document.actionrequired = 'Not Signed';
-    document.expiration = req.body.expdate;
-    document.save(function(err,document) {
-      if(err){
-        res.status(400).json({
-          message : err
-        });
-      } else {
-        success.push('success');
-        count++;
-        if(count === req.body.usertosign.length) 
-        {
-         res.status(200).json({
-          message : 'success'
-        }); 
-        }
-      }
-    })
-  }
-}
-})
-})
-
-
-
-router.post('/updatedoc', function(req,res) {
-  Document.findOne({_id:req.body.docid},'documentid',function(err,doc) {
-     if(err) {
-     res.status(400).json({
-       message: err
-     })
-   } else {
-    Document.updateOne({_id:req.body.docid,userid: req.body.userid},{$set:{actionrequired:'Signed'}},function(err,status) {
-      if (err) {
-        res.status(400).json({
-          message:err
-        })
-      } else 
-    {
-    Document.update({documentid: doc.documentid},{$set:{documenthtml:req.body.html}},{multi:true},function(err,update) {
-      if(err) {
-        res.status(400).json({
-          message: err
-        })
-      } else {
-        Document.findOne({documentid:doc.documentid,user:{$ne:req.body.userid},actionrequired:'Not Signed'},'usertosign',function(err,user) {
-          if(err) {
-           res.status(400).json({
-             message:err
-           })
+router.post('/addusertodocument', function (req, res) {
+  // var usertosign  = 
+  //console.log(req.body.usertosign.length)
+  var success = [];
+  var count = 0;
+  var docstatus = new DocStatus();
+  docstatus.documentid = req.body.pdfid;
+  docstatus.userid = req.body.userid;
+  docstatus.save(function (err, status) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      });
+    } else {
+      for (let i = 0; i < req.body.usertosign.length; i++) {
+        //console.log(req.body.usertosign[i].id)
+        var document = new Document();
+        document.documentid = req.body.pdfid;
+        document.userid = req.body.userid;
+        document.usertosign = req.body.usertosign[i].id;
+        document.priority = i + 1;
+        document.actionrequired = 'Not Signed';
+        document.expiration = req.body.expdate;
+        document.save(function (err, document) {
+          if (err) {
+            res.status(400).json({
+              message: err
+            });
           } else {
-            if(!user) {
-           res.status(200).json({
-              message:'success'
-           })
-            } else {
-          Contact.findOne({_id:user.usertosign},'email',function(err,contact){
-            if(err) {
+            success.push('success');
+            count++;
+            if (count === req.body.usertosign.length) {
+              res.status(200).json({
+                message: 'success'
+              });
+            }
+          }
+        })
+      }
+    }
+  })
+})
+
+
+
+router.post('/updatedoc', function (req, res) {
+  Document.findOne({ _id: req.body.docid }, 'documentid', function (err, doc) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      Document.updateOne({ _id: req.body.docid, userid: req.body.userid }, { $set: { actionrequired: 'Signed' } }, function (err, status) {
+        if (err) {
+          res.status(400).json({
+            message: err
+          })
+        } else {
+          Document.update({ documentid: doc.documentid }, { $set: { documenthtml: req.body.html, signedTime: Date.now } }, { multi: true }, function (err, update) {
+            if (err) {
               res.status(400).json({
-                message:err
+                message: err
               })
-             } else {
-              var toEmailAddress = contact.email;
-              var mailAccountUser = 'work.jagveer@gmail.com'
-              var mailAccountPassword = 'jagveer@123'
-              var fromEmailAddress = 'work.jagveer@gmail.com'
-              var transport = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: mailAccountUser,
-                  pass: mailAccountPassword
-                }
-              })
-              var mail = {
-                from: fromEmailAddress,
-                to: toEmailAddress,
-                subject: "EzeeSteve Document Sign ",
-                html: '<p>Click <a href="https://localhost:4200/signpdf/' +  user._id + '/' + req.body.userid+ '">here</a></p>' 
-              }
-          
-              transport.sendMail(mail, function (error, response) {
-                if (error) {
-                  res.json({
-                    success: error,
-                    message: "Something went wrong.Please Try Again"
+            } else {
+              Document.findOne({ documentid: doc.documentid, user: { $ne: req.body.userid }, actionrequired: 'Not Signed' }, 'usertosign', function (err, user) {
+                if (err) {
+                  res.status(400).json({
+                    message: err
                   })
                 } else {
-                 res.status(200).json({
-                   message: 'Success'
-                 })
+                  if (!user) {
+                    res.status(200).json({
+                      message: 'success'
+                    })
+                  } else {
+                    Contact.findOne({ _id: user.usertosign }, 'email', function (err, contact) {
+                      if (err) {
+                        res.status(400).json({
+                          message: err
+                        })
+                      } else {
+                        var toEmailAddress = contact.email;
+                        var mailAccountUser = 'work.jagveer@gmail.com'
+                        var mailAccountPassword = 'jagveer@123'
+                        var fromEmailAddress = 'work.jagveer@gmail.com'
+                        var transport = nodemailer.createTransport({
+                          service: 'gmail',
+                          auth: {
+                            user: mailAccountUser,
+                            pass: mailAccountPassword
+                          }
+                        })
+                        var mail = {
+                          from: fromEmailAddress,
+                          to: toEmailAddress,
+                          subject: "EzeeSteve Document Sign ",
+                          html: '<p>Click <a href="https://localhost:4200/signpdf/' + user._id + '/' + req.body.userid + '">here</a></p>'
+                        }
+
+                        transport.sendMail(mail, function (error, response) {
+                          if (error) {
+                            res.json({
+                              success: error,
+                              message: "Something went wrong.Please Try Again"
+                            })
+                          } else {
+                            res.status(200).json({
+                              message: 'Success'
+                            })
+                          }
+
+                          transport.close();
+                        });
+                      }
+
+                    })
+
+
+                  }
                 }
-          
-                transport.close();
-              });
-             }
-
-          }) 
-
-              
-            } 
-          }
-        }) 
-      }
-    })
-   }
-  })
-}
+              })
+            }
+          })
+        }
+      })
+    }
   })
 })
 //  Document.updateOne({_id: req.body.docid},{$set:{documenthtml:req.body.html}},function(err,update) {
@@ -869,57 +870,205 @@ router.post('/updatedoc', function(req,res) {
 //  })  
 // })
 
-router.get('/documentdetail/:documentid',function(req,res) {
-console.log('sad')
+router.get('/documentdetail/:documentid', function (req, res) {
+  console.log('sad')
+  // console.log(req.params.documentid)
+  var detailed = [];
+  var pdfdata = '';
+  Document.find({ _id: req.params.documentid }, function (err, data) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    }
+    else {
+      pdfdata = data;
+      for (let i = 0; i < data.length; i++) {
+        User.find({ _id: data[i].userid }, function (err, user) {
+          if (err) {
+            res.status(400).json({
+              message: err
+            })
+          }
+          else {
+            var userdata = user;
+
+            Contact.find({ _id: pdfdata[i].usertosign }, function (err, result) {
+              if (err) {
+                res.status(400).json({
+                  message: err
+                })
+              }
+              else {
+                // data[i].push({userid:result._id,name:result.firstName+" "+result.lastName})
+                if (result != '') {
+
+                  detailed.push({
+                    userid: result[i]._id,
+                    firstName: result[i].firstName,
+                    lastName: result[i].lastName,
+                    email: result[i].email,
+                    documentid: pdfdata[i].documentid,
+                    actionrequired: pdfdata[i].actionrequired,
+                    expiration: pdfdata[i].expiration,
+                    from: userdata[i].email
+
+
+                  })
+
+                  // console.log("------------------"+ JSON.stringify(detailed) +"-------------------")
+
+                }
+              } res.status(200).json({
+                data: detailed
+              })
+            })
+
+          }
+        })
+      }
+    }
+  })
 })
+// mycompleteddocuments
 
-
-router.get('/mydocuments/:userid',function(req,res) {
+router.get('/mycompleteddocuments/:userid', function (req, res) {
   var documents = [];
   var count = 0;
   var mydocuments = [];
-DocStatus.find({userid:req.params.userid,documentstatus:{$ne:'Initialize'}},'documentid documentstatus',function(err,doc) {
-  if(err) {
-    res.status(400).json({
-      message:err
+  var alldocs = [];
+  var uni_docs = [];
+  var detailed = [];
+  var docdata = [];
+  var test = [];
+  
+  var doc_id = '';
+  var newcount = 0;
+
+  Document.find({ userid: req.params.userid, actionrequired: 'Not Signed' }, 'signedTime documentid userid usertosign ',
+    function (err, doc) {
+      if (err) {
+        res.status(400).json({
+          message: err
+        })
+      } else {
+        console.log(doc.length);
+        //check on time is pending
+        alldocs = doc;
+        var length = doc.length;
+        for (let i = 0; i < doc.length; i++) {
+
+          if (uni_docs.indexOf(doc[i].documentid) == '-1') {
+            // console.log('if')
+            uni_docs.push(doc[i].documentid);
+            count++;
+          }
+          else {
+            // console.log('else')
+            count++;
+
+          }
+          if (count == length) {
+            reslength = uni_docs.length;
+            for (let r = 0; r < uni_docs.length; r++) {
+              console.log(r);
+              docdataa = [];
+              doc_id = uni_docs[r];
+              Document.find({ documentid: uni_docs[r] }, 'signedTime documentid userid usertosign ', function (err, suc) {
+                if (err) {
+                  console.log(err)
+                  newcount++;
+                  res.status(400).send({
+                    error: err
+                  })
+                }
+                else {
+                  // console.log(suc)
+                  docdataa.push(suc)
+                  test.push({user:suc})
+                  newcount++;
+                  docdataa['docid'] = uni_docs[r];
+                  // detailed[doc_id] = docdataa;
+                  if (reslength = newcount) {
+                    detailed['users']=docdataa;
+                    console.log(detailed);
+                    console.log(docdataa);
+                    test.push({docid:uni_docs[r]})
+                    // setTimeout(function(){ }, 3000);
+console.log(test)
+                    res.status(200).send({
+                      data: test,
+                   
+                    })
+                  }
+                }
+              })
+
+            }
+
+
+
+          }
+
+
+
+        }
+
+
+
+      }
     })
-  } else {
-//     console.log(doc[0].documentid)
-//  documents.push({id:doc.documentid});
-//  console.log(documents);
-for(let i = 0; i< doc.length; i++) {
-  documents.push({id:doc[i].documentid,documentstatus:doc[i].documentstatus})
-}
- for(let i = 0;i<documents.length;i++) {
- 
- Document.findOne({documentid:documents[i].id,actionrequired:'Not Signed'},'dateadded',function(err,docs){
-   if(err)  {
-    res.status(400).json({
-      message:err
-    })
-   } else {
-     var date = docs.dateadded.toDateString().substr(4,12);
-     var time = docs.dateadded.getHours() + ':' + docs.dateadded.getMinutes() + ':' + docs.dateadded.getSeconds();
-     var documentstatus = documents[i].documentstatus;
-     if(documentstatus == 'Pending') {
-      documentstatus = 'Send'
-     }
-     else {
-      documentstatus ='Sign'
-     }
-     mydocuments.push({id:docs._id,documentname:documents[i].id,date:date,time:time,documentstatus:documentstatus});
-     count++;
-   //  console.log(mydocuments);
-     if(count === documents.length) {
-      res.status(200).json({
-        data:mydocuments
+
+})
+
+// ---------------------------------------------------------------------------------------------------
+
+router.get('/mydocuments/:userid', function (req, res) {
+  var documents = [];
+  var count = 0;
+  var mydocuments = [];
+  DocStatus.find({ userid: req.params.userid, documentstatus: { $ne: 'Initialize' } }, 'documentid documentstatus', function (err, doc) {
+    if (err) {
+      res.status(400).json({
+        message: err
       })
-     }
+    } else {
+      //     console.log(doc[0].documentid)
+      //  documents.push({id:doc.documentid});
+      //  console.log(documents);
+      for (let i = 0; i < doc.length; i++) {
+        documents.push({ id: doc[i].documentid, documentstatus: doc[i].documentstatus })
+      }
+      for (let i = 0; i < documents.length; i++) {
+
+        Document.findOne({ documentid: documents[i].id, actionrequired: 'Not Signed' }, 'dateadded', function (err, docs) {
+          if (err) {
+            res.status(400).json({
+              message: err
+            })
+          } else {
+            var date = docs.dateadded.toDateString().substr(4, 12);
+            var time = docs.dateadded.getHours() + ':' + docs.dateadded.getMinutes() + ':' + docs.dateadded.getSeconds();
+            var documentstatus = documents[i].documentstatus;
+            if (documentstatus == 'Pending') {
+              documentstatus = 'Send'
+            }
+            else {
+              documentstatus = 'Sign'
+            }
+            mydocuments.push({ id: docs._id, documentname: documents[i].id, date: date, time: time, documentstatus: documentstatus });
+            count++;
+            //  console.log(mydocuments);
+            if (count === documents.length) {
+              res.status(200).json({
+                data: mydocuments
+              })
+            }
+          }
+        })
+      }
     }
- })  
- }
-  }
-})  
+  })
 
 })
 

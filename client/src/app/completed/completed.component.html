@@ -1,96 +1,95 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/signature.css"> 
+<link rel="stylesheet" href="assets/css/signature.css">
 <!-- <link rel="stylesheet" href="assets/css/mycustom.css">  -->
 <style>
-  .tooltip-inner {
-    width: 125px;
-    background:#b59848;
-    padding:5px 5px 5px 5px;
-    font-size:14px;
-    font-weight:bolder;
-height:auto;
-  }
+    .tooltip-inner {
+        width: 125px;
+        background: #b59848;
+        padding: 5px 5px 5px 5px;
+        font-size: 14px;
+        font-weight: bolder;
+        height: auto;
+    }
 
-.largefilep {
-position:fixed;
-width:100%;
-opacity:0.6;
-filter:alpha(opacity=60);
-top:0px;
-min-height:200px;
-height:100%;
-z-index:9999999999;
-background:#2c846d;
-font-size:20px;
-text-align:center;
-display:none;
-} 
+    .largefilep {
+        position: fixed;
+        width: 100%;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        top: 0px;
+        min-height: 200px;
+        height: 100%;
+        z-index: 9999999999;
+        background: #2c846d;
+        font-size: 20px;
+        text-align: center;
+        display: none;
+    }
 
-.encryptfilep {
-position:fixed;
-width:100%;
-opacity:0.6;
-filter:alpha(opacity=60);
-top:0px;
-min-height:200px;
-height:100%;
-z-index:9999999999;
-background:#5b4f71;
-font-size:20px;
-text-align:center;
-display:none;
-} 
+    .encryptfilep {
+        position: fixed;
+        width: 100%;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        top: 0px;
+        min-height: 200px;
+        height: 100%;
+        z-index: 9999999999;
+        background: #5b4f71;
+        font-size: 20px;
+        text-align: center;
+        display: none;
+    }
 
-.digitalfilep {
-position:fixed;
-width:100%;
-opacity:0.6;
-filter:alpha(opacity=60);
-top:0px;
-min-height:200px;
-height:100%;
-z-index:9999999999;
-background:#96450e;
-font-size:20px;
-text-align:center;
-display:none;
-}
+    .digitalfilep {
+        position: fixed;
+        width: 100%;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        top: 0px;
+        min-height: 200px;
+        height: 100%;
+        z-index: 9999999999;
+        background: #96450e;
+        font-size: 20px;
+        text-align: center;
+        display: none;
+    }
 
-.dropdown-menu {
-    left: -15%;
-  min-width: 100px;
-  margin-top:0%;
-  
-}	
-.caret {
+    .dropdown-menu {
+        left: -15%;
+        min-width: 100px;
+        margin-top: 0%;
 
-  color: #b49948;
-} 
+    }
 
-@media screen and (min-width: 1920px)
-{
-.latest-trend-box a img {
-  width: 195px;
- 
-}
-}
+    .caret {
 
-@media screen and (max-width: 699px) {
-  .hide_mob {
-      display: none;
+        color: #b49948;
+    }
 
-  }
-  
-}
+    @media screen and (min-width: 1920px) {
+        .latest-trend-box a img {
+            width: 195px;
 
-@media screen and (min-width: 699px) {
-  .lm {
-      display: none;
-      
-  }
-  
-}
+        }
+    }
 
+    @media screen and (max-width: 699px) {
+        .hide_mob {
+            display: none;
+
+        }
+
+    }
+
+    @media screen and (min-width: 699px) {
+        .lm {
+            display: none;
+
+        }
+
+    }
 </style>
 
 
@@ -98,416 +97,460 @@ display:none;
 
 
 <section class="hdrsec">
-  <div class="logoimg">
-      <img src="../../assets/img/ezee-logo.png" />
-  </div>
-
-
-  <div class="drp drpnw">
-            
-      <div class="col-lg-12 col-md-12  col-xs-12">
-         
-         <div class="hide_mob"><a href='/register'>
-              
-              <div class="list-part-home loginbtn">SIGN UP
-
-              </div></a>
-              
-              <a href='/login'>	<div class='list-part-home loginbtn' style="padding: 8px;color: #b59848;">LOG IN 
-              
-              </div></a>
-           </div>
-          
-          <div class="list-part-home lm" style="margin-right: 70px !important;">
-             
-             <li class='dropdown'>
-           
-              <a class='dropdown-toggle' data-toggle='dropdown' aria-expanded='false'><span class='title'> <i class="fa fa-bars"></i>&nbsp;&nbsp;</span></a>
-             
-             <ul class='dropdown-menu'>
-             
-                 <li><a href='/login'>LOG IN</a></li>
-             
-                 <li><a href='/regiser'>SIGN UP</a></li>
-
-             </ul>
-             
-             </li>
-          
-          </div>
-        </div> 
+    <div class="logoimg">
+        <img src="../../assets/img/ezee-logo.png" />
     </div>
+
+
+
 
 </section>
 
 
 <div class="container">
-                  
-  <div class="list-part">
 
-            <li class="dropdown">
-         
-   <a style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      
-  <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-         
-    <span class="title">Tarun &nbsp;&nbsp;<b class="caret"></b></span>
-          </a>
+    <div class="list-part">
 
-              <ul class="dropdown-menu">
-                
-    <li><a href="#">Logout</a></li>
-               
-     <li><a href="#">View Profile</a></li>
-              
-     <li id=""><a href="#">Change Password</a></li>
-           
-     <li><a href="#">Membership Order</a></li>
-  
-              </ul>
+        <li class="dropdown" dropdown>
 
-           </li>
-     
+            <a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>
+
+                <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span class="title">sdsd&nbsp;&nbsp;
+                    <b class="caret"></b>
+                </span>
+            </a>
+
+            <ul *dropdownMenu class="dropdown-menu">
+
+                <li>
+                    <a (click)="logout();">Logout</a>
+                </li>
+
+                <li>
+                    <a routerLink="/profile">View Profile</a>
+                </li>
+
+                <li id="">
+                    <a href="#">Change Password</a>
+                </li>
+
+                <li>
+                    <a href="#">Membership Order</a>
+                </li>
+
+            </ul>
+
+        </li>
+
+    </div>
+
 </div>
 
-  </div>
 
 
 
 
-<script language="javascript">
-  $(document).ready(function() {
-      $("#changepass").click(function() {
-          $("#shadow").fadeIn("normal"), $("#changepasswordform").fadeIn("normal")
-      }), $("#cancel_hide").click(function() {
-          $("#changepasswordform").fadeOut("normal"), $("#shadow").fadeOut("normal")
-      }), $(".closepar").click(function() {
-          $("#changepasswordss")[0].reset(), $("#changepasswordform").fadeOut("normal"), $("#error_password").html(""), $("#shadow").fadeOut("normal")
-      })
-  });
-  </script>
 
+<div class="container middlemargin">
 
-
-  <div class="container middlemargin">
-  
     <div class="row">
-    
-      <div class="col-lg-2 col-md-2 col-xs-12">
-         
-         <!--Instructions & logo part start-->		
-             
-         <div style="display:block; margin:0 auto;" class="col-lg-12"> 
-             
-           <a href="#" data-placement="right" data-toggle="tooltip" data-original-title=""><p class="pt51 pt567">&nbsp;&nbsp;<span class="fa fa-home"></span> &nbsp;Home</p></a>
-            
-          </div>	
-               
-           <a href="digital_signature.html">
-               
-             <img class="img-responsive img-portfolio2" src="../../assets/img/signature.png" style="margin-top:10%;" alt="" data-placement="right"> 
-               
-           </a>
-  
-  
-  
-   <script type="text/javascript">
-    $(function() {
-    $('#showhide').click(function() {
-    $("#slidediv").slideToggle();
-    });
-    });
-    </script>
-    
-    <style type="text/css">.arrow-top { top: -1px;}</style>
-     
-     <div class="wrapper2">
-    
-    <li style="list-style:none; cursor:pointer;" class="toggle">
-       
-       <a style="cursor: pointer;" class="list-part2" id="showhide" data-placement="right">
-    
-        <span class="title2">INSTRUCTIONS</span>
-       
-       </a>
-        
-      <ul style="display:none;" class="drop-popup" id="slidediv">
-         
-         <div class="arrow-top"><img src="../../assets/img/arrow-top.png"></div>
-          
-         <div class="inst-popup" style="font-family: Century Gothic; font-size: 14px; text-align: left; font-weight: bold; color: #333;">
-         
-         <ul style="list-style: none; padding: 0;">
-         
-             <li style="margin-bottom: 10px;">Step 1:  Upload or drag and drop PDF file.</li>
-         
-             <li style="margin-bottom: 10px;">Step 2:  Check box, if you require an expiration date (not mandatory).</li>
-             
-           <li style="margin-bottom: 10px;">Step 3:  Add participants.</li>
-             
-           <li style="margin-bottom: 10px;">Step 4:  You can rearrange signing order under "priority". Click on arrow up or down to change signing order (not mandatory). Click next to complete.</li>
-      
-      
-         </ul>
-    
+
+        <div class="col-lg-2 col-md-2 col-xs-12">
+
+            <!--Instructions & logo part start-->
+
+            <div style="display:block; margin:0 auto;" class="col-lg-12">
+
+                <a href="#" data-placement="right" data-toggle="tooltip" data-original-title="">
+                    <p class="pt51 pt567">&nbsp;&nbsp;
+                        <span class="fa fa-home"></span> &nbsp;Home</p>
+                </a>
+
+            </div>
+
+            <a href="digital_signature.html">
+
+                <img class="img-responsive img-portfolio2" src="../../assets/img/signature.png" style="margin-top:10%;" alt="" data-placement="right">
+
+            </a>
+
+
+
+
+
+            <style type="text/css">
+                .arrow-top {
+                    top: -1px;
+                }
+            </style>
+
+            <div class="wrapper2">
+
+                <li style="list-style:none; cursor:pointer;" class="toggle">
+
+                    <a style="cursor: pointer;" class="list-part2" id="showhide" data-placement="right">
+
+                        <span class="title2">INSTRUCTIONS</span>
+
+                    </a>
+
+                    <ul style="display:none;" class="drop-popup" id="slidediv">
+
+                        <div class="arrow-top">
+                            <img src="../../assets/img/arrow-top.png">
+                        </div>
+
+                        <div class="inst-popup" style="font-family: Century Gothic; font-size: 14px; text-align: left; font-weight: bold; color: #333;">
+
+                            <ul style="list-style: none; padding: 0;">
+
+                                <li style="margin-bottom: 10px;">Step 1: Upload or drag and drop PDF file.</li>
+
+                                <li style="margin-bottom: 10px;">Step 2: Check box, if you require an expiration date (not mandatory).</li>
+
+                                <li style="margin-bottom: 10px;">Step 3: Add participants.</li>
+
+                                <li style="margin-bottom: 10px;">Step 4: You can rearrange signing order under "priority". Click on arrow up or down to change
+                                    signing order (not mandatory). Click next to complete.</li>
+
+
+                            </ul>
+
+                        </div>
+
+                    </ul>
+
+                </li>
+
+            </div>
+
+
+            <div class="clearfix"></div>
+            <!--Instructions & logo part end-->
+
         </div>
-      
-      </ul>
-      
-      </li>
-    
-    </div>
-  
-  
-      <div class="clearfix"></div>	    <!--Instructions & logo part end-->
-      
-    </div>
-    
-    <div class="col-lg-10 col-md-10 col-xs-12">
-       
-         <div class="inner-part8" style="box-shadow:none !important;">
-        
-             <div class="col-lg-12">
-                  
-          <div class="col-lg-12">
-                   
-           <p class="pt10 encryption">e-signature</p>
-                  </div>
-   </div>           
-         
-      <div class="col-lg-12">
-           
-       <div class="tabs-left">
-  
-  <style type="text/css">
-  .active span.pt6
-  {
-      color:#fff !important;
-  }
-  </style>
-   
-   <!-- <ul class="nav nav-tabs6">
-     
-     <li class=""><a href="digital_signature.html"><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
-     
-     <li><a href="action_req.html"><span class="fa fa-ban"></span>&nbsp;&nbsp;<span class="pt6">Action Required</span></a></li>
-   
-    <li class="active"><a href="completed.html"><span class="fa fa-check"></span>&nbsp;&nbsp;<span class="pt6">Completed</span></a></li>
-   
-    <li class=""><a href="contactlist.html"><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
-   
-   </ul>             -->
-   <ul class="nav nav-tabs6">
-     
-        <li class=""><a routerLink=""><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
-        
-        <li class="active"><a routerLink="actionrequired"><span class="fa fa-ban"></span>&nbsp;&nbsp;<span class="pt6">Action Required</span></a></li>
-      
-       <li class=""><a routerLink=""><span class="fa fa-check"></span>&nbsp;&nbsp;<span class="pt6">Completed</span></a></li>
-      
-       <li class=""><a routerLink=""><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
-      
-      </ul>  
-       
-   <div id="myTabContent" class="tab-content">
-             
-    <div class="tab-pane1 active" id="home">
-          
-    <div class="col-lg-12 col-md-12 col-xs-12">
-            
-      <div class="table-responsive">
-       
-       <form method="get" action="">
-      
-        <div class="box3" style="border-radius:0px;">
-                 
-       <div class="col-lg-12 col-md-12 col-xs-12">
-                 
-       <div class="col-lg-1 col-md-1 col-xs-12"> </div>
-                   
-         <div class="col-lg-10 col-md-10 col-xs-12">
-                    
-          <div id="imaginary_container" class="group17">
-                      
-          <div class="input-group stylish-input-group group123">
-                        
-            <input type="text" name="search" style="border-radius:0px; font-family:&#39;Century Gothic&#39;;" class="form-control" placeholder="Search by user name or doc name">
-                        
-            <span class="input-group-addon " style="border-radius:0px;">
-                        
-            <!--<button type="submit"> <span class="glyphicon glyphicon-search"></span> </button>-->
-                         
-           </span> </div>
-                    
-          </div>
-                   
-         </div> <div class="col-lg-1 col-md-1 col-xs-12"> </div>
 
-                 </div>
-                 
-       <div class="col-lg-12 col-md-12 col-xs-12" style="">
-                  
-        <div class="col-lg-1 col-md-1 col-xs-12"> </div>
-                   
-         <div class="col-lg-5 col-md-5 col-xs-12">
-                     
-         <div class="form-group">
-                       
-           <div class="input-group date group12" id="datetimepicker11" style="margin-top:8%; width:215px;">
-                         
-           <span class="Zebra_DatePicker_Icon_Wrapper" style="display: block; position: relative; float: left; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%;"><input type="text" name="startdate" style="border-radius: 0px; font-family: &quot;Century Gothic&quot;; border: 0px; position: relative; top: auto; right: auto; bottom: auto; left: auto;" class="form-control" id="fromdate" placeholder="From:" readonly="readonly"><button type="button" class="Zebra_DatePicker_Icon Zebra_DatePicker_Icon_Inside_Right" style="top: 3px; right: 0px;">Pick a date</button></span>
-                         
-           </div>
-                    
-          </div>
-                   
-         </div>
-                   
-         <div class="col-lg-5 col-md-5 col-xs-12">
-                    
-          <div class="form-group">
-         
-                       <div class="input-group date group12" id="datetimepicker2" style="margin-top:8%; width:215px;">
-                         
-           <span class="Zebra_DatePicker_Icon_Wrapper" style="display: block; position: relative; float: left; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%;"><input type="text" name="todate" style="border-radius: 0px; font-family: &quot;Century Gothic&quot;; border: 0px; position: relative; top: auto; right: auto; bottom: auto; left: auto;" class="form-control" id="todate" placeholder="To:" readonly="readonly"><button type="button" class="Zebra_DatePicker_Icon Zebra_DatePicker_Icon_Inside_Right" style="top: 3px; right: 0px;">Pick a date</button></span>
-                         
-           </div>
-                     
-         </div>
-         
-                   </div>
-         
-         <div class="col-lg-1 col-md-1 col-xs-12"> </div>
-                
+        <div class="col-lg-10 col-md-10 col-xs-12">
+
+            <div class="inner-part8" style="box-shadow:none !important;">
+
+                <div class="col-lg-12">
+
+                    <div class="col-lg-12">
+
+                        <p class="pt10 encryption">e-signature</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="tabs-left">
+
+                        <style type="text/css">
+                            .active span.pt6 {
+                                color: #fff !important;
+                            }
+
+                            .tabs6 {
+                                background: #7a6220 !important;
+                            }
+                        </style>
+
+                        <ul class="nav nav-tabs6" style="background-color: #7a6220 !important">
+
+                            <li class="">
+                                <a>
+                                    <span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;
+                                    <span class="pt6">Compose</span>
+                                </a>
+                            </li>
+
+                            <li class="active">
+                                <a>
+                                    <span class="fa fa-ban"></span>&nbsp;&nbsp;
+                                    <span class="pt6">Action Required</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a>
+                                    <span class="fa fa-check"></span>&nbsp;&nbsp;
+                                    <span class="pt6">Completed</span>
+                                </a>
+                            </li>
+
+                            <li class="">
+                                <a>
+                                    <span class="fa fa-users"></span>&nbsp;&nbsp;
+                                    <span class="pt6">Contact</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <div id="myTabContent" class="tab-content">
+
+                            <div class="tab-pane1 active" id="home">
+
+                                <div class="col-lg-12 col-md-12 col-xs-12">
+
+                                    <div class="table-responsive" style="padding:0px 0px 0px 0px">
+
+                                        <form method="get" action="">
+
+                                            <div class="box3" style="border-radius:0px;">
+
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+
+                                                    <div class="col-lg-1 col-md-1 col-xs-12"> </div>
+
+                                                    <div class="col-lg-10 col-md-10 col-xs-12">
+
+                                                        <div id="imaginary_container" class="group17">
+
+                                                            <div class="input-group stylish-input-group group123">
+
+                                                                <input type="text" name="search" style="border-radius:0px; font-family:&#39;Century Gothic&#39;;" class="form-control" placeholder="Search by user name or doc name">
+
+                                                                <span class="input-group-addon " style="border-radius:0px;">
+
+                                                                    <!--<button type="submit"> <span class="glyphicon glyphicon-search"></span> </button>-->
+
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-lg-1 col-md-1 col-xs-12"> </div>
+
+                                                </div>
+
+                                                <div class="col-lg-12 col-md-12 col-xs-12">
+
+                                                    <div class="col-lg-1 col-md-1 col-xs-12"> </div>
+
+                                                    <div class="col-lg-5 col-md-5 col-xs-12">
+
+                                                        <div class="form-group">
+
+                                                            <div class="input-group date group12" id="datetimepicker11" style="margin-top:8%; width:215px;">
+
+                                                                <span class="Zebra_DatePicker_Icon_Wrapper" style="display: block; position: relative; float: left; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%;">
+                                                                    <input type="text" name="startdate" style="border-radius: 0px; font-family: &quot;Century Gothic&quot;; border: 0px; position: relative; top: auto; right: auto; bottom: auto; left: auto;"
+                                                                        class="form-control" id="fromdate" placeholder="From:"
+                                                                        readonly="readonly">
+                                                                    <button type="button" class="Zebra_DatePicker_Icon Zebra_DatePicker_Icon_Inside_Right" style="top: 3px; right: 0px;">Pick a date</button>
+                                                                </span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-5 col-md-5 col-xs-12">
+
+                                                        <div class="form-group">
+
+                                                            <div class="input-group date group12" id="datetimepicker2" style="margin-top:8%; width:215px;">
+
+                                                                <span class="Zebra_DatePicker_Icon_Wrapper" style="display: block; position: relative; float: left; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%;">
+                                                                    <input type="text" name="todate" style="border-radius: 0px; font-family: &quot;Century Gothic&quot;; border: 0px; position: relative; top: auto; right: auto; bottom: auto; left: auto;"
+                                                                        class="form-control" id="todate" placeholder="To:" readonly="readonly">
+                                                                    <button type="button" class="Zebra_DatePicker_Icon Zebra_DatePicker_Icon_Inside_Right" style="top: 3px; right: 0px;">Pick a date</button>
+                                                                </span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-lg-1 col-md-1 col-xs-12"> </div>
+
+                                                </div>
+
+                                                <div class="col-lg-12 col-md-12 col-xs-12" style="">
+
+                                                    <div class="col-lg-1 col-md-1 col-xs-12"> </div>
+
+                                                    <div class="col-lg-10 col-md-10 col-xs-12">
+
+                                                        <div align="center" style=" padding: 10px;">
+                                                            <button type="submit" style="border-radius:0px; font-family:'Century Gothic'; margin-left:-15px;" class="search-btn" data-placement="top">SEARCH</button>
+                                                            <!--<input type="submit" value="Search" name="sub" class="btn btn-success" style="background: #337ab7;">-->
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-1 col-md-1 col-xs-12"> </div>
+
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-12 " style="background:#fff;">
+                                    <div class="box3" style="top: 11px;">
+                                        <div class="col-lg-12 span-box" style="background: #a58734;    border: none;">
+                                            <div ng-repeat="">
+                                                <form method="post" action="" id="" name="myform11">
+
+                                                    <table id="hor-zebra" summary="Employee Pay Sheet" style="width:100%">
+<!-- {{documents}} -->
+                                                        <tbody style="background:  #858f03;" *ngFor="let document of documents">
+{{document}}
+<!-- {{ document?.length }} -->
+                                                            <tr style="height:120px">
+
+                                                                <td colspan="3" style="width: 80%; background:  #858f03; padding:10px">
+
+                                                                    <label>
+
+                                                                        <input type="checkbox" name="" value="MTY=" class="chk">
+
+                                                                    </label>
+
+                                                                    &nbsp;&nbsp;
+                                                                    <a routerLink="/documentdetail/{{document.documentid}}" title="" class="toolancr" data-toggle="tooltip" data-placement="bottom"
+                                                                        data-original-title="click this to see all participants list of this document"
+                                                                        aria-describedby="tooltip841003" style="color: #fff;">
+                                                                        pdf-{{document.documentid}}.pdf</a>
+
+                                                                    <div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;">
+                                                                        <div class="tooltip-arrow" style="left: 50%;"></div>
+                                                                        <!-- <div class="tooltip-inner">click this to see all participants list of this document</div> -->
+                                                                    </div>
+                                                                </td>
+
+
+
+                                                                <td colspan="1">
+
+
+
+
+                                                                </td>
+
+                                                                <td colspan="1">
+                                                                    <a href="#" style="color: #fff;">
+                                                                        <img src="../../assets/img/whitTick.png" style=" width: 48px;    margin-bottom: 2px;"> Completed</a>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr class="odd" style="background: #b49948;border: none;height:35px">
+
+                                                                <td> Signed By :</td>
+                                                                <td >
+                                                                    From:{{email}}
+                                                                </td>
+
+                                                            </tr>
+
+
+
+                                                        </tbody>
+                                                        <br>
+
+
+                                                    </table>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- /tab-content -->
+
+
+
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-                 
-       <div class="col-lg-12 col-md-12 col-xs-12" style="">
-                
-          <div class="col-lg-1 col-md-1 col-xs-12"> </div>
-                  
-        <div class="col-lg-10 col-md-10 col-xs-12"> 
-                  
-        <div class="found45" align="right" style=""><button type="submit" style="border-radius:0px; box-shadow:none; font-family:&#39;Century Gothic&#39;;" class="search-btn" data-toggle="tooltip" data-original-title="Fill any field and search any document">Search</button><!--<input type="submit" value="Search" name="sub" class="btn btn-success" style="background: #337ab7;">--></div></div>
-                 
-                  <div class="col-lg-1 col-md-1 col-xs-12"> </div>
-                
-          </div>
-                 
-       <div class="clearfix"></div>
-              
-       </div>
-       
-       </form>
-             
-     </div>
-           
-     </div>
-              
-    <div class="col-lg-12 col-md-12 boxtab" style="background:#fff;">
-             
-     <div class="col-lg-12 col-md-12" style="margin-bottom:2%;">
-     
-               <table id="" summary="Employee Pay Sheet">
-                 
-       <tbody>
-                  
-         <tr class="odd">
-                    
-          <td colspan="3" align="center">No records found in action</td>
-                   
-         </tr>
-                 </tbody>
-               
-       </table>
-             
-     </div>
-           
-     </div>
-                          
-         </div>
-   
-   </div>
-         <!-- /tab-content -->
-       
- 
 
-      <div class="clearfix"></div>
-       
-     </div>
-     
-     </div>
-   
-   </div>
-  
-   </div>
+        <div class="shade">
 
-   <script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();   
-    });
-    </script>
-<div class="shade">
-  
-  <div class="popmsg">
-   
-   <p style="color:#FFFFFF; text-align:center;font-weight:900;font-size:16px;padding:10px 0; margin:0;" id="ses"></p>
- 
- </div>
+            <div class="popmsg">
 
- </div> 
+                <p style="color:#FFFFFF; text-align:center;font-weight:900;font-size:16px;padding:10px 0; margin:0;" id="ses"></p>
+
+            </div>
+
+        </div>
+    </div>
 </div>
-</div>   
-  
+
 
 
 <footer>
-  <div class="container">
-      <div class="col-md-2 col-sm-2 col-xs-12">
-          <div class="msgimgdiv">
-              <img src="../../assets/img/chat.png" />
-          </div>
-      </div>
-      <div class="col-md-6 col-sm-6 col-xs-12">
-          <div class="copyrighttext">
-              <p>COPYRIGHT &copy; 2018.ALL RIGHTS RESERVED</p>
-          </div>
-      </div>
-      <div class="col-md-4 col-sm-4 col-xs-12">
-          <div class="social-icondiv">
-              <ul>
-                  <li>
-                      <a href="#">
-                          <img src="../../assets/img/insta.png" />
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                          <img src="../../assets/img/fb.png" />
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                          <img src="../../assets/img/twitter.png" />
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                          <img src="../../assets/img/google-plus.png" />
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                          <img src="../../assets/img/you.png" />
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                          <img src="../../assets/img/test.png" />
-                      </a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </div>
+    <div class="container">
+        <div class="col-md-2 col-sm-2 col-xs-12">
+            <div class="msgimgdiv">
+                <img src="../../assets/img/chat.png" />
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="copyrighttext">
+                <p>COPYRIGHT &copy; 2018.ALL RIGHTS RESERVED</p>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="social-icondiv">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/img/insta.png" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/img/fb.png" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/img/twitter.png" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/img/google-plus.png" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/img/you.png" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../assets/img/test.png" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>
-

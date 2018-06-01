@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./documentdetail.component.css']
 })
 export class DocumentdetailComponent implements OnInit {
-
+  documents: any;
+  documentdetail: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -19,9 +20,12 @@ export class DocumentdetailComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];
-     this.http.get('http://localhost:3000/documentdetail/' + documentid)
+      // console.log(params);
+     this.http.get('http://localhost:3000/api/documentdetail/' + documentid)
      .subscribe(data => {
        console.log(data);
+       this.documentdetail = data;
+       this.documents = this.documentdetail.data;
      });
         });
   }
