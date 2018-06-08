@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService, UserDetails, TokenPayload} from '../authentication.service';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @Component({
   selector: 'app-completed',
@@ -22,7 +23,6 @@ export class CompletedComponent implements OnInit {
   // constructor() { }
 
   ngOnInit() {
-    console.log('CompletedComponent loaded');
     this.auth.profile().subscribe(user => {
       this.details = user;
       this.email = this.details.email;
@@ -40,5 +40,10 @@ export class CompletedComponent implements OnInit {
       });
     });
   }
+   // ------------------------------------------
+   logout() {
+    this.auth.logout();
+  }
+
 
 }
