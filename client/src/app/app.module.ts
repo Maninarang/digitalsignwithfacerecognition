@@ -30,14 +30,19 @@ import { CompletedComponent } from './completed/completed.component';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { SignpdfComponent } from './signpdf/signpdf.component';
+// import { DashboardComponent } from './dashboard/dashboard.component';
+
 // import { AddparticipantdialogComponent } from './addparticipantdialog/addparticipantdialog.component';
 import { ModalModule } from 'ngx-modal';
 import { ActionrequiredComponent } from './actionrequired/actionrequired.component';
 import { ContactsarrayService } from './contactsarray.service';
 import { DocumentdetailComponent } from './documentdetail/documentdetail.component';
+import { DocumentuserdetailsComponent } from './documentuserdetails/documentuserdetails.component';
+import { SafePipe } from './safe.pipe';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'header', component: HeaderComponent },
+  //{ path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'digitalsignature', component: DigitalSignatureComponent },
@@ -51,7 +56,7 @@ const routes: Routes = [
   { path: 'completed', component: CompletedComponent },
   { path: 'actionrequired', component: ActionrequiredComponent },
   { path: 'documentdetail/:documentid', component: DocumentdetailComponent },
-  { path: 'signpdf/:documentid/:userid', component: SignpdfComponent, canActivate: [AuthGuardService]}
+  { path: 'signpdf/:documentid/:userid/:usertosign', component: SignpdfComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
@@ -60,6 +65,7 @@ const routes: Routes = [
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
+  //  DashboardComponent,
     HomeComponent,
     HeaderComponent,
     DigitalSignatureComponent,
@@ -73,6 +79,8 @@ const routes: Routes = [
     SignpdfComponent,
     ActionrequiredComponent,
     DocumentdetailComponent,
+    DocumentuserdetailsComponent,
+    SafePipe,
     // AddparticipantdialogComponent
     ],
   imports: [

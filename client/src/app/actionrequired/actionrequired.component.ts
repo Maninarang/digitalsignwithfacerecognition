@@ -25,7 +25,7 @@ export class ActionrequiredComponent implements OnInit {
       this.details = user;
       this.fullname = this.details.name;
       this.userid = this.details._id;
-      this.http.get('http://localhost:3000/api/mydocuments/' + this.userid)
+      this.http.get('https://mybitrade.com:3000/api/mydocuments/' + this.userid)
       .subscribe(data => {
        this.documentdetail = data;
        this.documents = this.documentdetail.data;

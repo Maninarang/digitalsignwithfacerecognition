@@ -14,6 +14,7 @@ var documentSchema = new mongoose.Schema({
   priority : Number,
   actionrequired:{type:String,default:'Not Signed'},
   expiration : String,
+  userimage: String,
   dateadded:{type : Date,default: Date.now},
   signedTime:{type:Date,default:''}
 });

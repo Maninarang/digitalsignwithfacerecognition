@@ -31,7 +31,7 @@ global.__basedir = __dirname;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 const corsOptions = {
-    origin: 'https://localhost:4200',
+    origin: 'http://localhost:4200',
     credentials: true,
 
 }

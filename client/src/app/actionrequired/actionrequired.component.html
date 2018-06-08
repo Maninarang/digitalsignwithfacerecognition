@@ -240,13 +240,13 @@ display:none;
    
    <ul class="nav nav-tabs6" style="background-color: #7a6220 !important">
      
-     <li class=""><a><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
-     
-     <li class="active"><a ><span class="fa fa-ban"></span>&nbsp;&nbsp;<span class="pt6">Action Required</span></a></li>
-   
-    <li ><a><span class="fa fa-check"></span>&nbsp;&nbsp;<span class="pt6">Completed</span></a></li>
-   
-    <li class=""><a><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
+    <li class=""><a routerLink="/digital_sign"><span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;<span class="pt6">Compose</span></a></li>
+      
+      <li class="active"><a routerLink="/actionrequired"><span class="fa fa-ban"></span>&nbsp;&nbsp;<span class="pt6">Action Required</span></a></li>
+    
+     <li class=""><a routerLink="/completed"><span class="fa fa-check"></span>&nbsp;&nbsp;<span class="pt6">Completed</span></a></li>
+    
+     <li class=""><a routerLink=""><span class="fa fa-users"></span>&nbsp;&nbsp;<span class="pt6">Contact</span></a></li>
    
    </ul>            
        
@@ -369,7 +369,7 @@ display:none;
                               
                 <td colspan="1">
                           
-                  <a href="#"><img src="../../assets/img/Layer.png" style=" width: 48px;    margin-bottom: 2px;"> Need to sign</a>
+                  <a routerLink="/documentdetail/{{document.id}}"><img src="../../assets/img/Layer.png" style=" width: 48px;    margin-bottom: 2px;"> Need to sign</a>
                          
                           <a href="#"><input type="button" value="DOCUMENTS" style="margin-right: -13px;background: #7a6220;  box-shadow: 5px 5px 5px rgba(68,68,68,0.6)!important;" class="btn btn-primary" title="" data-toggle="tooltip" data-placement="bottom" data-original-title=""></a>
                        

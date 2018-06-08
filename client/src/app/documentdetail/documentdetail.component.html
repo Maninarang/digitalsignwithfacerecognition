@@ -422,7 +422,7 @@
             </label>
 
             &nbsp;&nbsp;
-            <a routerLink="/documentdetail/{{document.documentid}}" title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
+            <a  title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
                 pdf-{{document.documentid}}.pdf</a>
                
             <div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;">
@@ -436,7 +436,7 @@
         <td colspan="1">
 
 
-            <a href="#">
+            <a href="">
                 <img src="../../assets/img/Layer.png" style=" width: 48px;    margin-bottom: 2px;"> Need to sign</a>
 
         </td>
@@ -450,15 +450,16 @@
 
     <tr class="odd" style="background: #fac701;border: none;height:35px">
 
-      <td colspan="5">Need To Sign: :</td>
+      <td colspan="5">Need To Sign: {{document.firstName}}({{document.email}})</td>
 <td>
     
-    {{document.firstName}}({{document.email}})
+   
     From: {{document.email}}
 </td>
 
     </tr>
 </div>
+
 <div *ngIf="document.actionrequired != 'Not Signed'">
     <tr style="height:120px">
 
@@ -471,7 +472,7 @@
             </label>
 
             &nbsp;&nbsp;
-            <a routerLink="/documentdetail/{{document.documentid}}" title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
+            <a  title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
                 pdf-{{document.documentid}}.pdf</a>
                
             <div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;">
@@ -486,12 +487,20 @@
 
 
             <a href="#">
-                <img src="../../assets/img/succ.png" style=" width: 48px;    margin-bottom: 2px;"> Need to sign</a>
+                <img src="../../assets/img/succ.png" style=" width: 48px;    margin-bottom: 2px;"></a>
 
         </td>
     
         <td colspan="1">
                 Completed</td>
+
+                <td colspan="1">
+
+
+                    <a href="#">
+                        <img src="https://mybitrade.com:3000/images/login/{{document.image}}" style=" width: 48px;    margin-bottom: 2px;"></a>
+        
+                </td>
     </tr>
 
     <tr class="odd" style="background: #fac701;border: none;height:35px">

@@ -477,7 +477,7 @@ router.post('/senddocument', function (req, res) {
                   from: fromEmailAddress,
                   to: toEmailAddress,
                   subject: "EzeeSteve Document Sign ",
-                  html: '<p>Click <a href="https://localhost:4200/signpdf/' + doc._id + '/' + req.body.userid + '">here</a></p>'
+                  html: '<p>Click <a href="https://mybitrade.com/signpdf/' + doc._id + '/' + req.body.userid + '/' + doc.usertosign +'">here</a></p>'
                 }
 
                 transport.sendMail(mail, function (error, response) {
@@ -538,7 +538,7 @@ router.post('/senddocument', function (req, res) {
 //           from: fromEmailAddress,
 //           to: toEmailAddress,
 //           subject: "EzeeSteve Document Sign ",
-//           html: '<p>Click <a href="https://localhost:4200/signpdf/' +  document._id + '">here</a></p>' 
+//           html: '<p>Click <a href="https://mybitrade.com:4200/signpdf/' +  document._id + '">here</a></p>' 
 //         }
 
 //         transport.sendMail(mail, function (error, response) {
@@ -569,7 +569,7 @@ router.post('/senddocument', function (req, res) {
 
 router.get('/getdocument/:userid/:documentid', function (req, res) {
 
-  Document.findOne({ _id: req.params.documentid, userid: req.params.userid }, 'documenthtml', function (err, dochtml) {
+  Document.findOne({ _id: req.params.documentid }, 'documenthtml', function (err, dochtml) {
     if (err) {
       res.status(400).json({
         message: err
@@ -819,7 +819,7 @@ router.post('/updatedoc', function (req, res) {
                           from: fromEmailAddress,
                           to: toEmailAddress,
                           subject: "EzeeSteve Document Sign ",
-                          html: '<p>Click <a href="https://localhost:4200/signpdf/' + user._id + '/' + req.body.userid + '">here</a></p>'
+                          html: '<p>Click <a href="https://mybitrade.com/signpdf/' + user._id + '/' + req.body.userid + '/' + user.usertosign + '">here</a></p>'
                         }
 
                         transport.sendMail(mail, function (error, response) {
@@ -851,43 +851,30 @@ router.post('/updatedoc', function (req, res) {
     }
   })
 })
-//  Document.updateOne({_id: req.body.docid},{$set:{documenthtml:req.body.html}},function(err,update) {
-//    if(err) {
-//      res.status(400).json({
-//        message: err
-//      })
-//    } else {
-//  Contact.updateOne({saveddocId: req.body.docid,email:req.body.useremail},{$set:{status:'Signed'}},function(err,status) {
-//    if (err) {
-//      res.status(400).json({
-//        message:err
-//      })
-//    } else {
 
-//    }
-//  })    
-//    }
-//  })  
-// })
 
 router.get('/documentdetail/:documentid', function (req, res) {
   console.log('sad')
   // console.log(req.params.documentid)
   var detailed = [];
   var pdfdata = '';
+  var count =0;
   Document.find({ _id: req.params.documentid }, function (err, data) {
     if (err) {
       res.status(400).json({
-        message: err
+        message: err,
+        mssg:"assssqdwe"
       })
     }
     else {
       pdfdata = data;
+      var len =data.length;
       for (let i = 0; i < data.length; i++) {
         User.find({ _id: data[i].userid }, function (err, user) {
           if (err) {
             res.status(400).json({
-              message: err
+              message: err,
+              msg:"df"
             })
           }
           else {
@@ -896,32 +883,51 @@ router.get('/documentdetail/:documentid', function (req, res) {
             Contact.find({ _id: pdfdata[i].usertosign }, function (err, result) {
               if (err) {
                 res.status(400).json({
-                  message: err
+                  message: err,
+                  msg:"dfsd"
                 })
               }
               else {
-                // data[i].push({userid:result._id,name:result.firstName+" "+result.lastName})
-                if (result != '') {
-
+                console.log("length-",result.length);
+                console.log(i)
+                for(let j=0;j< result.length; j++){
                   detailed.push({
-                    userid: result[i]._id,
-                    firstName: result[i].firstName,
-                    lastName: result[i].lastName,
-                    email: result[i].email,
-                    documentid: pdfdata[i].documentid,
-                    actionrequired: pdfdata[i].actionrequired,
-                    expiration: pdfdata[i].expiration,
-                    from: userdata[i].email
+                    userid: result[j]._id,
+                    firstName: result[j].firstName,
+                    lastName: result[j].lastName,
+                    email: result[j].email,
+                    documentid: pdfdata[j].documentid,
+                    actionrequired: pdfdata[j].actionrequired,
+                    expiration: pdfdata[j].expiration,
+                    from: userdata[j].email
 
 
                   })
-
-                  // console.log("------------------"+ JSON.stringify(detailed) +"-------------------")
-
                 }
-              } res.status(200).json({
+                count ++;
+                // data[i].push({userid:result._id,name:result.firstName+" "+result.lastName})
+                // if (result != '') {
+
+                //   detailed.push({
+                //     userid: result[i]._id,
+                //     firstName: result[i].firstName,
+                //     lastName: result[i].lastName,
+                //     email: result[i].email,
+                //     documentid: pdfdata[i].documentid,
+                //     actionrequired: pdfdata[i].actionrequired,
+                //     expiration: pdfdata[i].expiration,
+                //     from: userdata[i].email
+
+
+                //   })
+
+                //   // console.log("------------------"+ JSON.stringify(detailed) +"-------------------")
+
+                // }
+              } 
+              if(len == count){res.status(200).json({
                 data: detailed
-              })
+              })}
             })
 
           }
@@ -941,11 +947,11 @@ router.get('/mycompleteddocuments/:userid', function (req, res) {
   var detailed = [];
   var docdata = [];
   var test = [];
-  
+
   var doc_id = '';
   var newcount = 0;
 
-  Document.find({ userid: req.params.userid, actionrequired: 'Not Signed' }, 'signedTime documentid userid usertosign ',
+  Document.find({ userid: req.params.userid, actionrequired: 'Signed' }, 'signedTime documentid userid usertosign ',
     function (err, doc) {
       if (err) {
         res.status(400).json({
@@ -961,6 +967,8 @@ router.get('/mycompleteddocuments/:userid', function (req, res) {
           if (uni_docs.indexOf(doc[i].documentid) == '-1') {
             // console.log('if')
             uni_docs.push(doc[i].documentid);
+            docdata.push(doc[i]);
+
             count++;
           }
           else {
@@ -969,45 +977,12 @@ router.get('/mycompleteddocuments/:userid', function (req, res) {
 
           }
           if (count == length) {
-            reslength = uni_docs.length;
-            for (let r = 0; r < uni_docs.length; r++) {
-              console.log(r);
-              docdataa = [];
-              doc_id = uni_docs[r];
-              Document.find({ documentid: uni_docs[r] }, 'signedTime documentid userid usertosign ', function (err, suc) {
-                if (err) {
-                  console.log(err)
-                  newcount++;
-                  res.status(400).send({
-                    error: err
-                  })
-                }
-                else {
-                  // console.log(suc)
-                  docdataa.push(suc)
-                  test.push({user:suc})
-                  newcount++;
-                  docdataa['docid'] = uni_docs[r];
-                  // detailed[doc_id] = docdataa;
-                  if (reslength = newcount) {
-                    detailed['users']=docdataa;
-                    console.log(detailed);
-                    console.log(docdataa);
-                    test.push({docid:uni_docs[r]})
-                    // setTimeout(function(){ }, 3000);
-console.log(test)
-                    res.status(200).send({
-                      data: test,
-                   
-                    })
-                  }
-                }
-              })
 
-            }
-
-
-
+            console.log(docdata)
+            res.status('200').json({
+              msg: "Data Loaded Sucessfully",
+              data: docdata
+            })
           }
 
 
@@ -1040,13 +1015,15 @@ router.get('/mydocuments/:userid', function (req, res) {
         documents.push({ id: doc[i].documentid, documentstatus: doc[i].documentstatus })
       }
       for (let i = 0; i < documents.length; i++) {
-
+       console.log(documents.length);
+       console.log(documents[i].id)
         Document.findOne({ documentid: documents[i].id, actionrequired: 'Not Signed' }, 'dateadded', function (err, docs) {
           if (err) {
             res.status(400).json({
               message: err
             })
           } else {
+            console.log(docs)
             var date = docs.dateadded.toDateString().substr(4, 12);
             var time = docs.dateadded.getHours() + ':' + docs.dateadded.getMinutes() + ':' + docs.dateadded.getSeconds();
             var documentstatus = documents[i].documentstatus;
@@ -1072,7 +1049,32 @@ router.get('/mydocuments/:userid', function (req, res) {
 
 })
 
+//-------------------------------- update user signed image ------------------------------ //
 
+router.post('/signeduserimage', function (req, res) {
+Document.findOne({_id:req.body.docid,usertosign:req.body.userid},function(err,doc){
+  if(err) {
+    res.status(400).json({
+      message:err
+    })
+  } else {
+    var imagename = req.body.imagename+'.jpg';
+    Document.updateOne({_id:req.body.docid,usertosign:req.body.userid},{$set:{userimage:imagename}}, function (err, result) {
+      if (err) {
+        res.status('400').json({
+          message:err
+        })
+      }
+      else {
+        res.status(200).json({
+          message: 'Success'
+        })
+      }
+  //}
+})  
+  }
+})
+})
 
 
 module.exports = router;

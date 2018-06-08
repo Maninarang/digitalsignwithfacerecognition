@@ -59,10 +59,10 @@ export class DigitalSignComponent implements OnInit {
     dateFormat: 'mm-dd-yyyy',
   };
   model: any = { jsdate: new Date() };
-  @ViewChild('addparticipantModal') addparticipantModal: ElementRef;
-  @ViewChild('contactdetailModal') contactdetailModal: ElementRef;
-  @ViewChild('mycontactsModal') mycontactsModal: ElementRef;
-  @ViewChild('participantModal') participantModal: ElementRef;
+  @ViewChild('addparticipantModal') addparticipantModal: any;
+  @ViewChild('contactdetailModal') contactdetailModal: any;
+  @ViewChild('mycontactsModal') mycontactsModal: any;
+  @ViewChild('participantModal') participantModal: any;
   constructor(private http: HttpClient,
     private domSanitizer: DomSanitizer,
     private auth: AuthenticationService,
@@ -104,12 +104,12 @@ export class DigitalSignComponent implements OnInit {
         this.lastName = nameArr[nameArr.length - 1];
       }
       this.userid = this.details._id;
-      this.http.get('http://localhost:3000/api/documentcount/' + this.userid)
+      this.http.get('https://mybitrade.com:3000/api/documentcount/' + this.userid)
         .subscribe(data => {
           this.count = data;
           this.documentcount = 'Ref-' + this.count.data;
           localStorage.setItem('docid', this.documentcount);
-          this.http.get('http://localhost:3000/api/mycontacts/' + this.userid)
+          this.http.get('https://mybitrade.com:3000/api/mycontacts/' + this.userid)
             // tslint:disable-next-line:no-shadowed-variable
             .subscribe(data => {
               this.showcontacts = data;
@@ -246,7 +246,7 @@ export class DigitalSignComponent implements OnInit {
     }
 
     if (!emailalreadyexist) {
-      this.http.post('http://localhost:3000/api/addnewparticipant',
+      this.http.post('https://mybitrade.com:3000/api/addnewparticipant',
         {
           firstName: firstName, lastName: lastName, email: email, address: address,
           subject: subject, message: message, userId: this.userid, docId: this.documentcount,
@@ -274,7 +274,7 @@ export class DigitalSignComponent implements OnInit {
     this.error = null;
     this.mycontactsModal.close();
     this.loading = true;
-    this.http.get('http://localhost:3000/api/contactdetail/' + id)
+    this.http.get('https://mybitrade.com:3000/api/contactdetail/' + id)
       .subscribe(data => {
         this.contactdata = data;
         this.type = 'Remote Signer';
@@ -389,7 +389,7 @@ export class DigitalSignComponent implements OnInit {
 
 
     if (!emailalreadyexist) {
-      this.http.post('http://localhost:3000/api/addnewparticipant',
+      this.http.post('https://mybitrade.com:3000/api/addnewparticipant',
         {
           firstName: firstName, lastName: lastName, email: email, address: address,
           subject: subject, message: message, type: type, userId: this.userid
@@ -398,8 +398,8 @@ export class DigitalSignComponent implements OnInit {
           this.contactList = data;
           if (this.contactList.message === 1) {
             this.contacts.push({ name: firstName + ' ' + lastName, type: type, email: email });
-            this.addparticipantForm.reset();
-            this.addparticipantModal.close();
+           // this.addparticipantForm.reset();
+             this.addparticipantModal.close();
           } else {
             this.error = 'This Email is already in your Contacts.You can add from there!!!';
           }
@@ -415,13 +415,13 @@ export class DigitalSignComponent implements OnInit {
 
   editcontacts(email: String) {
     this.loading = true;
-    this.http.get('http://localhost:3000/api/contactdetail/' + email + '/' + this.userid)
+    this.http.get('https://mybitrade.com:3000/api/contactdetail/' + email + '/' + this.userid)
       .subscribe(data => {
         this.contactdata = data;
         this.contactfirstName = this.contactdata.data[0].firstName;
         this.contactlastName = this.contactdata.data[0].lastName;
         this.contactemail = this.contactdata.data[0].email;
-        this.contactdetailModal.open();
+       // this.contactdetailModal.open();
         this.loading = false;
       });
   }
@@ -452,7 +452,7 @@ export class DigitalSignComponent implements OnInit {
     this.adduserarray.push({id: this.contacts[i].id});
     }
    // tslint:disable-next-line:max-line-length
-   this.http.post('http://localhost:3000/api/addusertodocument', {pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray})
+   this.http.post('https://mybitrade.com:3000/api/addusertodocument', {pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray})
    .subscribe(data => {
      this.loading = false;
     this.adduserresult = data;
@@ -476,7 +476,7 @@ export class DigitalSignComponent implements OnInit {
     this.firstnameerror = null;
     this.lasterror  = null;
     this.emailerror = null;
-  this.participantModal.open();
+    this.participantModal.open();
 }
 addnewparticipantmodal() {
   this.firstnameerror = null;
@@ -487,7 +487,7 @@ addnewparticipantmodal() {
   this.newtype = 'Remote Signer';
   this.addparticipantModal.open();
   this.participantModal.close();
-}
+} 
 }
 // @Component({
 //   selector: 'app-addparticipant',
