@@ -63,6 +63,7 @@ export class DigitalSignComponent implements OnInit {
   @ViewChild('contactdetailModal') contactdetailModal: any;
   @ViewChild('mycontactsModal') mycontactsModal: any;
   @ViewChild('participantModal') participantModal: any;
+  @ViewChild('addyourselfModal') addyourselfModal: any;
   constructor(private http: HttpClient,
     private domSanitizer: DomSanitizer,
     private auth: AuthenticationService,
@@ -202,6 +203,10 @@ export class DigitalSignComponent implements OnInit {
     localStorage.setItem('expdate', event.formatted);
     // console.log(event.formatted);
   }
+
+removeerror() {
+  this.error = null;
+}
 
   // ------------------------ add new participant --------------------- //
 
@@ -348,7 +353,10 @@ export class DigitalSignComponent implements OnInit {
 
   addyourself(form) {
     // console.log(form.type);
-    const type = form.type;
+    let type = form.type;
+    if (type === '') {
+      type = 'Remote Signer';
+    }
     const firstName = form.firstName;
     const lastName = form.lastName;
     const email = form.email;
@@ -396,10 +404,10 @@ export class DigitalSignComponent implements OnInit {
         })
         .subscribe(data => {
           this.contactList = data;
-          if (this.contactList.message === 1) {
+          if (this.contactList.message === 1 || this.contactList.message === 2) {
             this.contacts.push({ name: firstName + ' ' + lastName, type: type, email: email });
            // this.addparticipantForm.reset();
-             this.addparticipantModal.close();
+             this.addyourselfModal.close();
           } else {
             this.error = 'This Email is already in your Contacts.You can add from there!!!';
           }

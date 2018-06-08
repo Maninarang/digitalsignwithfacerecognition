@@ -109,42 +109,32 @@
 
 <div class="container">
 
-    <div class="list-part">
+    <div class="list-part" >
 
-        <li class="dropdown" dropdown>
+        <li class="dropdown" dropdown >
+     
+<a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>
+  
+<i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+     
+<span class="title">{{fullname}} &nbsp;&nbsp;<b class="caret"></b></span>
+      </a>
 
-            <a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>
+          <ul *dropdownMenu class="dropdown-menu">
+            
+<li><a (click)="logout();">Logout</a></li>
+           
+ <li><a routerLink="/profile">View Profile</a></li>
+          
+ <li id=""><a href="#">Change Password</a></li>
+       
+ <li><a href="#">Membership Order</a></li>
 
-                <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+          </ul>
 
-                <span class="title">sdsd&nbsp;&nbsp;
-                    <b class="caret"></b>
-                </span>
-            </a>
-
-            <ul *dropdownMenu class="dropdown-menu">
-
-                <li>
-                    <a (click)="logout();">Logout</a>
-                </li>
-
-                <li>
-                    <a routerLink="/profile">View Profile</a>
-                </li>
-
-                <li id="">
-                    <a href="#">Change Password</a>
-                </li>
-
-                <li>
-                    <a href="#">Membership Order</a>
-                </li>
-
-            </ul>
-
-        </li>
-
-    </div>
+       </li>
+ 
+</div>
 
 </div>
 
@@ -261,21 +251,21 @@
                         <ul class="nav nav-tabs6" style="background-color: #7a6220 !important">
 
                             <li class="">
-                                <a>
+                                <a routerLink="/digital_sign">
                                     <span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;
                                     <span class="pt6">Compose</span>
                                 </a>
                             </li>
 
-                            <li class="active">
-                                <a>
+                            <li class="">
+                                <a routerLink="/actionrequired"> 
                                     <span class="fa fa-ban"></span>&nbsp;&nbsp;
                                     <span class="pt6">Action Required</span>
                                 </a>
                             </li>
 
-                            <li>
-                                <a>
+                            <li class="active">
+                                <a routerLink="/completed">
                                     <span class="fa fa-check"></span>&nbsp;&nbsp;
                                     <span class="pt6">Completed</span>
                                 </a>
