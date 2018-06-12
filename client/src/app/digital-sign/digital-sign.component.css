@@ -279,7 +279,7 @@ p.encryption {
 }
 
 .bottom-nextbtn{
-    background-color: #b59848;
+    background-color: #7a6320;
     color: white;
     padding: 8px 20px;
     font-size: 16px;
@@ -294,7 +294,7 @@ p.encryption {
     float: right;
 }
 .tablediv thead{
-    background-color:#858f03;
+    background-color:#5e6e03;
 }
 .tablediv{
     border-bottom: 1px solid #ccc;
@@ -308,24 +308,24 @@ p.encryption {
 }
 
 .calbtn{
-    padding: 7px 10px !important;
+    padding: 6px 8px !important;
     float: left;
     color: #858f03;
     margin-left: 3px;
     width: 9%;
     background-color: #e8e8e8;
-    border: 1px solid #b59848;
+    border: 3px solid #b59848;
 }
 .calbtn i{
     padding: 0;
-    position: relative;
-    top: 3px;
-    left: 1px;
+    font-size: 18px;
+    color: #5e6e03;
 }
 .calinput{
     float:left;
     width:90% !important;
     border: 3px #b49948 solid !important;
+    border-radius: 0;
 }
 .custommodal {
     border: 1px solid #ccc;
@@ -393,6 +393,7 @@ p.encryption {
 
 .myparttag{
     font-family:'Century Gothic';
+    margin: 0;
 }
 .myradiodiv label{
     margin-top: 6px;
@@ -426,3 +427,202 @@ p.encryption {
     box-shadow: 0px 3px 4px 0px #aaa !important;
     transition: all 0.7s ease-in-out;
 }
+.nav-tabs6 > li.active > a, .nav-tabs6 > li.active > a:hover, .nav-tabs6 > li.active > a:focus{
+    background: #a68734 !important;
+}
+.nav-tabs6 .fa {
+    background: #a68734 !important;
+}
+.nav-tabs6 li a {
+    background: #7a6320 !important;
+    padding: 5px !important;
+}
+.nav-tabs6 li{
+    border-bottom: 1px solid #584714 !important;
+}
+.nav-tabs6[_ngcontent-c0] {
+    border: none;
+}
+
+.iconimg img {
+    width: 20px;
+}
+.particiapnt34 {
+    font-size: 18px;
+    color: #000;
+    font-family: 'Century Gothic';
+    width: 100%;
+    text-align: right;
+    font-weight: 500;
+}
+.addpart{
+    margin-bottom: 60px;
+}
+.mrginbtm{
+    margin-bottom: 2%;   
+}
+.partbg{
+    background-color: #5e6e03;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+.partbg:hover{
+    background-color: #5e6e03;
+    opacity: 0.8;
+}
+.partpnt_poup{
+    position: relative;
+    margin-bottom: 25px;
+    background: #a68734;
+}
+.partpnt_poup h3{
+    margin: 0;
+}
+.partpnt_poup input{
+    position: absolute !important;
+    top: 7px !important;
+    right: 7px !important;
+}
+.cnclbtn{
+    position: absolute !important;
+    background: #cc3100;
+    font-size: 14px;
+    font-family: 'Century Gothic';
+    border-radius: 0px;
+    border: 0px solid transparent;
+    float: left;
+    left: 9px;
+    top: 7px !important;
+}
+.addbtnnew{
+    font-size:14px; 
+    font-family:'Century Gothic'; 
+    background-color:#8ec230 !important; 
+    border:0px; 
+    border-radius:0px; 
+    color:#FFFFFF;
+    position: absolute;
+    right: 9px;
+    top: 6px;
+    box-shadow: 0px 5px 8px 0px #747474 !important;
+    -webkit-box-shadow: 0px 5px 8px 0px #747474 !important;
+}
+.pdd0{
+    padding: 0 !important;
+}
+.frmgrp input{
+    margin-bottom: 0;
+}
+.innerboxdiv{
+    width: 100%;
+    float: left;
+    margin-bottom: 20px;
+}
+.fullpage{
+    width: 100%;
+    float: left;
+    padding: 55px 0;
+}
+
+
+/* internal css start */
+
+.tooltip-inner {
+    width: 125px;
+    background:#b59848;
+    padding:5px 5px 5px 5px;
+    font-size:14px;
+    font-weight:bolder;
+height:auto;
+  }
+
+.largefilep {
+position:fixed;
+width:100%;
+opacity:0.6;
+filter:alpha(opacity=60);
+top:0px;
+min-height:200px;
+height:100%;
+z-index:9999999999;
+background:#2c846d;
+font-size:20px;
+text-align:center;
+display:none;
+} 
+
+.encryptfilep {
+position:fixed;
+width:100%;
+opacity:0.6;
+filter:alpha(opacity=60);
+top:0px;
+min-height:200px;
+height:100%;
+z-index:9999999999;
+background:#5b4f71;
+font-size:20px;
+text-align:center;
+display:none;
+} 
+
+.digitalfilep {
+position:fixed;
+width:100%;
+opacity:0.6;
+filter:alpha(opacity=60);
+top:0px;
+min-height:200px;
+height:100%;
+z-index:9999999999;
+background:#96450e;
+font-size:20px;
+text-align:center;
+display:none;
+}
+
+  .active span.pt6
+  {
+      color:#fff !important;
+  }
+.arrow-top { 
+    top: -1px;
+    }
+
+.dropdown-menu {
+    left: -15%;
+  min-width: 100px;
+  margin-top:0%;
+  
+}	
+.caret {
+
+  color: #b49948;
+} 
+
+@media screen and (min-width: 1920px)
+{
+.latest-trend-box a img {
+  width: 195px;
+ 
+}
+}
+
+@media screen and (max-width: 699px) {
+  .hide_mob {
+      display: none;
+
+  }
+  
+}
+
+@media screen and (min-width: 699px) {
+  .lm {
+      display: none;
+      
+  }
+  
+}
+/* internal css end */

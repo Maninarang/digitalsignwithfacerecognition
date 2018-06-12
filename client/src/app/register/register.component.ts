@@ -30,6 +30,7 @@ export class RegisterComponent {
   public loading = false;
   public showWebcam = false;
   public error = null;
+  public recapture = null;
   public phoneerror = null;
   public passworderror = null;
   public cpassworderror = null;
@@ -48,9 +49,11 @@ export class RegisterComponent {
   public triggerSnapshot(): void {
     this.trigger.next();
     this.Camera = null;
+    this.recapture = true;
   }
   public toggleWebcam(): void {
-    this.Camera = 'true';
+      this.Camera = 'true';
+      this.recapture = null;
    // console.log("im");
     this.showWebcam = !this.showWebcam;
     if (this.webcamImage) {
@@ -84,7 +87,7 @@ export class RegisterComponent {
 
       this.mailerror = 'Please enter a valid email';
       const element: HTMLElement = document.getElementById('email') as HTMLElement;
-      element.focus();
+     // element.focus();
     }
   }
   lname() {
@@ -92,7 +95,7 @@ export class RegisterComponent {
     if (empty < 1) {
       this.lnameerror = 'Please enter the lastname';
       const element: HTMLElement = document.getElementById('lname') as HTMLElement;
-      element.focus();
+    //  element.focus();
     } else {
       this.lnameerror = null;
     }
@@ -102,7 +105,7 @@ export class RegisterComponent {
     if (empty < 1) {
       this.fnameerror = 'Please enter the Fastname';
       const element: HTMLElement = document.getElementById('fname') as HTMLElement;
-      element.focus();
+    //  element.focus();
     } else {
       this.fnameerror = null;
     }
@@ -112,7 +115,7 @@ export class RegisterComponent {
     if (length < 8) {
       this.passworderror = 'Please enter minimun 8 digit Password';
       const element: HTMLElement = document.getElementById('password') as HTMLElement;
-      element.focus();
+    //  element.focus();
     }else {
       this.passworderror = null;
     }
@@ -121,7 +124,7 @@ export class RegisterComponent {
     if (this.credentials.password !== this.credentials.cpassword) {
       this.cpassworderror = 'Password and Confirm password Donot match';
       const element: HTMLElement = document.getElementById('cpassword') as HTMLElement;
-      element.focus();
+    //  element.focus();
     } else {
       this.cpassworderror = null;
     }
@@ -131,7 +134,7 @@ export class RegisterComponent {
     if (length < 10) {
       this.phoneerror = 'Please enter minimun 10 digit Phonenumber';
       const element: HTMLElement = document.getElementById('number') as HTMLElement;
-      element.focus();
+    //  element.focus();
     } else {
       this.phoneerror = null;
     }

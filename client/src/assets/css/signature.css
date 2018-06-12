@@ -169,13 +169,12 @@ span#myspan {
 .partagselect {
     color: #FFFFFF;
     font-size: 23px;
-    line-height: 40px;
-    margin-left:25px;
+	line-height: 40px;
+	margin: 0;
 }
 #partagcontact {
 	color: #FFFFFF;
     font-size: 23px;
-    margin-left: 25px;
     line-height: 40px;
 }
 .fontlabel {
@@ -230,25 +229,10 @@ span#myspan {
 	height:47px;
 }
 
-.selectpati {
-    background: #858f03;
-    text-align: center;
-    color: #fff;
-    font-size: 25px;
-    cursor: pointer;
-    height: 160px;
-    margin-left: 6px;
-    width: 32.33% !important;
-}
-
 
 #selectpati1{
 	margin: 1% 0 !important;
     padding: 0;
-}
-.selectpati:hover{
-background: #6e741c;
-    opacity: 0.8;
 }
 
 .commn_btn {
@@ -319,7 +303,6 @@ input.uploadsign {
     color: #FFFFFF;
     font-size: 16px;
     line-height: 40px;
-	margin-left:10px;
 }
 #partagcontact
 {
@@ -366,7 +349,7 @@ top: 10px;
 
 }
 
-.box-part { width:auto; border:2px #4d445f solid; border-radius:5px; margin-left:0px; position:relative;overflow:hidden;padding:10px;}
+.box-part { width:auto; border:4px #a68734 solid; border-radius:5px; margin-left:0px; position:relative;overflow:hidden;padding:10px;}
 .box-part img { margin-left:0px; padding:5px;}
 .box-part p { text-align:center; color:#4d455d;}
 #uploaddocbtn {display:block;margin:0 auto;}

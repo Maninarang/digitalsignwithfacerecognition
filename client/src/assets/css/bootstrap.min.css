@@ -5795,7 +5795,7 @@ ul.list1 li {
 	margin-top:5%;
 }
 .form-group {
-	margin-bottom:8% !important;
+	/* margin-bottom:8% !important; */
 }
 /*.btn:hover {
 	background:#777777 !important;
@@ -5910,7 +5910,7 @@ legend {
 	margin-bottom:3%;
 }
 .inner-part8 {
-	background:#858f03;
+	background:#5e6e03;
 	margin-bottom:3%;
 }
 .inner-part50 {
@@ -5932,7 +5932,7 @@ p.pt5 {
 	margin-top:1rem;
 	margin-left: -15px;
 	margin-right: 3px;
-	margin-bottom:70px;
+	margin-bottom:0px;
 }
 .boxtab {
 	margin-bottom:5% !important;
@@ -6229,7 +6229,7 @@ span.pt6 {
 	font-size:16px;
 }
 .nav > li > a {
-	padding:0px 0px !important
+	/* padding:0px 0px !important; */
 }
 .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
 	background:#9aa2ad;
@@ -6359,13 +6359,14 @@ ul.list2 li img {
 	margin-bottom:25px;
 }
 p.pt10 {
-	color:#fff;
-	font-size:25px;
-	margin-top:22px;
-	margin-left:0px;
-	float:right;
-	font-family:"Copperplate Gothic Light";
-	text-transform:uppercase !important;
+    color: #fff;
+    font-size: 25px;
+    margin-top: 22px;
+    margin-left: 0px;
+    float: right;
+    font-family: "Century Gothic";
+    text-transform: uppercase;
+    font-weight: 600;
 }
 p.pt11 {
 	text-align:center;
@@ -6384,7 +6385,8 @@ p.pt11 {
 	box-shadow: inset 0 0 2px 2px #837f7e;*/
 	/*border-radius:6px;*/
 	border: 3px #b49948 solid;
-	width:93%;
+	width:100%;
+	border-radius: 0;
 }
 .control-label2 {
 	margin-bottom: 0;

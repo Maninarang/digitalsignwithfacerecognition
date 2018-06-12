@@ -489,13 +489,27 @@ input#submit-btn {
     border-radius: 0;
     box-shadow: none;
 	/*background:url(../images/plusp.png) no-repeat top center;*/
-	background:url(../img/folder_PNG8773.png) no-repeat top center;
+	background:url(../img/plus-pdf.png) no-repeat top center;
     text-shadow: none;
 	margin-left:20px;
     width: 100%;
-    height: 125px;
-    background-size: 50%;
+    height: 50px;
+    background-size: 23%;
 }
+/* #uploaddocbtn:before {
+    content: "\f067";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+
+    color: #000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 10px;
+    left: 0;
+} */
 
 input[type="file"]#userImage {
     visibility: hidden;
@@ -1531,7 +1545,7 @@ h2.customer-head {
 }
 
 .um-jam2 object{
-    min-height: 400px;
+    min-height: 340px;
 }
 
 

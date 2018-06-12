@@ -587,7 +587,7 @@ ul.list1 {
 /* For dropdown logout */
 .list-part {
 	float: right;
-	background: #b59848;
+	background: #7a6320;
 	list-style: none;
 	padding: 6px 15px 4px 15px;
 	margin-top: 10px;
@@ -621,6 +621,27 @@ span.user {
 span.title {
 	color:#fff;
 	font-size:22px;
+    display: inline-block;
+    padding-right: 30px;
+}
+.myprofile{
+    position: relative;
+}
+.downarrow{
+    width: 10px;
+    display: inline-block;
+    background-color: #a68734;
+    width: 47px;
+    height: 41px;
+    position: absolute;
+    right: -15px;
+    top: -6px;
+    text-align: center;
+    padding: 10px;
+}
+.downarrow .caret{
+    color: white !important;
+    margin-left: 0 !important;
 }
 .caret {
 	border-top: 9px dashed !important;
@@ -654,7 +675,7 @@ span.title {
 
 .list-part2 {
 	float: none;
-	background:#b59848 !important;
+	background:#7a6320 !important;
 	list-style: none;
 	margin: 20px auto 0px;
 	box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
@@ -971,7 +992,7 @@ p.pt50:hover {
 }
   
 a .pt51 {
-    background: #b59848;
+    background: #7a6320;
     color: #fff;
     font-size: 20px;
     text-transform: uppercase;
@@ -1720,7 +1741,7 @@ ul.list li img {
     right:0 !important;
     top:0 !important;
 }
-.partagselect { margin-left: 85px !important;}
+/* .partagselect { margin-left: 85px !important;} */
 
 .commn_btn {box-shadow: none !important; -webkit-box-shadow:none !important;}
 
@@ -2643,7 +2664,7 @@ ul.list li img {
     right:0 !important;
     top:0 !important;
 }
-.partagselect { margin-left: 85px !important;}
+/* .partagselect { margin-left: 85px !important;} */
 
 .commn_btn {box-shadow: none !important; -webkit-box-shadow:none !important;}
 
