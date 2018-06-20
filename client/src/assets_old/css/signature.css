@@ -242,7 +242,7 @@ span#myspan {
 
 
 #selectpati1{
-	margin: 1% 0 !important;
+	/* margin: 1% 0 !important; */
     padding: 0;
 }
 .selectpati:hover{

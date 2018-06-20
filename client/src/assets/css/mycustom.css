@@ -304,7 +304,7 @@ input#frommail, input#tomail, input#ccmail, input#bccmail, input#subject, input#
 	border:1px solid #ccc;
     box-shadow: none;
     resize: none;
-    height: 42px;
+    /* height: 42px; */
     line-height: 42px;
     padding: 0 15px;
     font-family: 'Roboto', sans-serif;
@@ -495,6 +495,7 @@ input#submit-btn {
     width: 100%;
     height: 50px;
     background-size: 23%;
+    background-size: 41px;
 }
 /* #uploaddocbtn:before {
     content: "\f067";
@@ -1545,7 +1546,10 @@ h2.customer-head {
 }
 
 .um-jam2 object{
-    min-height: 340px;
+    min-height: 400px;
+    width: 100%;
+    border: 2px solid #5e6e03;
+    padding: 10px;
 }
 
 

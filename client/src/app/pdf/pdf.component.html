@@ -1,131 +1,23 @@
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/signature.css"> 
+<!-- <link rel="stylesheet" href="assets/css/mycustom.css">  -->
+    
+    <section class="hdrsec">
+        <div class="logoimg">
+            <img src="../../assets/img/ezee-logo.png"/>
+        </div>
+      </section>
+      
 
 
-<style>
-    .hdrsec {
-        background-image: url(../../assets/img/header-bg1.png) !important;
-        background-repeat: no-repeat;
-        background-size: 100%;
-    }
-
-
-
-
-    .logoimg {
-        text-align: center;
-    }
-
-    .left[_ngcontent-c0] {
-        margin-left: 0px !important;
-    }
-
-    .backdrop {
-        height: 1000px !important;
-    }
-
-    .tooltip-inner {
-        width: 125px;
-        background: #b59848;
-        padding: 5px 5px 5px 5px;
-        font-size: 14px;
-        font-weight: bolder;
-        height: auto;
-    }
-
-    .largefilep {
-        position: fixed;
-        width: 100%;
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        top: 0px;
-        min-height: 200px;
-        height: 100%;
-        z-index: 9999999999;
-        background: #2c846d;
-        font-size: 20px;
-        text-align: center;
-        display: none;
-    }
-
-    .encryptfilep {
-        position: fixed;
-        width: 100%;
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        top: 0px;
-        min-height: 200px;
-        height: 100%;
-        z-index: 9999999999;
-        background: #5b4f71;
-        font-size: 20px;
-        text-align: center;
-        display: none;
-    }
-
-    .digitalfilep {
-        position: fixed;
-        width: 100%;
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        top: 0px;
-        min-height: 200px;
-        height: 100%;
-        z-index: 9999999999;
-        background: #96450e;
-        font-size: 20px;
-        text-align: center;
-        display: none;
-    }
-
-
-    .dropdown-menu {
-        left: -15%;
-        min-width: 100px;
-        margin-top: 0%;
-
-    }
-      .drop-zone img{
-      width: 100%;
-  }
-
-    .caret {
-
-        color: #b49948;
-    }
-
-    @media screen and (min-width: 1920px) {
-        .latest-trend-box a img {
-            width: 195px;
-
-        }
-    }
-
-    @media screen and (max-width: 699px) {
-        .hide_mob {
-            display: none;
-
-        }
-
-    }
-
-    @media screen and (min-width: 699px) {
-        .lm {
-            display: none;
-
-        }
-
-    }
-</style>
-
-
-
-<section>
+<section class="fullpage">
     <div class="my-container">
         <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop: true }"></ngx-loading>
 
     </div>
-    <div class="">
+    <div class="container">
         <div class="boxdiv">
-            <div class="col-md-4 col-sm-5 col-xs-12 thefixeddiv">
+            <div class="col-md-4 col-sm-5 col-xs-12">
                 <div class="electronicsig-div">
                     <img src="../../assets/img/elec.png" />
                 </div>
@@ -137,7 +29,7 @@
                                     <option *ngFor="let user of userlist" value= {{user._id}}>
                                       {{user.firstName}} {{user.lastName}}
                                     </option>
-                                  </select>
+                            </select>
       
                     </div>
                 </div>
@@ -146,10 +38,18 @@
                     <div>
   
                     </div>
-                    <div class="radiobtnbox1">
+                    <div *ngIf='!u.value'>
+                        Please Select User First
+                    </div>
+                    <div *ngIf='u.value' class="radiobtnbox1">
                         <form>
-                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                            <!-- <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
                                 <div class="hdgtop">
+                                    <h6>Signature</h6>
+                                </div>
+                            </div> -->
+                            <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class="form-group">
                                     <h6>Signature</h6>
                                 </div>
                             </div>
@@ -175,7 +75,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
                                 <div class="form-group">
-                                    <h6>Sign Here</h6>
+                                    <h6>Text</h6>
                                 </div>
                             </div>
 
@@ -187,15 +87,53 @@
                     <div class="btndiv">
                         <div class="col-md-6 col-sm-6 col-xs-12 pd0">
                             <div class="btn1">
+                                    <a routerLink="/digital_sign">
                                 <button>
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+                                    
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i> Back</button></a>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12 pd0">
                             <div class="btn2">
+                            <a style="cursor: pointer;" class="mobilehomebtn1" (click)="showinstructions = !showinstructions" data-placement="right">
+                                
                                 <button>Instructions</button>
+                            </a>
+                                
                             </div>
                         </div>
+
+                        <li style="list-style:none; cursor:pointer;" class="toggle">
+       
+                         
+                             <!-- <span class="title2">INSTRUCTIONS</span> -->
+                            
+                             
+                           <ul *ngIf="showinstructions" class="drop-popup mydroppopup" >
+                              
+                              <div class="arrow-top"><img src="../../assets/img/arrow-top.png"></div>
+                               
+                              <div class="inst-popup instnew" style="font-family: Century Gothic; font-size: 14px; text-align: left; font-weight: bold; color: #333;">
+                              
+                              <ul style="list-style: none; padding: 0;">
+                              
+                                  <li style="margin-bottom: 10px;">Step 1:  Upload or drag and drop PDF file.</li>
+                              
+                                  <li style="margin-bottom: 10px;">Step 2:  Check box, if you require an expiration date (not mandatory).</li>
+                                  
+                                <li style="margin-bottom: 10px;">Step 3:  Add participants.</li>
+                                  
+                                <li style="margin-bottom: 10px;">Step 4:  You can rearrange signing order under "priority". Click on arrow up or down to change signing order (not mandatory). Click next to complete.</li>
+                           
+                           
+                              </ul>
+                         
+                             </div>
+                           
+                           </ul>
+                           
+                           </li>
+
                     </div>
                     <div class="btndiv">
                         <div class="col-md-6 col-sm-6 col-xs-12 pd0">
@@ -217,9 +155,7 @@
             </div>
          
                 
-                         
-
-            <div class="gethtml">
+             <div class="gethtml">
             <div class="col-md-8 col-sm-6 col-xs-12 divsize">
                 <div class="pdf-div">
 
@@ -235,7 +171,26 @@
                 </div>
              
             </div>
-</div>
+</div>            
+
+            
+            <!-- <div class="col-md-8 col-sm-6 col-xs-12">
+                <div class="gethtml divsize">
+                <div class="pdf-div">
+
+                </div>
+      
+                <div >
+                    <div *ngFor="let image of pdfimages;let i= index" attr.id="image{{i}}" class="pdfimg droppable" >
+
+                        <img src="{{image}}"> 
+
+                    </div>
+
+                </div>
+                                
+                </div>
+            </div> -->
         </div>
 
     </div>
@@ -254,4 +209,57 @@
             </div>
             </div>
 </section>
+
+
+
+<footer>
+        <div class="container">
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <div class="msgimgdiv">
+                    <img src="../../assets/img/chat.png" />
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="copyrighttext">
+                    <p>COPYRIGHT &copy; 2018.ALL RIGHTS RESERVED</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="social-icondiv">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img src="../../assets/img/insta.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="../../assets/img/fb.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="../../assets/img/twitter.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="../../assets/img/google-plus.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="../../assets/img/you.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="../../assets/img/test.png" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </footer>
 

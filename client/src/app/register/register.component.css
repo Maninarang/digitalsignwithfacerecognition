@@ -28,11 +28,13 @@
     background-color: #b59848;
     color: #715732;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 .log-reg-btn .log{
     background-color: #715732;
     color: white;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 .log-reg-btn .reg:hover{
     background-color: #a2873b;
@@ -43,7 +45,7 @@
 .formdiv{
     width: 100%;
     float: left;
-    border: 1px solid #fff;
+    border: 2px solid #77ab56;
     padding-bottom: 45px;
 }
 ::placeholder {
@@ -66,11 +68,13 @@
 }
 .ezeelogintext img{
     width: 84px;
+    position: relative;
+    top: -12px;
 }
 .ezeelogintext p{
     width: 80%;
     float: left;
-    border-bottom: 1px solid #fff;
+    border-bottom: 2px solid #77ab56;
     margin-bottom: 20px;
     text-align: center;
     font-size: 29px;
@@ -83,6 +87,7 @@
     border: 1px solid #b59748;
     position: relative;
     color: #555;
+    border-radius: 0;
 }
 .formdiv .form-group span{
     position: absolute;
@@ -289,6 +294,7 @@ footer {
     top: 30px;
     right: 0;
     width: 285px;
+    display: none;
 }
 
 
@@ -297,8 +303,20 @@ footer {
 /*responsive css start*/
 @media only screen and (max-width: 1200px) and (min-width: 320px){
 	.logoimg img{
+		width: 100%;
+    }
+    .hdrsec{
+        background-position-x: -20px;
+    }
+}
+
+@media only screen and (max-width: 1301px) and (min-width: 1151px){
+	.logoimg img{
 		width: 85%;
-	}
+    }
+    .hdrsec{
+        height: 100px;
+    }
 }
 @media only screen and (max-width: 767px) and (min-width: 320px){
 	.logimg{
@@ -357,7 +375,14 @@ footer {
 	.fropicture .regimg{
 		width: 79px;
 		top: 144px;
-	}
+    }
+    .ezeelogintext img {
+        width: 43px;
+        top: -5px;
+    }
+    .logimg img {
+        width: 175px;
+    }
 
 }
 
@@ -396,7 +421,10 @@ footer {
 	.fropicture .regimg{
 	width: 100px;
 	top: 220px;
-	}
+    }
+    .signdiv button{
+        width: 100% !important;
+    }
 	
 }
 @media only screen and (max-width: 1024px) and (min-width: 992px){
@@ -523,12 +551,7 @@ footer {
 
 /* internal css*/
 
- 
-    .hdrsec {
-   background-image: url(../../assets/img/header-bg1.png) !important;
-   background-repeat: no-repeat;
-   background-size: 100%;
-}
+
 .logoimg{
    text-align: center;
 }
@@ -629,4 +652,34 @@ footer {
        
    }
    
+}
+
+.pwdrules {
+    background: #fff;
+    border: 1px solid #2e363b;
+    /* display: none; */
+    float: left;
+    padding: 10px;
+    position: absolute;
+    width: 320px;
+    z-index: 99999999;
+    margin-top: 0;
+}
+.errorline{
+    font-size: 11px !important;
+    font-weight: bold !important;
+    font-family: verdana !important;
+    color: #FF0000;
+}
+.myrulesli strong{
+    font-size:13px;
+}
+
+#hiddendiv{
+    /* display: none; */
+}
+
+
+div .hj:focus + #hiddendiv {
+    /* display: block; */
 }

@@ -1,3 +1,121 @@
+/* internal css starts */
+
+
+/* .hdrsec {
+    background-image: url(../../assets/img/header-bg1.png) !important;
+    background-repeat: no-repeat;
+    background-size: 100%;
+} */
+
+
+
+
+.logoimg {
+    text-align: center;
+}
+
+.left[_ngcontent-c0] {
+    margin-left: 0px !important;
+}
+
+.backdrop {
+    height: 1000px !important;
+}
+
+.tooltip-inner {
+    width: 125px;
+    background: #b59848;
+    padding: 5px 5px 5px 5px;
+    font-size: 14px;
+    font-weight: bolder;
+    height: auto;
+}
+
+.largefilep {
+    position: fixed;
+    width: 100%;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    top: 0px;
+    min-height: 200px;
+    height: 100%;
+    z-index: 9999999999;
+    background: #2c846d;
+    font-size: 20px;
+    text-align: center;
+    display: none;
+}
+
+.encryptfilep {
+    position: fixed;
+    width: 100%;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    top: 0px;
+    min-height: 200px;
+    height: 100%;
+    z-index: 9999999999;
+    background: #5b4f71;
+    font-size: 20px;
+    text-align: center;
+    display: none;
+}
+
+.digitalfilep {
+    position: fixed;
+    width: 100%;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    top: 0px;
+    min-height: 200px;
+    height: 100%;
+    z-index: 9999999999;
+    background: #96450e;
+    font-size: 20px;
+    text-align: center;
+    display: none;
+}
+
+
+.dropdown-menu {
+    left: -15%;
+    min-width: 100px;
+    margin-top: 0%;
+
+}
+  .drop-zone img{
+  width: 100%;
+}
+
+.caret {
+
+    color: #b49948;
+}
+
+@media screen and (min-width: 1920px) {
+    .latest-trend-box a img {
+        width: 195px;
+
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .hide_mob {
+        display: none;
+
+    }
+
+}
+
+@media screen and (min-width: 699px) {
+    .lm {
+        display: none;
+
+    }
+
+}
+/* internal css ends */
+
 .stickit {
     width: 100%;
    /* // position: fixed; */
@@ -230,6 +348,7 @@ footer {
     width: 100%;
     border-top: 2px solid #b59848;
     border-bottom: 2px solid #b59848;
+    float: left;
 }
 .social-icondiv{
     width: 100%;
@@ -263,8 +382,8 @@ footer {
     margin-bottom: 6px;
 }
 .electronicsig-div img{
-    /* width: 150px; */
-    width: 100px;
+    width: 150px;
+    /* width: 100px; */
 }
 .pdf-div{
     width: 100%;
@@ -327,7 +446,7 @@ footer {
     width: 100%;
     float: left;
     text-align: center;
-    margin-bottom: 18px;
+    margin-bottom: 30px;
 }
 .electronicsig-div2 h5{
     font-size: 15px;
@@ -351,7 +470,7 @@ footer {
     margin : 7px 0;
 }
 .pd0{
-    padding: 0;
+    padding: 0 !important;
 }
 .btndiv{
     width: 100%;
@@ -363,9 +482,10 @@ footer {
     padding: 8px;
     border: none;
     /* margin-bottom: 30px; */
-    margin-bottom: 13px;
+    margin-bottom: 30px;
     font-size: 16px;
     font-weight: 600;
+    color: #715732;
 }
 .btndiv button:hover, .btndiv button:active, .btndiv button:focus{
     outline: none;  
@@ -422,6 +542,72 @@ footer {
         background-position-x: -40px;
         background-size: cover !important;
         height: 100px;
+    }
+}
+
+@media only screen and (max-width: 575px) and (min-width: 320px) {
+    .btndiv button {
+        width: 100%;
+    }
+    .divsize {
+        max-height: 350px !important;
+    }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 576px) {
+    .btndiv .btn1, .btndiv .btn2, .btndiv .btn3 {
+        text-align: center;
+    }
+    .electronicsig-div1, .radiobtnbox{
+        width: 100%;
+        text-align: center;
+    }
+    .radiobtnbox select{
+        width: 160px;
+        float: none;
+    }
+    .divsize {
+        max-height: 500px !important;
+    }
+    .radiobtnbox1{
+        text-align: center;
+    }
+    .radiobtnbox1 .form-group {
+        width: 200px;
+        float: none;
+        margin: 0 auto 3px !important;
+    }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px) {
+.divsize {
+    float: none !important;
+
+}
+
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 320px){
+.logoimg img{
+    float: none;
+}
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px){
+    .btndiv button {
+        width: 120px;
+    }
+}
+
+@media only screen and (max-width: 1356px) and (min-width: 768px){
+    .divsize {
+        max-height: 770px !important;
+    }
+}
+
+@media only screen and (width:768px){
+    .btndiv button {
+        width: 130px;
     }
 }
 
@@ -506,12 +692,13 @@ footer {
 }
 
 .divsize {
-    border: 3px solid #858f03;
-    /* max-height: 854px;
+    border: 10px solid #858f03;
+    max-height: 803px;
     overflow: hidden;
-    overflow-y: scroll; */
-    float: right;
+    overflow-y: scroll;
+    float: right !important;
     height: 100%;
+    width: auto !important;
 }
 
 /* .container{
@@ -530,4 +717,177 @@ footer {
 }
 .btn {
     padding: 10px 30px !important;
+}
+
+
+
+
+
+/*responsive css start*/
+@media only screen and (max-width: 1200px) and (min-width: 320px){
+	.logoimg img{
+		width: 85%;
+	}
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px){
+	.logimg{
+		text-align: center;
+		padding: 10px 0;
+	}
+	.loginform-outerdiv {
+    margin: 0 0 40px;
+	}
+	.ezeelogintext p {
+		width: 100%;
+		margin: 0;
+		padding: 8px 0;
+		margin-bottom: 0px;
+		font-size: 18px;
+	}
+	.ezeelogintext img {
+        width: 43px;
+        top: -5px;
+	}
+	.formdiv form {
+		width: 100%;
+		padding: 0;
+	}
+	.formdiv .form-group p {
+		text-align: center;
+		font-size: 13px;
+	}
+	.formdiv .signbtn{
+		width: 100%;
+		margin: 10px 0;
+	}
+	.socialbtns {
+		padding: 0
+	}
+	.formdiv {
+		padding-bottom: 0px;
+	}
+	.msgimgdiv {
+		text-align: center;
+	}
+	.copyrighttext p{
+		line-height: 1.5;
+	}
+	.social-icondiv ul li img {
+		width: 40px;
+	}
+	.social-icondiv {
+		text-align: center;
+	}
+	.drpnw{
+		display: none;
+	}
+	.capimg {
+		height: 150px;
+	}
+	.fropicture .regimg{
+		width: 79px;
+		top: 144px;
+    }
+    .logimg img {
+        width: 175px;
+    }
+
+    
+}
+
+@media only screen and (max-width: 991px) and (min-width: 768px){
+	.ezeelogintext p {
+		width: 100%;
+		margin-bottom: 20px;
+		margin: 0;
+	}
+	.socialbtns{
+		padding: 0;
+	}
+	.social-icondiv ul li img {
+		width: 30px;
+	}
+	.formdiv{
+		padding-bottom: 0px;
+	}
+	.drpnw {
+		top: 23px;
+		width: 226px;
+	}
+	.loginbtn{
+		width: 78px;
+		margin: 0 10px;
+	}
+	.capimg {
+		height: 225px;
+	}
+	.fropicture .regimg{
+	width: 100px;
+	top: 220px;
+	}
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 992px){
+	.socialbtns{
+		padding: 0;
+	}
+	.social-icondiv ul li img {
+		width: 30px;
+	}  
+	.capimg {
+		height: 225px;
+	}
+	.fropicture .regimg{
+        width: 100px;
+        top: 222px;
+    }
+    
+}
+
+@media only screen and (max-width: 1199px) and (min-width: 992px){
+    .mydroppopup{
+        padding: 0 8px;
+        width: 198px;
+        float: right;
+        margin-bottom: 20px;
+        margin-left: -41px;  
+    }
+}
+
+@media only screen and (max-width: 1649px) and (min-width: 1200px){
+    .mydroppopup{
+        padding: 0 8px;
+        width: 226px;
+        float: right;
+        margin-bottom: 20px;
+        margin-left: -41px;  
+    }
+}
+
+@media only screen and (max-width: 2496px) and (min-width: 1650px){
+    .mydroppopup{
+        padding: 0 8px;
+        width: 226PX;
+        float: right;
+        margin-bottom: 20px;
+        margin-left: 50px;
+    }
+}
+
+@media only screen and (width:1024px){
+    .hdrsec {
+        background-size: 100%;
+    }
+}
+@media only screen and (width:768px){
+    .logoimg {
+        padding: 20px 0;
+    }
+}
+
+.fullpage{
+    width: 100%;
+    float: left;
+    padding: 55px 0;
 }

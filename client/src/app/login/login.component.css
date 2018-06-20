@@ -232,6 +232,7 @@
     top: 30px;
     right: 0;
     width: 285px;
+    display: none;
 }
 
 
@@ -289,8 +290,20 @@ video {
 /*responsive css start*/
 @media only screen and (max-width: 1200px) and (min-width: 320px){
 	.logoimg img{
+		width: 100%;
+    }
+    .hdrsec{
+        background-position-x: -20px;
+    }
+}
+
+@media only screen and (max-width: 1301px) and (min-width: 1151px){
+	.logoimg img{
 		width: 85%;
-	}
+    }
+    .hdrsec{
+        background-position-x: 0;
+    }
 }
 @media only screen and (max-width: 767px) and (min-width: 320px){
 	.logimg{
@@ -350,7 +363,10 @@ video {
 	.fropicture .regimg{
 		width: 79px;
 		top: 144px;
-	}
+    }
+    .logimg img {
+        width: 175px;
+    }
 }
 
 @media only screen and (max-width: 991px) and (min-width: 768px){
@@ -369,8 +385,9 @@ video {
 		padding-bottom: 0px;
 	}
 	.drpnw {
-		top: 23px;
-		width: 226px;
+		top: inherit;
+        width: 226px;
+        display: none;
 	}
 	.loginbtn{
 		width: 78px;
@@ -382,7 +399,10 @@ video {
 	.fropicture .regimg{
 	width: 100px;
 	top: 220px;
-	}
+    }
+    .signdiv button{
+        width: 100% !important;
+    }
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 992px){
@@ -522,4 +542,8 @@ video {
       
   }
   
+}
+
+.newrecap{
+    margin: 20px 0 0 !important;
 }

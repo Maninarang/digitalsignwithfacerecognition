@@ -589,7 +589,7 @@ ul.list1 {
 	float: right;
 	background: #7a6320;
 	list-style: none;
-	padding: 6px 15px 4px 15px;
+	padding: 6px 55px 6px 15px;
 	margin-top: 10px;
 	box-shadow: 4px 4px 10px #000;
 	cursor: pointer;
@@ -622,7 +622,7 @@ span.title {
 	color:#fff;
 	font-size:22px;
     display: inline-block;
-    padding-right: 30px;
+    /* padding-right: 30px; */
 }
 .myprofile{
     position: relative;
@@ -632,9 +632,9 @@ span.title {
     display: inline-block;
     background-color: #a68734;
     width: 47px;
-    height: 41px;
+    height: 42px;
     position: absolute;
-    right: -15px;
+    right: -55px;
     top: -6px;
     text-align: center;
     padding: 10px;
@@ -996,7 +996,7 @@ a .pt51 {
     color: #fff;
     font-size: 20px;
     text-transform: uppercase;
-       padding: 8px 16px 4px 0px;
+    padding: 6px 7px;
     -moz-box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
     -webkit-box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
     box-shadow: 5px 5px 5px rgba(68,68,68,0.6);
@@ -1397,9 +1397,6 @@ button.Zebra_DatePicker_Icon_Inside_Right {
 	margin:10px auto !important;
 	float:none !important;
 	width:220px;
-	height:60px;
-	line-height:60px;
-	padding:0 30px;
 }
 a .pt51 {
 	width: 220px;
@@ -2789,8 +2786,12 @@ ul.list li img {
 
 @media screen and (max-width: 1024px) and (min-width: 768px){
 	.drp{
-     margin-top:-55px;
-	}.list-part-home{margin-top: -15px;}
+		margin-top:-55px;
+		margin-right: 15px !important;
+	}
+	.list-part-home{
+		margin-top: -15px;
+	}
 }
 @media screen and (max-width: 1199px){
 .jug-u {width:100% !important; float: left !important; margin-bottom:12px;  padding-left: 0 !important;}
@@ -3214,7 +3215,8 @@ a .pt51 {
 }
 @media screen and (max-width: 767px) and (min-width: 240px){
 	.drp{
-        /*margin-top: -60px;*/
+		margin-top: -70px;
+		margin-right: 15px !important;
 	}
 	.list-part-home{
 		/*margin-right: 0px !important;*/

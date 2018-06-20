@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit{
   public pdfsrc = 'http://www.pdf995.com/samples/pdf.pdf';
   ngOnInit() {
     this.imgags = [
-      'assets/img/bg1.png',
+      'assets/img/bg11.png',
       'assets/img/bg2.jpg',
       'assets/img/bg3.jpg',
       'assets/img/bg4.jpg',

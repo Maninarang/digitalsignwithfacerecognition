@@ -43,6 +43,8 @@ export class RegisterComponent {
   public hideimg = null;
   public faceresponse: any;
   public data: any;
+  public jagveer =false;
+  public passworderrorr=null;
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
 
@@ -73,7 +75,11 @@ export class RegisterComponent {
     return this.trigger.asObservable();
   }
 
-  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient) { }
+  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient) {
+    if (auth.isLoggedIn()) {
+      router.navigate(['digital_sign']);
+    }
+   }
   checkmail() {
     // const element = this.credentials.selectRootElement('#input1');
 
@@ -103,7 +109,7 @@ export class RegisterComponent {
   fname() {
     const empty = this.credentials.fname.length;
     if (empty < 1) {
-      this.fnameerror = 'Please enter the Fastname';
+      this.fnameerror = 'Please enter the Firstname';
       const element: HTMLElement = document.getElementById('fname') as HTMLElement;
     //  element.focus();
     } else {
@@ -111,15 +117,63 @@ export class RegisterComponent {
     }
   }
   password() {
+    var tests = [/[0-9]/, /[a-z]/, /[A-Z]/, /[^A-Z-0-9]/i]
+    //this.jagveer=false;
     const length = this.credentials.password.length;
-    if (length < 8) {
-      this.passworderror = 'Please enter minimun 8 digit Password';
-      const element: HTMLElement = document.getElementById('password') as HTMLElement;
-    //  element.focus();
-    }else {
-      this.passworderror = null;
-    }
+    // if (length < 8) {
+    //   this.passworderror = 'Please enter minimum 8 digit Password';
+    //   const element: HTMLElement = document.getElementById('password') as HTMLElement;
+    // //  element.focus();
+    // }else {
+    //   this.passworderror = null;
+    
+    // }
+    if(this.credentials.password == null)
+    return -1;
+  var s = 0;
+  if(length==0){
+    this.passworderror ="Please input password "
+    this.passworderrorr ="Please input password "
   }
+  if(length<8)
+  this.passworderror ="Very Weak"
+  this.passworderrorr ="Very Weak"
+  
+  for(var i in tests)
+    if(tests[i].test(this.credentials.password))
+      s++
+  // return s;
+  if(s==0){
+    this.passworderror ="Very Weak"
+  this.passworderrorr ="Very Weak"
+    
+  }
+  else if(s==2){
+    this.passworderror ="Weak"
+    this.passworderrorr ="Weak"
+    
+  }
+  else if(s==3){
+    this.passworderror ="Normal"
+    this.passworderrorr ="Normal"
+    
+  }
+  else if(s==4){
+    //this.jagveer=false;
+    this.passworderror =""
+    this.passworderrorr ="Strong"
+    
+    
+  }
+  //this.passworderror =s
+  console.log(s)
+  }
+
+  blurr(){
+    this.jagveer=false;
+
+  }
+
   cpassword() {
     if (this.credentials.password !== this.credentials.cpassword) {
       this.cpassworderror = 'Password and Confirm password Donot match';
@@ -132,7 +186,7 @@ export class RegisterComponent {
   number() {
     const length = this.credentials.phonenumber.length;
     if (length < 10) {
-      this.phoneerror = 'Please enter minimun 10 digit Phonenumber';
+      this.phoneerror = 'Please enter minimum 10 digit Phonenumber';
       const element: HTMLElement = document.getElementById('number') as HTMLElement;
     //  element.focus();
     } else {
@@ -192,6 +246,9 @@ export class RegisterComponent {
 
     });
   }
+}
+isFocused(){
+  this.jagveer=true;
 }
 
 }

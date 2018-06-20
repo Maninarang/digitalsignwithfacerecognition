@@ -80,7 +80,7 @@
                                 <!-- <input type="text" class="form-control" id="" plastyle="
     color: #a94442 !important;
 "ceholder="First Name"> -->
-                                <input type="text" class="form-control" id='fname' name="fname" (blur)='fname()' placeholder="First Name" [(ngModel)]="credentials.fname"
+                                <input type="text" class="form-control" id='fname' name="fname" (blur)='fname()' placeholder="First Name*" [(ngModel)]="credentials.fname"
                                     required>
 
                                 <span>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" id='lname' name="lname" (blur)='lname()' placeholder="Last Name" [(ngModel)]="credentials.lname"
+                                <input type="text" class="form-control" id='lname' name="lname" (blur)='lname()' placeholder="Last Name*" [(ngModel)]="credentials.lname"
                                     required>
 
                                 <!-- <input type="text" class="form-control" id="" placeholder="Last Name"> -->
@@ -107,30 +107,29 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <input type="email" class="form-control" id='email' #email="ngModel" name="email" email placeholder="Email Address" [(ngModel)]="credentials.email"
+                                <input type="email" class="form-control" id='email' #email="ngModel" name="email" email placeholder="Email Address*" [(ngModel)]="credentials.email"
                                     (blur)="checkmail()" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required>
-                                <div class="error-msg-div" *ngIf="mailerror" style="color: #a94442 !important; ">
-                                    <span class="error-msg">{{mailerror}}</span>
-                                </div>
 
                                 <!-- <input type="text" class="form-control" id="" placeholder="Email Address"> -->
                                 <span>
                                     <i class="fa fa-envelope-o" aria-hidden="true"></i>
                                 </span>
                             </div>
+                            <div class="error-msg-div" *ngIf="mailerror" style="color: #a94442 !important; ">
+                                <span class="error-msg">{{mailerror}}</span>
+                            </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="Number" id='number' (blur)='number()' placeholder="Mobile Number" [(ngModel)]="credentials.phonenumber"
+                                <input type="text" class="form-control" name="Number" id='number' (blur)='number()' placeholder="Mobile Number*" [(ngModel)]="credentials.phonenumber"
                                     required>
-
-                                <div class="error-msg-div" *ngIf="phoneerror" style="color: #a94442 !important; ">
-                                    <span class="error-msg">{{phoneerror}}</span>
-                                </div>
                                 <!-- <input type="text" class="form-control" id="" placeholder="Mobile Number"> -->
                                 <span>
                                     <i class="fa fa-mobile" aria-hidden="true"></i>
                                 </span>
+                            </div>
+                            <div class="error-msg-div" *ngIf="phoneerror" style="color: #a94442 !important; ">
+                                <span class="error-msg">{{phoneerror}}</span>
                             </div>
                         </div>
                         <!--<div class="col-md-12 col-sm-12 col-xs-12">
@@ -150,23 +149,37 @@
                         </div>-->
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <input type="password" class="form-control" id='cpassword' (blur)='password()' name="password" placeholder="Password" [(ngModel)]="credentials.password"
+                                <input type="password" class="form-control" (focus)="isFocused()"  id='password' (blur)='blurr()' (keyup)='password()' name="password" placeholder="Password*" [(ngModel)]="credentials.password"
                                         required>
+                                        <!-- <p *ngIf="jagveer">Focus !</p> -->
                                 <!-- <div class="alert alert-danger" *ngIf="credentials.cpassword != credentials.password"> Password and Confirm password do not match</div> -->
                                 <!-- <span *ngIf="credentials.cpassword === credentials.password"> MATCHED{{credentials.cpassword}} </span> -->
                                 <!-- <input type="text" class="form-control" id="" placeholder="Confirm Password"> -->
                                 <span>
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </span>
-
-                                <div class="error-msg-div" *ngIf="cpassworderror" style="color: #a94442 !important; ">
-                                    <span class="error-msg">{{passworderror}}</span>
-                                </div>
+                            </div>
+                            <div class="error-msg-div" *ngIf="cpassworderror" style="color: #a94442 !important; ">
+                                <!-- <span class="error-msg">{{passworderrorr}}</span> -->
+                            </div>
+                            <!-- start pswd_info -->
+                            <div class="pwdrules" *ngIf="jagveer" >
+                                <div class="errorline">{{passworderrorr}}</div>
+                                <div class="strength0"></div>
+                                <div class="myrulesli">
+                                        <strong>Strong Password Tips:</strong>
+                                        <ul>
+                                                <li class="invalid">At least 8 characters</li>
+                                                <li class="invalid">At least one number</li>
+                                                <li class="invalid">At least one lowercase &amp; one uppercase letter</li>
+                                                <li class="invalid">At least one special character</li>
+                                        </ul>
+                                </div><!-- END pswd_info -->
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <input type="password" class="form-control" id='cpassword' (blur)='cpassword()' name="cpassword" placeholder="Confirm Password"
+                                <input type="password" class="form-control gt" id='cpassword' (blur)='cpassword()' name="cpassword" placeholder="Confirm Password*"
                                        [(ngModel)]="credentials.cpassword" required>
                                 <!-- <div class="alert alert-danger" *ngIf="credentials.cpassword != credentials.password"> Password and Confirm password do not match</div> -->
                                 <!-- <span *ngIf="credentials.cpassword === credentials.password"> MATCHED{{credentials.cpassword}} </span> -->
@@ -174,19 +187,18 @@
                                 <span>
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </span>
-
-                                <div class="error-msg-div" *ngIf="cpassworderror" style="color: #a94442 !important; ">
-                                    <span class="error-msg">{{cpassworderror}}</span>
-                                </div>
+                            </div>
+                            <div class="error-msg-div" *ngIf="cpassworderror" style="color: #a94442 !important; ">
+                                <span class="error-msg">{{cpassworderror}}</span>
                             </div>
                         </div>
-                        <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"></webcam>
+                        <webcam   [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"></webcam>
 
                         <div class="col-md-12 col-sm-12 col-xs-12">
 
                             <div class="form-group nwlbl">
 
-                                <label>Capture Image</label>
+                                <!-- <label>Capture Image</label> -->
                                 <input class="form-control" type="hidden" (change)="onImageChangeFromFile($event)" [(ngModel)]="credentials.imag" [value]="credentials.imag ? credentials.imag : null"
                                     name="webcamImage" id="webcamImage" required>
                                 <div class="capimg tooltip12" *ngIf="webcamImage">
@@ -231,7 +243,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 signdiv">
-                            <button *ngIf="recapture" type="button" (click)="toggleWebcam();" class="btn signbtn">ReCapture</button>
+                            <button *ngIf="recapture" type="button" (click)="toggleWebcam();" class="btn signbtn">Recapture</button>
                         </div>
                             <div *ngIf="credentials.cpassword == credentials.password" class="col-md-12 col-sm-12 col-xs-12 signdiv">
                                 <button [disabled]="!formCtrl.form.valid" type="submit" class="btn signbtn">

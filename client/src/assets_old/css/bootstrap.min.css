@@ -6224,9 +6224,9 @@ p.pt5 {
 }
 span.pt6 {
 	color:#fff;
-	padding:10px 10px;
+	padding:0 10px;
 	font-family:"Century Gothic";
-	font-size:16px;
+	font-size:16px;  
 }
 .nav > li > a {
 	padding:0px 0px !important

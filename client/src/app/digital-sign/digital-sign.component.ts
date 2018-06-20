@@ -143,6 +143,10 @@ export class DigitalSignComponent implements OnInit {
         });
     }
   }
+  clear(){
+    this.innerHtml="";
+    this.pdfpath='';
+  }
   showpdf() {
     this.innerHtml = this.domSanitizer.bypassSecurityTrustHtml(
       '<object data="' + 'https://mybitrade.com:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +

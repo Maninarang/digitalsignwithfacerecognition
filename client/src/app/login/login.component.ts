@@ -32,6 +32,7 @@ export class LoginComponent {
   public webcamImage: WebcamImage = null;
   public mailerror = null;
   public faceresponse: any;
+  public recapture = null;
   loginerror: any;
     // webcam snapshot trigger
     private trigger: Subject<void> = new Subject<void>();
@@ -40,10 +41,12 @@ export class LoginComponent {
       this.trigger.next();
       this.Camera = null;
       this.shwlogin = 'true';
+      this.recapture = true;
     }
     public toggleWebcam(): void {
       this.Camera = 'true';
       this.shwlogin = null;
+      this.recapture = null;
       // console.log("im");
       this.showWebcam = !this.showWebcam;
       if (this.webcamImage) {
@@ -74,7 +77,10 @@ export class LoginComponent {
     }
 
 
-  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient) {}
+  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient) { 
+     if (auth.isLoggedIn()) {
+    router.navigate(['digital_sign']);
+  }}
 
   login() {
     this.loading = true;

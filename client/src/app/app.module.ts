@@ -19,7 +19,8 @@ import { PdfComponent } from './pdf/pdf.component';
 import { FileDropModule } from 'ngx-file-drop';
 import { DragndropComponent } from './dragndrop/dragndrop.component';
 import { LoadingModule } from 'ngx-loading';
-import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+import {SlideshowModule} from 'ng-simple-slideshow';
+//import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 import { ActionrequestComponent } from './actionrequest/actionrequest.component';
@@ -29,6 +30,7 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { CompletedComponent } from './completed/completed.component';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+//import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { SignpdfComponent } from './signpdf/signpdf.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -65,6 +67,7 @@ const routes: Routes = [
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
+   // NgxHmCarouselModule,
   //  DashboardComponent,
     HomeComponent,
     HeaderComponent,
@@ -95,7 +98,7 @@ const routes: Routes = [
     FileDropModule,
     LoadingModule,
     NgxCarouselModule,
-    NgxHmCarouselModule,
+    SlideshowModule,
     BootstrapModalModule,
     NgxMyDatePickerModule.forRoot(),
     DragAndDropModule.forRoot(),

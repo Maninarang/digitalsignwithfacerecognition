@@ -5,26 +5,26 @@
 
 <section class="hdrsec">
   <div class="logoimg">
-      <img src="../../assets/img/ezee-logo.png" />
+      <img src="../../assets/img/ezee-logo.png"/>
   </div>
 </section>
 
 <section class="fullpage">
 <div class="container" >
                   
-  <div class="list-part myprofile" >
+  <div class="list-part myprofile mobilename" >
 
             <li class="dropdown" dropdown >
          
    
       
-  <i class="fa fa-user list5" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+  <i class="fa fa-user list5" aria-hidden="true"></i> &nbsp;
          
-    <span class="title">{{fullname}} &nbsp;&nbsp;</span>
+    <span class="title">{{fullname}} &nbsp;</span>
     <a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>
-    <div class="downarrow"><b class="caret"></b></div></a>
+    <div class="downarrow mobiledownarrow"><b class="caret"></b></div></a>
 
-              <ul *dropdownMenu class="dropdown-menu">
+              <ul *dropdownMenu class="dropdown-menu mobilemenu">
                 
     <li><a (click)="logout();">Logout</a></li>
                
@@ -45,24 +45,28 @@
 
 
 
-  <div class="container middlemargin">
+  <div class="container">
     <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop: true }"></ngx-loading>
 
-    <div class="row">
+    <div class="">
     
-      <div class="col-lg-2 col-md-2 col-xs-12">
+      <div class="col-lg-2 col-md-2 col-xs-12 mobilepd">
          
          <!--Instructions & logo part start-->		
              
-         <div style="display:block; margin:0 auto;" class="col-lg-12"> 
+         <div style="display:block; margin:0 auto;" class="col-lg-12 mobilepd"> 
              
-           <a  data-placement="right" data-toggle="tooltip" data-original-title=""><p class="pt51 pt567">&nbsp;&nbsp;<span class="fa fa-home"></span> &nbsp;Home</p></a>
+           <a routerLink="/"  data-placement="right" data-toggle="tooltip" data-original-title="" class="homeanchor">
+              <span class="pt51 pt567 mobilehomebtn">
+               <span class="fa fa-home"></span> Home
+              </span>
+            </a>
             
           </div>	
                
            <a href="">
                
-             <img class="img-responsive img-portfolio2" src="../../assets/img/signature.png" style="margin-top:10%;" alt="" data-placement="right"> 
+             <img class="img-responsive img-portfolio2 digitalimg mobiledigital" src="../../assets/img/signature.png"  alt="" data-placement="right"> 
                
            </a>
 
@@ -72,17 +76,17 @@
     
     <li style="list-style:none; cursor:pointer;" class="toggle">
        
-       <a style="cursor: pointer;" class="list-part2" (click)="showinstructions = !showinstructions" data-placement="right">
+       <a style="cursor: pointer;" class="list-part2 mobilehomebtn" (click)="showinstructions = !showinstructions" data-placement="right">
     
         <span class="title2">INSTRUCTIONS</span>
        
        </a>
         
-      <ul *ngIf="showinstructions" class="drop-popup" >
+      <ul *ngIf="showinstructions" class="drop-popup mydroppopup" >
          
          <div class="arrow-top"><img src="../../assets/img/arrow-top.png"></div>
           
-         <div class="inst-popup" style="font-family: Century Gothic; font-size: 14px; text-align: left; font-weight: bold; color: #333;">
+         <div class="inst-popup instnew" style="font-family: Century Gothic; font-size: 14px; text-align: left; font-weight: bold; color: #333;">
          
          <ul style="list-style: none; padding: 0;">
          
@@ -106,7 +110,7 @@
     </div>
   
   
-      <div class="clearfix"></div>	    <!--Instructions & logo part end-->
+      <div class="clearfix mymsg"></div>	    <!--Instructions & logo part end-->
       
     </div>
     
@@ -151,11 +155,11 @@
     
     </ul>             
        
-   <div id="myTabContent" class="tab-content" style="opacity: 1;">			
+   <div id="myTabContent" class="tab-content mobilecontent" style="opacity: 1;">			
            
     <div class="tab-pane active" id="home"><div class="col-lg-12 col-md-12 col-xs-12">
             
-      <div class="table-responsive">
+      <div class="">
      
      
      <div class="col-lg-5">
@@ -194,21 +198,21 @@
       <button id="showpdf" style="display:none"  (click)="showpdf()">Hello</button>
 
        
-     </div>
-       
-  <div class="col-lg-7 um-jam2 smalldivpdf" *ngIf="innerHtml"
-  [innerHTML]="innerHtml">
+     </div> 
+    <div class="col-lg-7"> 
+      <div class="outercross">
+        <div id="" *ngIf='pdfpath' class="selectdigital" style="display: block;">
+          <span id="" (click)='clear()' class="pdfclose"><img src="assets/img/cross2.png"></span>{{pdfpath.pdfid}}.pdf<br>
+        </div>
+      </div>  
+      <div class="um-jam2 smalldivpdf" *ngIf="innerHtml" [innerHTML]="innerHtml">
+
+      <span >    
+          <label class="labell">Uploaded Documents</label> 
+      </span>
  
- <div class="upload-cross" ></div>
-       
-   <span >
-            
-      <label class="labell">Uploaded Documents</label>
-           
-       
-   </span>
- 
-</div>
+      </div>
+    </div>
 
 
  <modal #participantModal [hideCloseButton]="true" [closeOnOutsideClick]="false">
@@ -226,10 +230,10 @@
                     <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addparticipantModal.open();participantModal.close();">
                       <span  class="particiapntll" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div> -->
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addnewparticipantmodal()">
-                      <span  class="particiapntll partbg" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New Participants</span></div>
+                      <span  class="particiapntll partbg" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add New <br> Participants</span></div>
                    
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="mycontactsModal.open();participantModal.close();">
-                      <span  class="partbg" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add From Contact</span></div>
+                      <span  class="partbg" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add From <br> Contact</span></div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 selectpati" (click)="addyourselfModal.open();participantModal.close();">
                       <span class="particiapntll partbg" style="display:block;padding: 41px 0px; font-family:'Century Gothic';"> Add <br>Yourself</span></div>
                   </div>
@@ -398,6 +402,7 @@
                       <input type="radio" value="Reviewer"   [(ngModel)]="type" tabindex="0" name="type" required > 
                       <label>Reviewer</label>
                       </div>
+                     
                 
                     <br>
                     <br>
@@ -565,9 +570,9 @@
                
       <div class="form-group um-jap col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 
-      <label for="inputEmail" class="col-lg-3 control-label2">Reference No.</label>
+      <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label2">Reference No.</label>
                 
-      <div class="col-lg-9">
+      <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                   
         <input type="text" name="refnumber" class="form-control pannel-1" placeholder="Ref.0000022" style="color:#000" value="{{documentcount}}" readonly="">
                 
@@ -579,13 +584,13 @@
        
       <span id="expirationdate" style="margin-top:0px;">
                
-       <label for="inputEmail" class="col-lg-3 control-label2" style="float: left;">Expiration Date</label>
+       <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label2" style="float: left;">Expiration Date</label>
                 
       <div class="col-lg-9" style="margin-top:0px;">
            <input type="checkbox" (change)="defauldate($event)" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" [(ngModel)]="showexpdate"> </div>             
           
-        <div class="col-lg-3">	</div>
-       <div class="col-lg-9" style="margin-top:10px;">				  
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">	</div>
+       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top:10px;">				  
                     
           
      <div *ngIf="showexpdate">
@@ -642,9 +647,9 @@
        
 
 
-    <div class="col-md-12 Umang" id="added" style="border: 2px #858f03 solid; margin-top:10px; background: #ffff;"> 
+    <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 Umang mobilebg" id="added"> 
                     
-        <div class="col-sm-12" style="font-family:&#39;Century Gothic&#39; !important; color: #fff;">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 mobilepd mobbgginner">
                     
      
 
@@ -677,11 +682,13 @@
 
 
         </div>
-<div class="col-md-6 col-sm-6 col-xs-12">
-   <a><button  class="bottom-nextbtn addpart" (click)="addpatipant()">Add Participants</button></a>
+<div class="col-md-6 col-sm-6 col-xs-12 mobilepd">
+   <a *ngIf="pdfpath"><button   class="bottom-nextbtn addpart" (click)="addpatipant()">Add Participants</button></a>
+   <a *ngIf="!pdfpath"><button disabled   class="bottom-nextbtn addpart" (click)="addpatipant()">Add Participants</button></a>
+   
 </div>
 
-<div class="col-md-6 col-sm-6 col-xs-12">
+<div class="col-md-6 col-sm-6 col-xs-12 mobilepd"> 
    <a  *ngIf="contactList" (click)="adduserstodocument();"><button class="bottom-nextbtn tofloat">Next</button></a>
 </div>
        
@@ -692,9 +699,9 @@
             
   
             
-    <div class="clearfix"></div>
+    <div class="clearfix mobclr"></div>
     
-    <div class="particiapnt34">Note: Please upload PDF before adding participants</div>
+    <div class="particiapnt34 mobpart">Note: Please upload PDF before adding participants</div>
           
     </div>
        
