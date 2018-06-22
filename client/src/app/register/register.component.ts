@@ -43,8 +43,9 @@ export class RegisterComponent {
   public hideimg = null;
   public faceresponse: any;
   public data: any;
-  public jagveer =false;
-  public passworderrorr=null;
+  public jagveer = false;
+  public passworderrorr = null;
+  public withoutImage = null;
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
 
@@ -54,9 +55,9 @@ export class RegisterComponent {
     this.recapture = true;
   }
   public toggleWebcam(): void {
-      this.Camera = 'true';
-      this.recapture = null;
-   // console.log("im");
+    this.Camera = 'true';
+    this.recapture = null;
+    // console.log("im");
     this.showWebcam = !this.showWebcam;
     if (this.webcamImage) {
       this.webcamImage = null;
@@ -79,7 +80,17 @@ export class RegisterComponent {
     if (auth.isLoggedIn()) {
       router.navigate(['digital_sign']);
     }
-   }
+  }
+
+  registerwithoutimage() {
+if (this.withoutImage === 'Selected') {
+  this.withoutImage = null;
+}else {
+  this.withoutImage = 'Selected';
+
+}
+  }
+
   checkmail() {
     // const element = this.credentials.selectRootElement('#input1');
 
@@ -93,7 +104,7 @@ export class RegisterComponent {
 
       this.mailerror = 'Please enter a valid email';
       const element: HTMLElement = document.getElementById('email') as HTMLElement;
-     // element.focus();
+      // element.focus();
     }
   }
   lname() {
@@ -101,7 +112,7 @@ export class RegisterComponent {
     if (empty < 1) {
       this.lnameerror = 'Please enter the lastname';
       const element: HTMLElement = document.getElementById('lname') as HTMLElement;
-    //  element.focus();
+      //  element.focus();
     } else {
       this.lnameerror = null;
     }
@@ -111,7 +122,7 @@ export class RegisterComponent {
     if (empty < 1) {
       this.fnameerror = 'Please enter the Firstname';
       const element: HTMLElement = document.getElementById('fname') as HTMLElement;
-    //  element.focus();
+      //  element.focus();
     } else {
       this.fnameerror = null;
     }
@@ -126,51 +137,51 @@ export class RegisterComponent {
     // //  element.focus();
     // }else {
     //   this.passworderror = null;
-    
+
     // }
-    if(this.credentials.password == null)
-    return -1;
-  var s = 0;
-  if(length==0){
-    this.passworderror ="Please input password "
-    this.passworderrorr ="Please input password "
-  }
-  if(length<8)
-  this.passworderror ="Very Weak"
-  this.passworderrorr ="Very Weak"
-  
-  for(var i in tests)
-    if(tests[i].test(this.credentials.password))
-      s++
-  // return s;
-  if(s==0){
-    this.passworderror ="Very Weak"
-  this.passworderrorr ="Very Weak"
-    
-  }
-  else if(s==2){
-    this.passworderror ="Weak"
-    this.passworderrorr ="Weak"
-    
-  }
-  else if(s==3){
-    this.passworderror ="Normal"
-    this.passworderrorr ="Normal"
-    
-  }
-  else if(s==4){
-    //this.jagveer=false;
-    this.passworderror =""
-    this.passworderrorr ="Strong"
-    
-    
-  }
-  //this.passworderror =s
-  console.log(s)
+    if (this.credentials.password == null)
+      return -1;
+    var s = 0;
+    if (length == 0) {
+      this.passworderror = "Please input password ";
+      this.passworderrorr = "Please input password ";
+    }
+    if (length < 8)
+      this.passworderror = "Very Weak";
+    this.passworderrorr = "Very Weak";
+
+    for (let i in tests)
+      if (tests[i].test(this.credentials.password))
+        s++;
+    // return s;
+    if (s == 0) {
+      this.passworderror = 'Very Weak';
+      this.passworderrorr = 'Very Weak';
+
+    }
+    else if (s == 2) {
+      this.passworderror = 'Weak';
+      this.passworderrorr = 'Weak';
+
+    }
+    else if (s == 3) {
+      this.passworderror = 'Normal';
+      this.passworderrorr = 'Normal';
+
+    }
+    else if (s == 4) {
+      //this.jagveer=false;
+      this.passworderror = '';
+      this.passworderrorr = 'Strong';
+
+
+    }
+    //this.passworderror =s
+    console.log(s);
   }
 
-  blurr(){
-    this.jagveer=false;
+  blurr() {
+    this.jagveer = false;
 
   }
 
@@ -178,7 +189,7 @@ export class RegisterComponent {
     if (this.credentials.password !== this.credentials.cpassword) {
       this.cpassworderror = 'Password and Confirm password Donot match';
       const element: HTMLElement = document.getElementById('cpassword') as HTMLElement;
-    //  element.focus();
+      //  element.focus();
     } else {
       this.cpassworderror = null;
     }
@@ -188,14 +199,20 @@ export class RegisterComponent {
     if (length < 10) {
       this.phoneerror = 'Please enter minimum 10 digit Phonenumber';
       const element: HTMLElement = document.getElementById('number') as HTMLElement;
-    //  element.focus();
+      //  element.focus();
     } else {
       this.phoneerror = null;
     }
     // console.log(this.phoneerror)
   }
   register() {
-    if (this.credentials.imag === '') {
+    console.log('im---');
+    if (this.withoutImage != null) {
+      this.credentials.image = 'none';
+      console.log('yoyo');
+    }
+
+    if (this.credentials.image === '') {
       this.imageerror = 'Image is required';
       return false;
     } else {
@@ -207,7 +224,17 @@ export class RegisterComponent {
       this.auth.register(this.credentials).subscribe(
 
         user => {
+          console.log(user.image);
+if (  user.image === 'none') {
+  console.log('you');
+
+  this.loading = false;
+  console.log(user);
+  this.router.navigateByUrl('/digital_sign');
+}else {
+  console.log('me');
           const userimage = user.image + '.jpg';
+          console.log('imageis->',userimage);
           const req = this.http.get('https://mybitrade.com:5000/api/detect?filename=' + userimage)
 
             .subscribe(
@@ -215,40 +242,41 @@ export class RegisterComponent {
                 this.faceresponse = res;
                 if (this.faceresponse.message === 'Face Not Found') {
                   // tslint:disable-next-line:no-shadowed-variable
-              const newreq = this.http.post('https://mybitrade.com:3000/api/delete', {id: user.id})
-              .subscribe (
-                // tslint:disable-next-line:no-shadowed-variable
-                res => {
-                  this.loading = false;
-                  this.error = 'Your Face Was Not Detected.Please Try Again';
-                }
-              );
+                  const newreq = this.http.post('https://mybitrade.com:3001/api/delete', { id: user.id })
+                    .subscribe(
+                      // tslint:disable-next-line:no-shadowed-variable
+                      res => {
+                        this.loading = false;
+                        this.error = 'Your Face Was Not Detected.Please Try Again';
+                      }
+                    );
                 } else {
-                this.router.navigateByUrl('/digital_sign');
+                  this.router.navigateByUrl('/digital_sign');
                 }
-        }
-        , (err) => {
-          this.error = 'Something Went Wrong.Please Try Again !!!';
+              }
+              , (err) => {
+                this.error = 'Something Went Wrong.Please Try Again !!!';
+              });
+            }  // else
+        }, (err) => {
+          this.loading = false;
+          this.data = err;
+          console.log(this.data);
+          console.error(this.data.error);
+          console.error(this.data.error.err);
+          if (this.data.error.err.code === 11000) {
+            this.error = 'User With Email or Phone Number Already Registered !!!';
+          } else {
+            this.error = 'Something Went Wrong.Please Try Again !!!';
+
+          }
+
         });
-
-    }, (err) => {
-      this.loading = false;
-      this.data = err;
-      // console.log(this.data);
-      // console.error(this.data.error);
-      // console.error(this.data.error.err.code);
-      if (this.data.error.err.code === 11000) {
-        this.error = 'User With Email or Phone Number Already Registered !!!';
-      } else {
-        this.error = 'Something Went Wrong.Please Try Again !!!';
-
-      }
-
-    });
+    }
+  // }
   }
-}
-isFocused(){
-  this.jagveer=true;
-}
+  isFocused() {
+    this.jagveer = true;
+  }
 
 }

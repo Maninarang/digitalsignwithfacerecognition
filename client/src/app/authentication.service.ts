@@ -76,9 +76,9 @@ export class AuthenticationService {
     let base;
 
     if (method === 'post') {
-      base = this.http.post(`https://mybitrade.com:3000/api/${type}`, user);
+      base = this.http.post(`https://mybitrade.com:3001/api/${type}`, user);
     } else {
-      base = this.http.get(`https://mybitrade.com:3000/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      base = this.http.get(`https://mybitrade.com:3001/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
     }
 
     const request = base.pipe(

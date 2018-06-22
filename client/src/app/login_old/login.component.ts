@@ -81,7 +81,7 @@ export class LoginComponent {
     this.auth.login(this.credentials).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       res => {
-        const req = this.http.post('https://mybitrade.com:3000/api/email', {
+        const req = this.http.post('https://mybitrade.com:3001/api/email', {
           email: this.credentials.email,
           image: this.credentials.image
         })

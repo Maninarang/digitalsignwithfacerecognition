@@ -21,7 +21,7 @@ export class DocumentdetailComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];
       // console.log(params);
-     this.http.get('https://mybitrade.com:3000/api/documentdetail/' + documentid)
+     this.http.get('https://mybitrade.com:3001/api/documentdetail/' + documentid)
      .subscribe(data => {
        console.log(data);
        this.documentdetail = data;

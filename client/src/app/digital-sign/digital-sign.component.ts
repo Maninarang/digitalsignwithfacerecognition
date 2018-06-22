@@ -105,12 +105,12 @@ export class DigitalSignComponent implements OnInit {
         this.lastName = nameArr[nameArr.length - 1];
       }
       this.userid = this.details._id;
-      this.http.get('https://mybitrade.com:3000/api/documentcount/' + this.userid)
+      this.http.get('https://mybitrade.com:3001/api/documentcount/' + this.userid)
         .subscribe(data => {
           this.count = data;
           this.documentcount = 'Ref-' + this.count.data;
           localStorage.setItem('docid', this.documentcount);
-          this.http.get('https://mybitrade.com:3000/api/mycontacts/' + this.userid)
+          this.http.get('https://mybitrade.com:3001/api/mycontacts/' + this.userid)
             // tslint:disable-next-line:no-shadowed-variable
             .subscribe(data => {
               this.showcontacts = data;
@@ -130,13 +130,13 @@ export class DigitalSignComponent implements OnInit {
       const formData: FormData = new FormData();
       this.loading = true;
       formData.append('filetoupload', file, file.name);
-      this.http.post('https://mybitrade.com:3000/api/uploadfile', formData)
+      this.http.post('https://mybitrade.com:3001/api/uploadfile', formData)
         .subscribe(data => {
           this.pdfpath = data;
           localStorage.setItem('pdfid', this.pdfpath.pdfid);
           this.innerHtml = this.domSanitizer.bypassSecurityTrustHtml(
             // tslint:disable-next-line:max-line-length
-            '<object data="' + 'https://mybitrade.com:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
+            '<object data="' + 'https://mybitrade.com:3001' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
             'Object' + this.pdfpath.path + ' failed' +
             '</object>');
           this.loading = false;
@@ -149,7 +149,7 @@ export class DigitalSignComponent implements OnInit {
   }
   showpdf() {
     this.innerHtml = this.domSanitizer.bypassSecurityTrustHtml(
-      '<object data="' + 'https://mybitrade.com:3000' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
+      '<object data="' + 'https://mybitrade.com:3001' + this.pdfpath.path + '" type="application/pdf" class="embed-responsive-item">' +
       'Object' + this.pdfpath.path + ' failed' +
       '</object>');
     this.loading = false;
@@ -167,7 +167,7 @@ export class DigitalSignComponent implements OnInit {
           const formData = new FormData();
           formData.append('filetoupload', file, droppedFile.relativePath);
           //  this.http.post('http://127.0.0.1:3000/api/uploadfile', formData, { headers: headers })
-          this.http.post('https://mybitrade.com:3000/api/uploadfile', formData)
+          this.http.post('https://mybitrade.com:3001/api/uploadfile', formData)
             .subscribe(data => {
               this.pdfpath = data;
               localStorage.setItem('pdfid', this.pdfpath.pdfid);
@@ -255,7 +255,7 @@ removeerror() {
     }
 
     if (!emailalreadyexist) {
-      this.http.post('https://mybitrade.com:3000/api/addnewparticipant',
+      this.http.post('https://mybitrade.com:3001/api/addnewparticipant',
         {
           firstName: firstName, lastName: lastName, email: email, address: address,
           subject: subject, message: message, userId: this.userid, docId: this.documentcount,
@@ -283,7 +283,7 @@ removeerror() {
     this.error = null;
     this.mycontactsModal.close();
     this.loading = true;
-    this.http.get('https://mybitrade.com:3000/api/contactdetail/' + id)
+    this.http.get('https://mybitrade.com:3001/api/contactdetail/' + id)
       .subscribe(data => {
         this.contactdata = data;
         this.type = 'Remote Signer';
@@ -401,7 +401,7 @@ removeerror() {
 
 
     if (!emailalreadyexist) {
-      this.http.post('https://mybitrade.com:3000/api/addnewparticipant',
+      this.http.post('https://mybitrade.com:3001/api/addnewparticipant',
         {
           firstName: firstName, lastName: lastName, email: email, address: address,
           subject: subject, message: message, type: type, userId: this.userid
@@ -427,7 +427,7 @@ removeerror() {
 
   editcontacts(email: String) {
     this.loading = true;
-    this.http.get('https://mybitrade.com:3000/api/contactdetail/' + email + '/' + this.userid)
+    this.http.get('https://mybitrade.com:3001/api/contactdetail/' + email + '/' + this.userid)
       .subscribe(data => {
         this.contactdata = data;
         this.contactfirstName = this.contactdata.data[0].firstName;
@@ -464,7 +464,7 @@ removeerror() {
     this.adduserarray.push({id: this.contacts[i].id});
     }
    // tslint:disable-next-line:max-line-length
-   this.http.post('https://mybitrade.com:3000/api/addusertodocument', {pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray})
+   this.http.post('https://mybitrade.com:3001/api/addusertodocument', {pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray})
    .subscribe(data => {
      this.loading = false;
     this.adduserresult = data;

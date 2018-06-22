@@ -158,7 +158,7 @@ export class RegisterComponent {
                 this.faceresponse = res;
                 if (this.faceresponse.message === 'Face Not Found') {
                   // tslint:disable-next-line:no-shadowed-variable
-              const newreq = this.http.post('https://mybitrade.com:3000/api/delete', {id: user.id})
+              const newreq = this.http.post('https://mybitrade.com:3001/api/delete', {id: user.id})
               .subscribe (
                 // tslint:disable-next-line:no-shadowed-variable
                 res => {
