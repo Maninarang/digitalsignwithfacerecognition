@@ -93,7 +93,7 @@
     color: #b6daff;
 }
 .formdiv .form-group p a:hover{
-    color: #715632;
+    color: #89c0f9;
 }
 .formdiv .checkbox{
     color: white;
@@ -113,7 +113,7 @@
     border: none;
     box-shadow: 0px 0px 9px 0px #333;
     border-radius: 0;
-    margin: 20px 0;
+    margin: 20px 0 0;
 }
 .formdiv .signdiv{
     text-align: center;
@@ -144,7 +144,8 @@
     width: 100%;
     color: white;
     float: left;
-    margin-bottom: 16px;
+    margin-bottom: 0;
+	margin-top: 10px;
 }
 .socialbtns{
     width: 100%;
@@ -547,3 +548,4 @@ video {
 .newrecap{
     margin: 20px 0 0 !important;
 }
+

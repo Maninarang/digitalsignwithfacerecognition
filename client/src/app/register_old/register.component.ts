@@ -167,7 +167,7 @@ export class RegisterComponent {
                 }
               );
                 } else {
-                this.router.navigateByUrl('/digital_sign');
+                this.router.navigateByUrl('/landing');
                 }
         }
         , (err) => {

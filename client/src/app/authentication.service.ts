@@ -80,10 +80,11 @@ export class AuthenticationService {
     } else {
       base = this.http.get(`https://mybitrade.com:3001/api/${type}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
     }
-
+   
     const request = base.pipe(
       map((data: TokenResponse) => {
         if (data.token) {
+          if(type === 'login')
           this.saveToken(data.token);
         }
         return data;

@@ -28,7 +28,8 @@ export class HomeComponent implements OnInit {
 
   ) {
     if (auth.isLoggedIn()) {
-    router.navigate(['digital_sign']);
+      // digital_sign
+    router.navigate(['landing']);
   }
 }
 

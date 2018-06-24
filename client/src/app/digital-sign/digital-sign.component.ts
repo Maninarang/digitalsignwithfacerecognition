@@ -115,9 +115,9 @@ export class DigitalSignComponent implements OnInit {
             .subscribe(data => {
               this.showcontacts = data;
               this.mycontacts = this.showcontacts.data;
-               if (!this.mycontacts.length) {
-                 this.nocontacts = 'No Contacts';
-               }
+              if (!this.mycontacts.length) {
+                this.nocontacts = 'No Contacts';
+              }
             });
         });
     });
@@ -140,12 +140,13 @@ export class DigitalSignComponent implements OnInit {
             'Object' + this.pdfpath.path + ' failed' +
             '</object>');
           this.loading = false;
+          event.target.value = '';
         });
     }
   }
-  clear(){
-    this.innerHtml="";
-    this.pdfpath='';
+  clear() {
+    this.innerHtml = "";
+    this.pdfpath = '';
   }
   showpdf() {
     this.innerHtml = this.domSanitizer.bypassSecurityTrustHtml(
@@ -185,14 +186,14 @@ export class DigitalSignComponent implements OnInit {
   defauldate(event) {
     if (event.target.checked) {
       const date = new Date();
-     let dd = date.getDate();
+      let dd = date.getDate();
       let mm = date.getMonth() + 1; //January is 0!
       const yyyy = date.getFullYear();
       if (dd < 10) {
-       // dd = '0' + dd;
+        // dd = '0' + dd;
       }
       if (mm < 10) {
-       // mm = '0' + mm;
+        // mm = '0' + mm;
       }
       const today = mm + '-' + dd + '-' + yyyy;
       localStorage.setItem('expdate', today);
@@ -208,9 +209,9 @@ export class DigitalSignComponent implements OnInit {
     // console.log(event.formatted);
   }
 
-removeerror() {
-  this.error = null;
-}
+  removeerror() {
+    this.error = null;
+  }
 
   // ------------------------ add new participant --------------------- //
 
@@ -237,14 +238,14 @@ removeerror() {
     if (lastName === '') {
       this.lasterror = 'Last Name is mandatory to proceed';
       return false;
-    }else {
+    } else {
       this.lasterror = null;
     }
     if (email === '') {
       this.emailerror = 'Email is mandatory to proceed';
       return false;
-    }else {
-    const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    } else {
+      const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (regex.test(email)) {
         this.emailerror = null;
       } else {
@@ -327,14 +328,14 @@ removeerror() {
     if (lastName === '') {
       this.lasterror = 'Last Name is mandatory to proceed';
       return false;
-    }else {
+    } else {
       this.lasterror = null;
     }
     if (email === '') {
       this.emailerror = 'Email is mandatory to proceed';
       return false;
-    }else {
-    const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    } else {
+      const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (regex.test(email)) {
         this.emailerror = null;
       } else {
@@ -379,14 +380,14 @@ removeerror() {
     if (lastName === '') {
       this.lasterror = 'Last Name is mandatory to proceed';
       return false;
-    }else {
+    } else {
       this.lasterror = null;
     }
     if (email === '') {
       this.emailerror = 'Email is mandatory to proceed';
       return false;
-    }else {
-    const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    } else {
+      const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (regex.test(email)) {
         this.emailerror = null;
       } else {
@@ -410,8 +411,8 @@ removeerror() {
           this.contactList = data;
           if (this.contactList.message === 1 || this.contactList.message === 2) {
             this.contacts.push({ name: firstName + ' ' + lastName, type: type, email: email });
-           // this.addparticipantForm.reset();
-             this.addyourselfModal.close();
+            // this.addparticipantForm.reset();
+            this.addyourselfModal.close();
           } else {
             this.error = 'This Email is already in your Contacts.You can add from there!!!';
           }
@@ -433,7 +434,7 @@ removeerror() {
         this.contactfirstName = this.contactdata.data[0].firstName;
         this.contactlastName = this.contactdata.data[0].lastName;
         this.contactemail = this.contactdata.data[0].email;
-       // this.contactdetailModal.open();
+        // this.contactdetailModal.open();
         this.loading = false;
       });
   }
@@ -444,9 +445,9 @@ removeerror() {
       return el.email === email;
     });
     if (emailalreadyexist) {
-     if (this.contacts.length === 1) {
-      this.contactList = '';
-     }
+      if (this.contacts.length === 1) {
+        this.contactList = '';
+      }
       for (let i = 0; i < this.contacts.length; i++) {
         if (this.contacts[i].email && this.contacts[i].email === email) {
           this.contacts.splice(i, 1);
@@ -456,29 +457,29 @@ removeerror() {
     }
   }
 
- // ----------------------------------------- add users to document -------------------------- //
+  // ----------------------------------------- add users to document -------------------------- //
 
- adduserstodocument() {
-   this.loading = true;
-  for (let i = 0; i < this.contacts.length; i++) {
-    this.adduserarray.push({id: this.contacts[i].id});
+  adduserstodocument() {
+    this.loading = true;
+    for (let i = 0; i < this.contacts.length; i++) {
+      this.adduserarray.push({ id: this.contacts[i].id });
     }
-   // tslint:disable-next-line:max-line-length
-   this.http.post('https://mybitrade.com:3001/api/addusertodocument', {pdfid: localStorage.getItem('pdfid'), userid: this.details._id , docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray})
-   .subscribe(data => {
-     this.loading = false;
-    this.adduserresult = data;
-    if (this.adduserresult.message === 'success') {
-      this.router.navigateByUrl('/pdfsign');
-    } else {
-      this.loading = false;
-      alert(this.adduserresult.message);
-    }
-     // console.log(data);
-   });
- }
+    // tslint:disable-next-line:max-line-length
+    this.http.post('https://mybitrade.com:3001/api/addusertodocument', { pdfid: localStorage.getItem('pdfid'), userid: this.details._id, docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'), usertosign: this.adduserarray })
+      .subscribe(data => {
+        this.loading = false;
+        this.adduserresult = data;
+        if (this.adduserresult.message === 'success') {
+          this.router.navigateByUrl('/pdfsign');
+        } else {
+          this.loading = false;
+          alert(this.adduserresult.message);
+        }
+        // console.log(data);
+      });
+  }
 
- // ------------------------------------------
+  // ------------------------------------------
   logout() {
     this.auth.logout();
   }
@@ -486,20 +487,20 @@ removeerror() {
   addpatipant() {
     console.log('called');
     this.firstnameerror = null;
-    this.lasterror  = null;
+    this.lasterror = null;
     this.emailerror = null;
     this.participantModal.open();
-}
-addnewparticipantmodal() {
-  this.firstnameerror = null;
-  this.lasterror  = null;
-  this.emailerror = null;
-  this.firstName = null;
-  this.addparticipantForm.reset();
-  this.newtype = 'Remote Signer';
-  this.addparticipantModal.open();
-  this.participantModal.close();
-} 
+  }
+  addnewparticipantmodal() {
+    this.firstnameerror = null;
+    this.lasterror = null;
+    this.emailerror = null;
+    this.firstName = null;
+    this.addparticipantForm.reset();
+    this.newtype = 'Remote Signer';
+    this.addparticipantModal.open();
+    this.participantModal.close();
+  }
 }
 // @Component({
 //   selector: 'app-addparticipant',

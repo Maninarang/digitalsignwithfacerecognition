@@ -88,6 +88,7 @@
     position: relative;
     color: #555;
     border-radius: 0;
+    font-family: century gothic !important;
 }
 .formdiv .form-group span{
     position: absolute;
@@ -141,7 +142,7 @@
     width: 100%;
     color: white;
     float: left;
-    margin-bottom: 16px;
+    margin-bottom: 0;
 	margin-top: 10px;
 }
 .socialbtns{
@@ -682,4 +683,11 @@ footer {
 
 div .hj:focus + #hiddendiv {
     /* display: block; */
+}
+
+.registersuccessmsg {
+    color: white;
+    text-align: center;
+    background-color: #b59848;
+    padding: 5px;
 }

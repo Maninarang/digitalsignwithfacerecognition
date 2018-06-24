@@ -20,7 +20,7 @@ import { FileDropModule } from 'ngx-file-drop';
 import { DragndropComponent } from './dragndrop/dragndrop.component';
 import { LoadingModule } from 'ngx-loading';
 import {SlideshowModule} from 'ng-simple-slideshow';
-//import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+//  import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 import { ActionrequestComponent } from './actionrequest/actionrequest.component';
@@ -30,7 +30,7 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { CompletedComponent } from './completed/completed.component';
 import { NgxCarouselModule } from 'ngx-carousel';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-//import { NgxHmCarouselModule } from 'ngx-hm-carousel';
+// import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { SignpdfComponent } from './signpdf/signpdf.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -40,11 +40,34 @@ import { ActionrequiredComponent } from './actionrequired/actionrequired.compone
 import { ContactsarrayService } from './contactsarray.service';
 import { DocumentdetailComponent } from './documentdetail/documentdetail.component';
 import { DocumentuserdetailsComponent } from './documentuserdetails/documentuserdetails.component';
+
+
+import { DashbordHeaderComponent } from './header_dashboard/header.component';
+import { FooterComponent } from './footer_dashboard/footer.component';
+import { MainSideBarComponent } from './main-side-bar/main-side-bar.component';
+import { CompletedDocComponent } from './completed-doc/completed-doc.component';
+import { PendingDocComponent } from './pending-doc/pending-doc.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
+
+
 import { SafePipe } from './safe.pipe';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { LandingComponent } from './landing/landing.component';
+import { NewDocumentComponent } from './new-document/new-document.component';
+
+// import { ConfirmComponent } from './confirm/confirm.component';
+
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'newdocument', component: NewDocumentComponent },
+  { path: 'landing', component: LandingComponent },
+  { path: 'pendingdoc', component: PendingDocComponent },
+  { path: 'completeddoc', component: CompletedDocComponent },
   { path: 'header', component: HeaderComponent },
-  //{ path: 'dashboard', component: DashboardComponent },
+  // { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'digitalsignature', component: DigitalSignatureComponent },
@@ -56,8 +79,12 @@ const routes: Routes = [
   { path: 'saved_image', component: SavedImageComponent },
   { path: 'contact_list', component: ContactListComponent },
   { path: 'completed', component: CompletedComponent },
+  { path: 'dashbordFooter', component: FooterComponent },
+  { path: 'dashboardHeader', component: DashbordHeaderComponent },
+  { path: 'MainSideBar', component: MainSideBarComponent },
   { path: 'actionrequired', component: ActionrequiredComponent },
   { path: 'documentdetail/:documentid', component: DocumentdetailComponent },
+  { path: 'confirm/:userid', component: ConfirmComponent },
   { path: 'signpdf/:documentid/:userid/:usertosign', component: SignpdfComponent, canActivate: [AuthGuardService]}
 ];
 
@@ -67,6 +94,7 @@ const routes: Routes = [
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
+    NewDocumentComponent,
    // NgxHmCarouselModule,
   //  DashboardComponent,
     HomeComponent,
@@ -84,6 +112,14 @@ const routes: Routes = [
     DocumentdetailComponent,
     DocumentuserdetailsComponent,
     SafePipe,
+    FooterComponent,
+    DashbordHeaderComponent,
+    MainSideBarComponent,
+    DashboardComponent,
+    PendingDocComponent,
+    CompletedDocComponent,
+    ConfirmComponent,
+    LandingComponent
     // AddparticipantdialogComponent
     ],
   imports: [

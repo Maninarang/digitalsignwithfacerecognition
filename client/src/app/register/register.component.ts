@@ -46,6 +46,7 @@ export class RegisterComponent {
   public jagveer = false;
   public passworderrorr = null;
   public withoutImage = null;
+  public userregistered = null;
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
 
@@ -83,14 +84,20 @@ export class RegisterComponent {
   }
 
   registerwithoutimage() {
-if (this.withoutImage === 'Selected') {
-  this.withoutImage = null;
-}else {
-  this.withoutImage = 'Selected';
+    if (this.withoutImage === 'Selected') {
+      this.withoutImage = null;
+    } else {
+      this.withoutImage = 'Selected';
 
-}
+    }
   }
-
+  // this.credentials.lname =null;
+  // this.credentials.email=null;
+  // this.credentials.fname=null;
+  // this.credentials.password=null;
+  // this.credentials.cpassword=null;
+  // this.credentials.phonenumber=null;
+  // this.credentials.image=null;
   checkmail() {
     // const element = this.credentials.selectRootElement('#input1');
 
@@ -129,7 +136,7 @@ if (this.withoutImage === 'Selected') {
   }
   password() {
     var tests = [/[0-9]/, /[a-z]/, /[A-Z]/, /[^A-Z-0-9]/i]
-    //this.jagveer=false;
+    // this.jagveer=false;
     const length = this.credentials.password.length;
     // if (length < 8) {
     //   this.passworderror = 'Please enter minimum 8 digit Password';
@@ -225,39 +232,83 @@ if (this.withoutImage === 'Selected') {
 
         user => {
           console.log(user.image);
-if (  user.image === 'none') {
-  console.log('you');
+          if (user.image === 'none') {
+            console.log('you');
 
-  this.loading = false;
-  console.log(user);
-  this.router.navigateByUrl('/digital_sign');
-}else {
-  console.log('me');
-          const userimage = user.image + '.jpg';
-          console.log('imageis->',userimage);
-          const req = this.http.get('https://mybitrade.com:5000/api/detect?filename=' + userimage)
+            this.loading = false;
+            console.log(user);
+            this.userregistered = user.to;
+            this.credentials.lname = null;
+            this.credentials.email = null;
+            this.credentials.fname = null;
+            this.credentials.password = null;
+            this.credentials.cpassword = null;
+            this.credentials.phonenumber = null;
+            this.credentials.image = null;
+            this.webcamImage = null;
+            // this.credentials = null;
+            // this.router.navigateByUrl('/digital_sign');
+            localStorage.clear();
+          } else {
+            console.log('me');
+            console.log(user);
+            const userimage = user.image + '.jpg';
+            console.log('imageis->', userimage);
+            const req = this.http.get('https://mybitrade.com:5000/api/detect?filename=' + userimage)
 
-            .subscribe(
-              res => {
-                this.faceresponse = res;
-                if (this.faceresponse.message === 'Face Not Found') {
-                  // tslint:disable-next-line:no-shadowed-variable
-                  const newreq = this.http.post('https://mybitrade.com:3001/api/delete', { id: user.id })
-                    .subscribe(
-                      // tslint:disable-next-line:no-shadowed-variable
-                      res => {
-                        this.loading = false;
-                        this.error = 'Your Face Was Not Detected.Please Try Again';
-                      }
-                    );
-                } else {
-                  this.router.navigateByUrl('/digital_sign');
+              .subscribe(
+                res => {
+                  this.faceresponse = res;
+                  if (this.faceresponse.message === 'Face Not Found') {
+                    // tslint:disable-next-line:no-shadowed-variable
+                    const newreq = this.http.post('https://mybitrade.com:3001/api/delete', { id: user.id })
+                      .subscribe(
+                        // tslint:disable-next-line:no-shadowed-variable
+                        res => {
+                          this.loading = false;
+                          this.error = 'Your Face Was Not Detected.Please Try Again';
+                          localStorage.clear();
+                          this.auth.logout();
+                        }
+                      );
+                  } else {
+                    const newreq = this.http.post('https://mybitrade.com:3001/api/sendmail', {
+                      id: user.id,
+                      imageurl: user.imgurl,
+                      to: user.to,
+                      name: user.name,
+                      // url: 'https://mybitrade.com/confirm/' + user.id
+                       url: 'https://localhost:4201/confirm/' + user.id
+                    })
+                      .subscribe(
+                        // tslint:disable-next-line:no-shadowed-variable
+                        res => {
+                          this.loading = false;
+                          // this.error = 'Your Face Was Not Detected.Please Try Again';
+                          this.userregistered = user.to;
+                          localStorage.clear();
+                        }
+                      );
+                    this.userregistered = user.to;
+                    this.credentials.lname = null;
+                    this.credentials.email = null;
+                    this.credentials.fname = null;
+                    this.credentials.password = null;
+                    this.credentials.cpassword = null;
+                    this.credentials.phonenumber = null;
+                    this.credentials.image = null;
+                    this.webcamImage = null;
+                    localStorage.clear();
+                    // this.credentials = null;
+                    // this.router.navigateByUrl('/digital_sign');
+                  }
                 }
-              }
-              , (err) => {
-                this.error = 'Something Went Wrong.Please Try Again !!!';
-              });
-            }  // else
+                , (err) => {
+                  this.error = 'Something Went Wrong.Please Try Again !!!';
+                  localStorage.clear();
+                  this.auth.logout();
+                });
+          }  // else
         }, (err) => {
           this.loading = false;
           this.data = err;
@@ -268,12 +319,13 @@ if (  user.image === 'none') {
             this.error = 'User With Email or Phone Number Already Registered !!!';
           } else {
             this.error = 'Something Went Wrong.Please Try Again !!!';
+            localStorage.clear();
 
           }
 
         });
     }
-  // }
+    // }
   }
   isFocused() {
     this.jagveer = true;

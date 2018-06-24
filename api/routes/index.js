@@ -12,6 +12,7 @@ var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
 var pdftohtml = require('pdftohtmljs');
 var base64Img = require('base64-img');
+var pdftoimage = require('pdftoimage');
 var urlencodedParser = bodyParser.urlencoded({
   extended: true
 })
@@ -280,8 +281,35 @@ router.post("/uploadfile", function (req, res) {
           //   file:path.join(__basedir,'/uploadedpdf/uploadedpdf/')+ts +'/'+ files.filetoupload.name
 
           //   })
-
-          var pdfImage = new PDFImage(path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf');
+          const pdfImageOpts = {
+            // outputDirectory: path.join(__dirname, './wmReports/images'),
+             convertExtension: 'jpg',
+             convertOptions: {
+               '-colorspace': 'RGB',
+               '-interlace': 'none',
+               '-density': '300',
+               '-quality': '100'
+             }
+           };
+           var pdfImage = new PDFImage(path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf',pdfImageOpts);
+          //  pdftoimage(pdfImage, {
+          //   format: 'jpeg',  // png, jpeg, tiff or svg, defaults to png
+          //   prefix: 'pdf',  // prefix for each image except svg, defaults to input filename
+          //   outdir: ts   // path to output directory, defaults to current directory
+          // })
+          // .then(function(){
+          //   res.status(200).json({
+          //         // file:"http://127.0.0.1:3000/html/"+new_name+".html"
+          //         path: '/uploadedpdf/' + ts + '/' + 'pdf.pdf',
+          //         pdfid: ts
+    
+          //       })
+          //     })
+          // .catch(function(err){
+          //   res.status(503).json({
+          //         error: "Something went Wrong.Please Try Agiain.."
+          //       })    
+          //         });
           pdfImage.convertFile().then(function (imagePaths) {
             res.status(200).json({
               // file:"http://127.0.0.1:3000/html/"+new_name+".html"

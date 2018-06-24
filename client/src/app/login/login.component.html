@@ -95,6 +95,9 @@
                         <p>
                             <img src="../../assets/img/ezee-wyt.png" /> Log In</p>
                     </div>
+                    <div *ngIf="confirm">
+                        To verify your profile , Check your registered email and follow the process.
+                    </div>
                     <!-- <form action="/action_page.php"> -->
                     <form (submit)="login()" #formCtrl="ngForm">
 
@@ -143,7 +146,7 @@
                         <div class="error-msg-div" *ngIf="error"><span class="error-msg">{{error}}</span></div>
                         <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"></webcam>
 
-                        <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div *ngIf='!hideimage' class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group nwlbl">
                                 <!-- <label>Capture Image</label> -->
                                 <input type="hidden" class="form-control" (change)="onImageChangeFromFile($event)" [(ngModel)]="credentials.imag" [value]="credentials.imag ? credentials.imag : null"
@@ -167,23 +170,23 @@
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 signdiv">
-                            <div class="form-group">
+                            
                                 <!-- <button *ngIf="!Camera " type="button" (click)="toggleWebcam();" class="btn signbtn fullwdth nwclr">
                                     <i class="fa fa-camera" aria-hidden="true"></i> Open Camera</button> -->
                                 <button *ngIf="Camera" type="button" (click)="triggerSnapshot();" class="btn signbtn fullwdth">Capture</button>
-                            </div>
-                            <div class="form-group">
+                          
+                            
                                 <button type="button"  *ngIf="recapture" (click)="toggleWebcam();"  class="btn signbtn newrecap">Recapture</button>
-                            </div>
+                  
                             <!-- <button *ngIf="shwlogin" [disabled]="!formCtrl.form.valid" type="submit" class="btn btn-default signbtn">
                                 <img src="../../assets/img/ezee-wyt.png" /> Sign In</button> -->
                                 <button [disabled]="!formCtrl.form.valid"  type="submit" class="btn signbtn">
                                     <img src="../../assets/img/ezee-wyt.png" /> Sign In</button>
                         </div>
 
-                        <!-- <p class="jsttext">Or login with</p>
+                         <p class="jsttext">Or</p>
 
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialbtns">
+                        <!--<div class="col-md-12 col-sm-12 col-xs-12 socialbtns">
                             <div class="fbbtn">
                                 <a href="#">
                                     <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -197,6 +200,16 @@
                         </div> -->
 
                     </form>
+                    <div class="col-md-12 col-sm-12 col-xs-12 signdiv">
+                        <button *ngIf='!withoutimage' (click)='noimage()' class="btn signbtn">
+                            <img src="../../assets/img/ezee-wyt.png" /> Login without image
+                        </button>
+                        <button *ngIf='withoutimage' (click)='noimage()' class="btn signbtn">
+                            <img src="../../assets/img/ezee-wyt.png" /> Login with image
+                        </button>
+                    </div>
+                    
+                   
                 </div>
             </div>
         </div>

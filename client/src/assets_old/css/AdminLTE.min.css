@@ -149,8 +149,11 @@ body{
     border: none;
     margin-bottom: 14px;
 }
+.delbtn i{
+    margin: 0;
+}
 .nav>li>a>img {
-    max-width: 128px;
+    max-width: 128px !important;
 }
 .navbar-nav>li>a {
     padding-right: 50px;
