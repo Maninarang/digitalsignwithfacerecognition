@@ -268,7 +268,7 @@ export class RegisterComponent {
                           this.loading = false;
                           this.error = 'Your Face Was Not Detected.Please Try Again';
                           localStorage.clear();
-                          this.auth.logout();
+                         // this.auth.logout();
                         }
                       );
                   } else {
@@ -278,13 +278,13 @@ export class RegisterComponent {
                       to: user.to,
                       name: user.name,
                       // url: 'https://mybitrade.com/confirm/' + user.id
-                       url: 'https://localhost:4201/confirm/' + user.id
+                       url: 'https://mybitrade.com/confirm/' + user.id
                     })
                       .subscribe(
                         // tslint:disable-next-line:no-shadowed-variable
                         res => {
                           this.loading = false;
-                          // this.error = 'Your Face Was Not Detected.Please Try Again';
+                          //this.error = 'Your Face Was Not Detected.Please Try Again';
                           this.userregistered = user.to;
                           localStorage.clear();
                         }

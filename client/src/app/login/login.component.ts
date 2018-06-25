@@ -127,10 +127,12 @@ export class LoginComponent implements OnInit {
                     if (this.faceresponse.message === 'No Face Found') {
                       this.loading = false;
                       this.error = 'Your Face Was Not Detected.Please Try Again';
+                      localStorage.clear();
                     } else if (this.faceresponse.message === 'Match Not Found') {
                       this.loading = false;
                       this.error = 'Failed To Recognise You.Please Try Again';
-                      this.auth.logout();
+                     // this.auth.logout();
+                     localStorage.clear();
                     } else {
                       this.router.navigateByUrl('/landing');
                     }
@@ -139,8 +141,9 @@ export class LoginComponent implements OnInit {
                     // localStorage.setItem(user:'')
                     this.loading = false;
                     this.error = 'Failed To Recognise You';
-                    this.auth.logout();
+                  //  this.auth.logout();
                     console.log('Error occured');
+                    localStorage.clear();
                   });
             });
         }

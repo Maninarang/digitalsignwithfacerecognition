@@ -278,7 +278,7 @@ export class RegisterComponent {
                       to: user.to,
                       name: user.name,
                       // url: 'https://mybitrade.com/confirm/' + user.id
-                       url: 'https://localhost:4201/confirm/' + user.id
+                       url: 'https://mybitrade.com/confirm/' + user.id
                     })
                       .subscribe(
                         // tslint:disable-next-line:no-shadowed-variable

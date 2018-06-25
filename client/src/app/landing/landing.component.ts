@@ -26,18 +26,21 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     this.auth.profile().subscribe(user => {
-      console.log(user.status)
-      if(user.status ==="unverified" ){
+   //   console.log(user)
+      if (user.status === 'unverified' ) {
 localStorage.clear();
 this.router.navigateByUrl('/login');
-      }
-      else{
-
+      }else {
         this.details = user;
         this.fullname = this.details.name;
       }
-     
-    });
+    },
+    err => {
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
+  
+  );
   }
   // constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient) {
 
