@@ -19,6 +19,17 @@
         </div>
     </div>
 </section>
+<section *ngIf="error" class="btnsection">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="confirmdiv">
+            <div class="innerimgbox">
+                <!-- <img src="../../assets/img/confirm.png"/> -->
+            </div>
+            {{error}}
+        <!-- <button (click)="user()">Confirm</button> -->
+        </div>
+    </div>
+</section>
 
 <footer>
     <div class="container">

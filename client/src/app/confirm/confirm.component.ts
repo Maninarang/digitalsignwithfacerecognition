@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent implements OnInit {
-
+  error: any;
   USER: any;
   userDetails: any;
   constructor(
@@ -17,8 +17,8 @@ export class ConfirmComponent implements OnInit {
     private http: HttpClient
   ) { }
   ngOnInit() {
-  }
-  user() {
+    // }
+    // user() {
     this.activatedRoute.params.subscribe((params: Params) => {
       const userid = params['userid'];
       // console.log(params);
@@ -29,7 +29,11 @@ export class ConfirmComponent implements OnInit {
           this.userDetails = this.USER.data;
           localStorage.setItem('useremail', this.USER.data.email);
           this.router.navigateByUrl('/login');
-        });
+        },
+          err => {
+            this.error = ' User Not Found ';
+          }
+        );
     });
   }
 

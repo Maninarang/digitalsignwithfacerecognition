@@ -55,6 +55,7 @@ export class SignpdfComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('initialised')
     // this.loading = true;
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];
