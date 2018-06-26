@@ -668,7 +668,9 @@
                  <tr *ngFor="let contact of contacts ; let i = index">
                      <td>{{contact.name}}</td>
                      <td>{{i+1}}</td>
-                     <td>{{contact.type}}</td>
+                     <td *ngIf="contact.type">{{contact.type}}</td>
+                     <td *ngIf="!contact.type">Remote Signer</td>
+                     
                      <td>
                        <!-- <span class="fa fa-pencil sign_icon" aria-hidden="true" title="Click this to edit the participant" data-toggle="tooltip" data-palcement="bottom" (click)="editcontacts(contact.email);"></span> -->
                        <span class="fa fa-trash-o sign_icon" aria-hidden="true" style="padding-right:15px; display:inline !important;" title="Click this to delete the participant from list" data-toggle="tooltip" (click)="deletecontact(contact.email);"  data-palcement="bottom"></span>
