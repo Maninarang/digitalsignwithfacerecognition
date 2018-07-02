@@ -47,6 +47,9 @@
                 </li>
 
             </div>
+            <div *ngIf="userregistered" #top class="registersuccessmsg">
+                To verify your profile , Check your registered email and follow the process .
+            </div>
         </div>
     </div>
 
@@ -80,9 +83,7 @@
                     </a>
                 </div>
                 <div class="formdiv">
-                    <div *ngIf="userregistered" class="registersuccessmsg">
-                        You Are Sucessfully Registred , please Check Your Email({{userregistered}}) for login into system 
-                    </div>
+                   
                     <div class="ezeelogintext">
                         <p>
                             <img src="../../assets/img/ezee-wyt.png" /> User Registration
@@ -246,6 +247,7 @@
                         <div class="col-md-12 col-sm-12 col-xs-12 signdiv">
                             <button *ngIf="recapture" type="button" (click)="toggleWebcam();" class="btn signbtn">Recapture</button>
                         </div>
+                        
                         <div *ngIf="credentials.cpassword == credentials.password" class="col-md-12 col-sm-12 col-xs-12 signdiv">
                             <button [disabled]="!formCtrl.form.valid" type="submit" class="btn signbtn">
                                 <img src="../../assets/img/ezee-wyt.png" /> Register
@@ -282,6 +284,9 @@
         </button>
     </div>
 </div>
+<!-- <div *ngIf="userregistered" #top class="registersuccessmsg">
+    To verify your profile , Check your registered email and follow the process .
+</div> -->
                     
                 </div>
             </div>

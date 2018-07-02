@@ -92,6 +92,7 @@ export class DigitalSignComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.type = 'Remote Signer';
     this.auth.profile().subscribe(user => {
       this.details = user;
       this.fullname = this.details.name;
@@ -121,6 +122,10 @@ export class DigitalSignComponent implements OnInit {
             });
         });
     });
+    // $('.dell').click(function () {
+    //   alert();
+    // }) 
+     
   }
 
   fileChange(event) {
@@ -357,7 +362,7 @@ export class DigitalSignComponent implements OnInit {
   // ------------------------ add youself --------------------- //
 
   addyourself(form) {
-     console.log(form.type);
+    console.log(form.type);
     let type = form.type;
     if (type === null) {
       type = 'Remote Signer';
@@ -409,10 +414,10 @@ export class DigitalSignComponent implements OnInit {
         })
         .subscribe(data => {
           this.contactList = data;
-          console.log("this.contactList->" ,this.contactList)
+          console.log("this.contactList->", this.contactList)
           if (this.contactList.message === 1 || this.contactList.message === 2) {
             this.contacts.push({ name: firstName + ' ' + lastName, type: type, email: email, id: this.contactList.id });
-            console.log("data pushed",this.contacts);
+            console.log("data pushed", this.contacts);
             // this.addparticipantForm.reset();
             this.addyourselfModal.close();
           } else {
@@ -468,11 +473,13 @@ export class DigitalSignComponent implements OnInit {
       this.adduserarray.push({ id: this.contacts[i].id });
     }
     // tslint:disable-next-line:max-line-length
-    const postdata = { pdfid: localStorage.getItem('pdfid'), userid: this.details._id,
-    docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'),
-     usertosign: this.adduserarray };
-     console.log('postdata--> ', postdata);
-    this.http.post('https://mybitrade.com:3001/api/addusertodocument', postdata )
+    const postdata = {
+      pdfid: localStorage.getItem('pdfid'), userid: this.details._id,
+      docid: localStorage.getItem('docid'), expdate: localStorage.getItem('expdate'),
+      usertosign: this.adduserarray
+    };
+    console.log('postdata--> ', postdata);
+    this.http.post('https://mybitrade.com:3001/api/addusertodocument', postdata)
       .subscribe(data => {
         this.loading = false;
         this.adduserresult = data;

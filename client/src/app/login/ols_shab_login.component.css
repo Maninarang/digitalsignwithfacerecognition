@@ -176,7 +176,7 @@
 .capimg{
     width: 100%;
     float: left;
-    height: 361px;
+    height: 250px;
 	overflow: hidden;
 	position: relative;
 	text-align: center;
@@ -199,7 +199,7 @@
 .fropicture .regimg{
 	width: 110px;
     position: absolute;
-    top: 362px;
+    top: 250px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -335,8 +335,7 @@ video {
 	}
 	.formdiv .signbtn{
 		width: 100%;
-        margin: 10px 0;
-        font-size: 16px;
+		margin: 10px 0;
 	}
 	.socialbtns {
 		padding: 0
@@ -446,7 +445,7 @@ video {
     bottom: 100%;
     left: 50%;
     margin-left: -86px;
-    top: 46px !important;
+    top: 6px !important;
 }
 
 .tooltip12:hover .tooltiptext {

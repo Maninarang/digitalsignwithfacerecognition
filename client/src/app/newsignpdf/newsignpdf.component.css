@@ -1,7 +1,28 @@
+.pdfimg img{
+    width: 100%;
+}
+.pdfimg {
+    border-bottom: 2px solid #333333;
+}
+.divsize {
+    border: 3px solid #858f03;
+    /* max-height: 854px;
+    overflow: hidden;
+    overflow-y: scroll; */
+    float: right;
+    height: 100%;
+}
+
+.pdfimg[_ngcontent-c0] img[_ngcontent-c0]
+
+.webcam-wrapper video {
+    width :430px !important;
+}
+
 .loginform-outerdiv{
     width: 100%;
     float: left;
-    background-color: #3079d8;
+    background-color: #4299f8;
     margin: 100px 0;
     padding: 20px;
 }
@@ -10,7 +31,7 @@
     padding: 230px 20px;
 }
 .logimg img{
-    width: 55%;
+    width: 46%;
 }
 .log-reg-btn{
     width: 100%;
@@ -28,13 +49,11 @@
     background-color: #b59848;
     color: #715732;
     margin-bottom: 15px;
-    font-weight: 600;
 }
 .log-reg-btn .log{
     background-color: #715732;
     color: white;
     margin-bottom: 15px;
-    font-weight: 600;
 }
 .log-reg-btn .reg:hover{
     background-color: #a2873b;
@@ -42,12 +61,11 @@
 .log-reg-btn .log:hover{
     background-color: #614928;
 }
-
 .formdiv{
     width: 100%;
     float: left;
-    border: 2px solid #3a8ae9;
-    padding-bottom: 25px;
+    /* border: 1px solid #fff; */
+    /* padding-bottom: 60px; */
 }
 .ezeelogintext{
     width: 100%;
@@ -57,13 +75,11 @@
 }
 .ezeelogintext img{
     width: 84px;
-    position: relative;
-    top: -12px;
 }
 .ezeelogintext p{
     width: 80%;
     float: left;
-    border-bottom: 2px solid #3a8ae9;
+    border-bottom: 1px solid #fff;
     margin-bottom: 20px;
     text-align: center;
     font-size: 29px;
@@ -75,9 +91,7 @@
 .formdiv .form-group input{
     border: 1px solid #b59748;
     position: relative;
-    color: #555;
-    font-size: 15px;
-    border-radius: 0;
+    color: #b59748;
 }
 .formdiv .form-group span{
     position: absolute;
@@ -90,10 +104,10 @@
     color: white;
 }
 .formdiv .form-group p a{
-    color: #b6daff;
+    color: #92c7ff;
 }
 .formdiv .form-group p a:hover{
-    color: #89c0f9;
+    color: #715632;
 }
 .formdiv .checkbox{
     color: white;
@@ -105,15 +119,15 @@
     padding: 0 40px;
 }
 .formdiv .signbtn {
-    width: 290px;
+    width: 250px;
     padding: 10px;
     font-size: 18px;
     color: white;
-    background-color: #715632;
-    border: none;
+    background-color: #515904;
+    border: 1px solid #fff;
     box-shadow: 0px 0px 9px 0px #333;
-    border-radius: 0;
-    margin: 20px 0 0;
+    border-radius: 2px;
+    margin: 20px 0;
 }
 .formdiv .signdiv{
     text-align: center;
@@ -121,31 +135,17 @@
 .formdiv .signbtn:hover, .formdiv .signbtn:active, .formdiv .signbtn:focus, .formdiv .signbtn:active:focus{
     box-shadow: none;
     transition: 0.5s;
+    outline: none;
 }
 .formdiv .signbtn img{
-    width: 34px;
-    position: relative;
-    top: -2px;
-}
-::placeholder {
-    color: #8e8e8e;
-    opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color: #8e8e8e;
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
-   color: #8e8e8e;
+    width: 35px;
 }
 .jsttext{
     text-align: center;
     width: 100%;
     color: white;
     float: left;
-    margin-bottom: 0;
-	margin-top: 10px;
+    margin-bottom: 16px;
 }
 .socialbtns{
     width: 100%;
@@ -176,7 +176,7 @@
 .capimg{
     width: 100%;
     float: left;
-    height: 361px;
+    height: 364px;
 	overflow: hidden;
 	position: relative;
 	text-align: center;
@@ -199,7 +199,7 @@
 .fropicture .regimg{
 	width: 110px;
     position: absolute;
-    top: 362px;
+    top: 365px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -233,7 +233,6 @@
     top: 30px;
     right: 0;
     width: 285px;
-    display: none;
 }
 
 
@@ -261,6 +260,7 @@ footer {
     width: 100%;
     border-top: 2px solid #b59848;
     border-bottom: 2px solid #b59848;
+    float: left;
 }
 .social-icondiv{
     width: 100%;
@@ -281,7 +281,7 @@ img.ng-untouched.ng-pristine.ng-valid {
     width: 100%;
 }
 video {
-    width: 300%;
+    /* width: 300%; */
 }
 /*footer end*/
 
@@ -291,20 +291,8 @@ video {
 /*responsive css start*/
 @media only screen and (max-width: 1200px) and (min-width: 320px){
 	.logoimg img{
-		width: 100%;
-    }
-    .hdrsec{
-        background-position-x: -20px;
-    }
-}
-
-@media only screen and (max-width: 1301px) and (min-width: 1151px){
-	.logoimg img{
 		width: 85%;
-    }
-    .hdrsec{
-        background-position-x: 0;
-    }
+	}
 }
 @media only screen and (max-width: 767px) and (min-width: 320px){
 	.logimg{
@@ -322,8 +310,7 @@ video {
 		font-size: 18px;
 	}
 	.ezeelogintext img {
-        width: 43px;
-        top: -5px;
+		width: 43px;
 	}
 	.formdiv form {
 		width: 100%;
@@ -335,8 +322,7 @@ video {
 	}
 	.formdiv .signbtn{
 		width: 100%;
-        margin: 10px 0;
-        font-size: 16px;
+		margin: 10px 0;
 	}
 	.socialbtns {
 		padding: 0
@@ -360,15 +346,12 @@ video {
 		display: none;
 	}
 	.capimg {
-		height: 150px;
+		height: 180px;
 	}
 	.fropicture .regimg{
 		width: 79px;
 		top: 144px;
-    }
-    .logimg img {
-        width: 175px;
-    }
+	}
 }
 
 @media only screen and (max-width: 991px) and (min-width: 768px){
@@ -387,9 +370,8 @@ video {
 		padding-bottom: 0px;
 	}
 	.drpnw {
-		top: inherit;
-        width: 226px;
-        display: none;
+		top: 11px;
+		width: 226px;
 	}
 	.loginbtn{
 		width: 78px;
@@ -401,10 +383,7 @@ video {
 	.fropicture .regimg{
 	width: 100px;
 	top: 220px;
-    }
-    .signdiv button{
-        width: 100% !important;
-    }
+	}
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 992px){
@@ -435,7 +414,7 @@ video {
     visibility: hidden;
     width: 170px;
     /*background-color: black;*/
-    color: #fff;
+    color: #715732;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -446,107 +425,105 @@ video {
     bottom: 100%;
     left: 50%;
     margin-left: -86px;
-    top: 46px !important;
+    top: 56px !important;
 }
 
 .tooltip12:hover .tooltiptext {
     visibility: visible;
 }
+.error-msg-div {
+    text-align: center;
+    color: #f00;
+}
 
-/* internal css */
-.tooltip-inner {
-      width: 125px;
-      background:#b59848;
-      padding:5px 5px 5px 5px;
-      font-size:14px;
-      font-weight:bolder;
-      height:auto;
+
+.cameradiv {
+    background-color: #848f02;
+    padding: 45px 70px 0;
+    width: 100%;
+    float: left;
+    box-shadow: 0px 0px 23px 0px #0000005e;
+}
+
+.pdfsection {
+    width: 100%;
+    float: left;
+    padding: 50px 0;
+}
+.pdfsection1 {
+    width: 100%;
+    float: left;
+    padding: 0;
+}
+.pd0withposition{
+    padding: 10px 20px;  
+    position: fixed;
+    width: 30%;
+    float: left;
+    top: 0;
+    height: 100%;
+}
+.pmydfdiv {
+    border: 12px solid #848f02;
+    text-align: center;
+}
+.pmydfdiv img {
+    width: 100%;
+}
+.rejectbtn{
+    background-color: #cc3100 !important;
+    /* width: 100% !important; */
+    margin-top: 10px !important;
+}
+.exittbtn{
+    background-color: #B59848 !important;
+    /* width: 100% !important;   */
+    margin-top: 10px !important;
+}
+.appended  .signbutton{
+    padding: 3px 12px !important;
+    box-shadow: -1px 2px 5px 0px #191919 !important;
+    font-size: 12px !important;
+    margin-top: 8px;
+}
+.appended  .signbutton:focus{
+    outline: none;
+}
+
+
+@media only screen and (max-width: 767px) and (min-width: 320px) {
+    .pd0withposition{
+        padding: 45px 30px 0;   
+        margin-bottom: 20px;
     }
-    
-.largefilep {
-  position:fixed;
-  width:100%;
-  opacity:0.6;
-  filter:alpha(opacity=60);
-  top:0px;
-  min-height:200px;
-  height:100%;
-  z-index:9999999999;
-  background:#2c846d;
-  font-size:20px;
-  text-align:center;
-  display:none;
-} 
-
-.encryptfilep {
-  position:fixed;
-  width:100%;
-  opacity:0.6;
-  filter:alpha(opacity=60);
-  top:0px;
-  min-height:200px;
-  height:100%;
-  z-index:9999999999;
-  background:#5b4f71;
-  font-size:20px;
-  text-align:center;
-  display:none;
-} 
-
-.digitalfilep {
-  position:fixed;
-  width:100%;
-  opacity:0.6;
-  filter:alpha(opacity=60);
-  top:0px;
-  min-height:200px;
-  height:100%;
-  z-index:9999999999;
-  background:#96450e;
-  font-size:20px;
-  text-align:center;
-  display:none;
+    .tooltip12 .tooltiptext {
+        top: -6px !important;
+        font-size: 11px;
+    }
+    .newwithposition{
+        width: 100%;
+    }
 }
-
-/*.carousel-inner {
-  height: 315px;
-}	*/
-.dropdown-menu {
-    left: -15%;
-  min-width: 100px;
-  margin-top:0%;
-  
-}	
-.caret {
-
-  color: #b49948;
-} 
-
-@media screen and (min-width: 1920px)
-{
-.latest-trend-box a img {
-  width: 195px;
- 
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+    .pd0withposition{
+        padding: 45px 30px 0;   
+        margin-bottom: 20px;
+    }
+    .tooltip12 .tooltiptext {
+        top: 3px !important;
+        font-size: 14px;    
+    }
+    .newwithposition{
+        padding: 0 !important;  
+    }
+    .newwithposition .fropicture .regimg{
+        width: 50px;
+    }
+    .newwithposition .tooltip12 .tooltiptext{
+        top: 42px !important;
+        font-size: 11px;
+    }
+    .newwithposition .formdiv .signbtn{
+        width: 100%;
+    }
 }
-}
-
-@media screen and (max-width: 699px) {
-  .hide_mob {
-      display: none;
-
-  }
-  
-}
-
-@media screen and (min-width: 699px) {
-  .lm {
-      display: none;
-      
-  }
-  
-}
-
-.newrecap{
-    margin: 20px 0 0 !important;
-}
-

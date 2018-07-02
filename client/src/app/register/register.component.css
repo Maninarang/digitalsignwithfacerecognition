@@ -223,7 +223,7 @@ footer {
 .capimg{
     width: 100%;
     float: left;
-    height: 250px;
+    height: 361px;
 	overflow: hidden;
 	position: relative;
 	text-align: center;
@@ -246,7 +246,7 @@ footer {
 .fropicture .regimg{
 	width: 110px;
     position: absolute;
-    top: 250px;
+    top: 362px;
     bottom: 0;
     right: 0;
     left: 0;
@@ -347,7 +347,8 @@ footer {
 	}
 	.formdiv .signbtn{
 		width: 100%;
-		margin: 10px 0;
+        margin: 10px 0;
+        font-size: 16px;
 	}
 	.socialbtns {
 		padding: 0
@@ -541,7 +542,7 @@ footer {
     bottom: 100%;
     left: 50%;
     margin-left: -86px;
-    top: 6px !important;
+    top: 46px !important;
 }
 
 .tooltip12:hover .tooltiptext {
@@ -690,4 +691,6 @@ div .hj:focus + #hiddendiv {
     text-align: center;
     background-color: #b59848;
     padding: 5px;
+    float:left;
+    margin:5px;
 }

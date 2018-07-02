@@ -64,32 +64,32 @@
                                         <h6>Signature</h6>
                                     </div>
                                 </div> -->
-                                <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable" style="z-index:999">
+                                <div class=" pd0 draggable" style="z-index:999">
                                     <div class="form-group">
                                         <h6>Signature</h6>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class=" pd0 draggable">
                                     <div class="form-group">
                                         <h6>Initial</h6>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class=" pd0 draggable">
                                     <div class="form-group">
                                         <h6>Name</h6>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class=" pd0 draggable">
                                     <div class="form-group">
                                         <h6>Email</h6>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class=" pd0 draggable">
                                     <div class="form-group">
                                         <h6>Date</h6>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 pd0 draggable">
+                                <div class=" pd0 draggable">
                                     <div class="form-group">
                                         <h6>Text</h6>
                                     </div>
@@ -215,19 +215,22 @@
     </div>
     <div style='display:none' class="stickit thefixeddiv" id="stickit">
         <div class="col-md-12">
-            <span class="col-md-6 col-sm-12 col-xs-12" style="color:#0000;font-family: 'Century Gothic' !important;">Click Complete, to Send the Document.
+            <span class="col-md-6 col-sm-12 col-xs-12" style="font-family: 'Century Gothic' !important;">Click Complete, to Send the Document.
                 <!--Textboxes will be added here -->
             </span>
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div style="width: 40% !important;" class="right_btn_pannel">
-                    <a class="finish btn " (click)='senddocument();' style="border-radius:0px; background-color:#6DD217 !important;border:none !important;"
-                        id="finish">SEND</a>
-                    <a (click)='hideme()' id="hideme">
+                    <a class="finish btn " (click)='senddocument();' id="finish">SEND</a>
+                    <a (click)='hideme()' class="btn hidebtn" id="hideme">
                         <i class="fa fa-times-circle"></i>Hide</a>
                 </div>
 
-            </div>
+            </div> 
         </div>
+    </div>
+    <div>
+        <a (click)='showme()' class="btn hidebtn" id="showme">
+            <i class="fa fa-eye"></i>Show</a>
     </div>
 </section>
 

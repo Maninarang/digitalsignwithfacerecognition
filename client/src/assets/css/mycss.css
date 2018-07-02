@@ -1225,9 +1225,9 @@ span#tfrom {
 	margin-top:0px !important;
 }
 #imaginary_container {
-	margin: 0 auto 10px;
+	/* margin: 0 auto 10px;
 	width:220px;
-	padding-bottom:30px;
+	padding-bottom:30px; */
 }
 .tabs-left {
 	margin-top: 0;
@@ -1462,8 +1462,8 @@ input {
 	margin-left: 0px;
 }
 #imaginary_container {
-	margin-top: 20px;
-	margin-bottom: 20px;
+	/* margin-top: 20px;
+	margin-bottom: 20px; */
 }
 .nav-tabs {
 	float: left;
@@ -1928,7 +1928,7 @@ a .pt51 {
     font-size: 16px;
 }
 #imaginary_container {
-    margin: 6% 3% !important;
+    /* margin: 6% 3% !important; */
 }
 
 
@@ -2309,7 +2309,7 @@ a .pt51 {
 @media screen and (max-width:980px){
 	
 #imaginary_container {
-	margin: 6% 0% !important;
+	/* margin: 6% 0% !important; */
 	
 }
 .input-group-addon {
@@ -2345,7 +2345,7 @@ p.pt {
 }
 #imaginary_container {
 
-    margin: 6% 0% !important;
+    /* margin: 6% 0% !important; */
 
 }
 .table-responsive {
@@ -2393,7 +2393,7 @@ p.pt {
 }
 #imaginary_container {
 
-    margin: 6% 0% 0% 0% !important;
+    /* margin: 6% 0% 0% 0% !important; */
 
 }
 .table-responsive {
@@ -2837,7 +2837,7 @@ a .pt51 {
     font-size: 16px;
 }
 #imaginary_container {
-    margin: 6% 3% !important;
+    /* margin: 6% 3% !important; */
 }
 
 }

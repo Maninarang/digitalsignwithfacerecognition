@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Headers } from '@angular/http';
+import { ScrollToService } from 'ng2-scroll-to-el';
 // import { renderer2 } from '@angular/core';
 @Component({
   templateUrl: './register.component.html',
@@ -77,7 +78,8 @@ export class RegisterComponent {
     return this.trigger.asObservable();
   }
 
-  constructor(private auth: AuthenticationService, private router: Router, private http: HttpClient) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private scrollService: ScrollToService, private auth: AuthenticationService, private router: Router, private http: HttpClient) {
     if (auth.isLoggedIn()) {
       router.navigate(['digital_sign']);
     }
@@ -98,6 +100,10 @@ export class RegisterComponent {
   // this.credentials.cpassword=null;
   // this.credentials.phonenumber=null;
   // this.credentials.image=null;
+  scrollToTop(element) {
+    console.log("element",element);
+    this.scrollService.scrollTo(element);
+}
   checkmail() {
     // const element = this.credentials.selectRootElement('#input1');
 
@@ -299,6 +305,7 @@ export class RegisterComponent {
                     this.credentials.image = null;
                     this.webcamImage = null;
                     localStorage.clear();
+                    this.scrollToTop(top);
                     // this.credentials = null;
                     // this.router.navigateByUrl('/digital_sign');
                   }
@@ -316,7 +323,7 @@ export class RegisterComponent {
           console.error(this.data.error);
           console.error(this.data.error.err);
           if (this.data.error.err.code === 11000) {
-            this.error = 'User With Email or Phone Number Already Registered !!!';
+            this.mailerror = 'User With Email or Phone Number Already Registered !!!';
           } else {
             this.error = 'Something Went Wrong.Please Try Again !!!';
             localStorage.clear();

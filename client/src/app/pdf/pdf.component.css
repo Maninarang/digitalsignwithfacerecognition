@@ -116,21 +116,6 @@
 }
 /* internal css ends */
 
-.stickit {
-    width: 100%;
-   /* // position: fixed; */
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 99999;
-    border-top: 1px solid #cecece;
-    line-height: 40px;
-    background: #ccc;
-    text-align: center;
-    bottom: 0;
-    padding: 7px 24px;
-}
 .loginform-outerdiv{
     width: 100%;
     float: left;
@@ -964,4 +949,46 @@ top: 320.141px; //apni */
 .instructionlist li{
     display: block;
     line-height: 1.7;
+}
+
+
+
+.stickit{
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    border-top: 1px solid #b59848;
+    line-height: 40px;
+    background: #715732;
+    text-align: center;
+    bottom: 0;
+    padding: 7px 24px;
+    color: white;
+}
+.right_btn_pannel #finish{
+    border-radius: 0px;
+    background-color: #858f03 !important;
+    border: none !important;
+    color: white;
+	box-shadow: 0px 3px 4px 0px #000000ad;
+}
+.right_btn_pannel #finish:hover, .right_btn_pannel #finish:focus, .right_btn_pannel #finish:active{
+    color: white;
+	box-shadow: none;
+	transition: .5s;
+}
+.hidebtn{
+    background-color: #b59848;
+    border-radius: 0;
+    box-shadow: 0px 3px 4px 0px #000000ad;
+    border: none !important;
+    color: white;
+}
+.hidebtn:hover, .hidebtn:active, .hidebtn:focus{
+    color: white;
+	box-shadow: none;
+	transition: .5s;
 }

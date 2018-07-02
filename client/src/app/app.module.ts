@@ -55,9 +55,11 @@ import { SafePipe } from './safe.pipe';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { LandingComponent } from './landing/landing.component';
 import { NewDocumentComponent } from './new-document/new-document.component';
+import { NewsignpdfComponent } from './newsignpdf/newsignpdf.component';
+import { ScrollToModule } from 'ng2-scroll-to-el';
 
 // import { ConfirmComponent } from './confirm/confirm.component';
-
+// .component.spec
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -85,7 +87,9 @@ const routes: Routes = [
   { path: 'actionrequired', component: ActionrequiredComponent },
   { path: 'documentdetail/:documentid', component: DocumentdetailComponent },
   { path: 'confirm/:userid', component: ConfirmComponent },
-  { path: 'signpdf/:documentid/:userid/:usertosign', component: SignpdfComponent, canActivate: [AuthGuardService]}
+  { path: 'signpdf/:documentid/:userid/:usertosign', component: SignpdfComponent, canActivate: [AuthGuardService]},
+  { path: 'newsign/:documentid/:userid/:usertosign', component: NewsignpdfComponent, canActivate: [AuthGuardService]}
+
 ];
 
 @NgModule({
@@ -97,6 +101,7 @@ const routes: Routes = [
     NewDocumentComponent,
    // NgxHmCarouselModule,
   //  DashboardComponent,
+  NewsignpdfComponent,
     HomeComponent,
     HeaderComponent,
     DigitalSignatureComponent,
@@ -123,6 +128,7 @@ const routes: Routes = [
     // AddparticipantdialogComponent
     ],
   imports: [
+    ScrollToModule.forRoot(),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

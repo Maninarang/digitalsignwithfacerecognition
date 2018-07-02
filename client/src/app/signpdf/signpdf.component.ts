@@ -56,6 +56,11 @@ export class SignpdfComponent implements OnInit {
 
   ngOnInit() {
     console.log('initialised')
+
+    // alert(pathname);
+    // alert(url);
+
+
     // this.loading = true;
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];
@@ -89,6 +94,7 @@ export class SignpdfComponent implements OnInit {
           });
       });
     });
+
   }
 
   toggleWebcam(): void {
@@ -154,12 +160,29 @@ export class SignpdfComponent implements OnInit {
                 this.loading = false;
                 // tslint:disable-next-line:max-line-length
                 $('.signhere div div').append('<button type="button" class="signbutton" style="background-color: #715632; font-size: 22px; padding: 8px 12px; color: white; border: none; box-shadow: -1px 0px 5px 0px #191919;">Click to Sign</button>');
-                $('.signbutton').click(function () {
+                var pathname = window.location.pathname; // Returns path only
+                var url = window.location.href;
+                var lastslashindex = url.lastIndexOf('/');
+                var result = url.substring(lastslashindex + 1);
+                var conveniancecount = $("div[class*='" + result + "']").length;
+                alert(conveniancecount)
+
+                $('.' + result).click(function () {
                   $(this).parent().css({
                     'font-family': 'serif',
                     'text-transform': 'lowercase'
                   });
-                  $(this).closest('.signhere').css('border', 'none');
+                  $(this).closest('.' + result).css('border', 'none');
+                  $('html, body').animate({
+                    scrollTop: ($('.' + result).offset().top)
+                  }, 500);
+                  //   $('html, body').animate({
+                  //     'scrollTop' : $(this).closest('.'+result).position().top;
+                  //     alert()
+                  // });
+                  // var next;
+                  // next = $(this).nextAll('.' + result).next()
+                  // $('html,body').scrollTop(next);
                   // const date = Date.now();
                   // console.log(this.datePipe.transform(date, 'yyyy-MM-dd'));
                   const now = new Date();
@@ -172,6 +195,7 @@ export class SignpdfComponent implements OnInit {
                   const signdate = month + '/' + day + '/' + year + ' ' + hour + ':' + minute + ':' + second;
                   $(this).parent().append('<br>' + signdate);
                   $(this).remove();
+
                 });
               }
             },
