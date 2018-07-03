@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./signpdf.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-
+ 
 export class SignpdfComponent implements OnInit {
   credentials: TokenPayload = {
     email: '',

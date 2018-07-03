@@ -257,24 +257,31 @@ export class PdfComponent implements OnInit {
         }
         // this.dragged = 'dragged';
         $('#stickit').css('display', 'block');
-        $('.gethtml').on('click', '.dell', function () {
-          // alert("hey!");
+        $('.gethtml').one('click', '.dell', function () {
+          alert("hey!");
+        
 
           var classes = $(this).attr('class').split(" ");
           // alert(classes[1]);
 
 
           var numItems = $('.' + classes[1]).length;
-          // alert(numItems / 2);
-          if ((numItems / 2) === 1) {
-            items.push(classes[1]);
-            console.log(items);
+          alert(numItems);
+          // return ;
+          if ((numItems / 2) == 1) {
+            alert("1");
+          //   //items.pop(classes[1]);
+            var index = items.indexOf(classes[1]);
+            if (index !== -1) items.splice(index, 1)
+            console.log('Sliced->', items);
+            $(this).parent().remove();
           } else {
-          console.log(items);
+            alert(numItems);
+            $(this).parent().remove();
+          //   console.log("->", items);
           }
           // return false;
-          $(this).parent().remove();
-
+          
         });
       }
     });
