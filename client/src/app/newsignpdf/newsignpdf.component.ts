@@ -6,6 +6,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { WebcamImage } from 'ngx-webcam';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+let RecordRTC = require('recordrtc/RecordRTC.min');
+
 
 // tslint:disable-next-line:use-pipe-transform-interface
 @Pipe({ name: 'noSanitize' })
@@ -28,7 +30,7 @@ export class NewsignpdfComponent implements OnInit {
   html: any;
   documenthtml: SafeHtml;
   details: UserDetails;
-  userid: String;
+  userid: string;
   useremail: String;
   username: String;
   eligibility: any;
@@ -46,8 +48,10 @@ export class NewsignpdfComponent implements OnInit {
   showpdf = null;
   clas = null;
   conveniancecount: Number;
+  stream: MediaStream;
+  recordRTC: any;
   trigger: Subject<void> = new Subject<void>();
-
+  @ViewChild('video') video;
   @ViewChild('gethtml') gethtml: any;
   constructor(
     private http: HttpClient,
@@ -58,9 +62,8 @@ export class NewsignpdfComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('initialised');
     var ip = window.location.origin;
-    console.log('ip here->', ip);
+   // console.log('ip here->', ip);
     // alert(pathname);
     // alert(url);
 
@@ -99,6 +102,88 @@ export class NewsignpdfComponent implements OnInit {
       });
     });
 
+  }
+
+  ngAfterViewInit() {
+    // set the initial state of the video
+    let video:HTMLVideoElement = this.video.nativeElement;
+    video.muted = false;
+    video.controls = true;
+    video.autoplay = false;
+  }
+
+  toggleControls() {
+    let video: HTMLVideoElement = this.video.nativeElement;
+    video.muted = !video.muted;
+    video.controls = !video.controls;
+    video.autoplay = !video.autoplay;
+  }
+
+  successCallback(stream: MediaStream) {
+
+    var options = {
+      mimeType: 'video/webm', // or video/webm\;codecs=h264 or video/webm\;codecs=vp9
+      audioBitsPerSecond: 128000,
+      videoBitsPerSecond: 128000,
+      bitsPerSecond: 128000 // if this line is provided, skip above two
+    };
+    this.stream = stream;
+    this.recordRTC = RecordRTC(stream, options);
+    this.recordRTC.startRecording();
+    let video: HTMLVideoElement = this.video.nativeElement;
+   // video.src = window.URL.createObjectURL(stream); ---------  depriciated
+    video.srcObject = stream;
+    this.toggleControls();
+  }
+
+  errorCallback() {
+    //handle error here
+  }
+
+  processVideo(audioVideoWebMURL) {
+    let video: HTMLVideoElement = this.video.nativeElement;
+    let recordRTC = this.recordRTC;
+    video.src = audioVideoWebMURL;
+    this.toggleControls();
+    var recordedBlob = recordRTC.getBlob();
+    var fileName = 'abc';
+                
+                var file = new File([recordedBlob], fileName, {
+                    type: 'video/webm'
+                });
+                const formData: FormData = new FormData();
+                formData.append('filetoupload', file);
+                formData.append('userid',this.usertosign);
+                formData.append('docid',this.documentid);
+                this.http.post('https://mybitrade.com:3001/api/uploadvideofile', formData)
+                  .subscribe(data => {
+                  });
+    recordRTC.getDataURL(function (dataURL) { });
+  }
+ 
+  startRecording() {
+    let mediaConstraints: any;
+     mediaConstraints = {
+      video: {
+        mandatory: {
+          maxWidth: 320,
+          maxHeight: 240
+        }
+      }, audio: true
+    };
+    navigator.mediaDevices
+      .getUserMedia(mediaConstraints)
+      .then(this.successCallback.bind(this), this.errorCallback.bind(this));
+
+
+  }
+
+  stopRecording() {
+    let recordRTC = this.recordRTC;
+    recordRTC.stopRecording(this.processVideo.bind(this));
+    let stream = this.stream;
+    stream.getAudioTracks().forEach(track => track.stop());
+    stream.getVideoTracks().forEach(track => track.stop());
   }
 
   toggleWebcam(): void {
@@ -155,7 +240,7 @@ export class NewsignpdfComponent implements OnInit {
                 this.loading = false;
                 this.error = 'Failed To Recognise You.Please Try Again';
               } else {
-
+                this.startRecording();
                 // tslint:disable-next-line:max-line-length
                 // tslint:disable-next-line:no-shadowed-variable
                 const req = this.http.post('https://mybitrade.com:3001/api/signeduserimage', { userid: this.usertosign, docid: this.documentid, imagename: this.unknownimage }).subscribe(res => {
@@ -295,6 +380,7 @@ export class NewsignpdfComponent implements OnInit {
   // }
 
   updatesignature() {
+    this.stopRecording();
     this.loading = true;
     this.activatedRoute.params.subscribe((params: Params) => {
       const documentid = params['documentid'];

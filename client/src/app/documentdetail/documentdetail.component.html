@@ -265,21 +265,22 @@
                             <li class="">
                                 <a>
                                     <span class="fa fa-file-pdf-o"></span>&nbsp;&nbsp;
-                                    <span class="pt6">Compose</span>
+                                    <a routerLink="/digital_sign">    <span class="pt6">Compose</span></a>
                                 </a>
                             </li>
 
                             <li class="active">
                                 <a>
                                     <span class="fa fa-ban"></span>&nbsp;&nbsp;
-                                    <span class="pt6">Action Required</span>
+                                    <a routerLink="/actionrequired">   <span class="pt6">Action Required</span></a>
                                 </a>
                             </li>
 
                             <li>
                                 <a>
                                     <span class="fa fa-check"></span>&nbsp;&nbsp;
-                                    <span class="pt6">Completed</span>
+                                   
+                                    <a routerLink="/completed">  <span class="pt6">Completed</span></a>
                                 </a>
                             </li>
 
@@ -411,7 +412,7 @@
 
                                                         <tbody style="background:  #fff;" *ngFor ="let document of documents">
 <!-- {{document.actionrequired}} -->
-
+<!---------------------not completed --------------- -->
 <div *ngIf="document.actionrequired == 'Not Signed'">
     <tr style="height:120px">
 
@@ -424,7 +425,7 @@
             </label>
 
             &nbsp;&nbsp;
-            <a  title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
+            <a target="_blank" href="https://mybitrade.com:3001/uploadedpdf/{{document.documentid}}/pdf.pdf" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
                 pdf-{{document.documentid}}.pdf</a>
                
             <div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;">
@@ -452,29 +453,27 @@
 
     <tr class="odd" style="background: #fac701;border: none;height:35px">
 
-      <td colspan="5">Need To Sign: {{document.firstName}}({{document.email}})</td>
-<td>
+      <td style="text-align: left; padding-left: 10px" colspan="5">Need To Sign: {{document.firstName}}({{document.email}})</td>
+<td style="text-align: right; padding-right: 10px">
     
    
-    From: {{document.email}}
+    From: {{document.from}}
 </td>
 
     </tr>
 </div>
-
+<!---------------------------   completed ------------------------ -->
 <div *ngIf="document.actionrequired != 'Not Signed'">
     <tr style="height:120px">
 
-        <td colspan="3" style="width: 80%; padding:10px">
+        <td colspan="3" style=" padding:10px">
 
             <label>
 
                 <input type="checkbox" name="" value="MTY=" class="chk">
 
             </label>
-
-            &nbsp;&nbsp;
-            <a  title="" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
+            <a  target="_blank" href="https://mybitrade.com:3001/uploadedpdf/{{document.documentid}}/pdf.pdf" class="toolancr" data-toggle="tooltip" data-placement="bottom" data-original-title="click this to see all participants list of this document" aria-describedby="tooltip841003" style="color: #426cd5;"> 
                 pdf-{{document.documentid}}.pdf</a>
                
             <div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;">
@@ -485,33 +484,36 @@
 
 
 
-        <td colspan="1">
+        <td colspan="1" class="completed_box">
 
-
-            <a href="#">
-                <img src="../../assets/img/succ.png" style=" width: 48px;    margin-bottom: 2px;"></a>
+    <a>
+        <img src="../../assets/img/succ.png" /> <span>Completed</span>
+    </a>
 
         </td>
     
-        <td colspan="1">
-                Completed</td>
-
-                <td colspan="1">
-
-
-                    <a href="#">
-                        <img src="https://mybitrade.com:3001/images/login/{{document.image}}" style=" width: 48px;    margin-bottom: 2px;"></a>
-        
-                </td>
+      
+<td  colspan="2">
+    <div class="img_o">
+                    <a>
+                        <img src="https://mybitrade.com:3001/images/login/{{document.image}}" class="person_img"></a>
+                        <!-- <img src="https://mybitrade.com:3001/images/login/{{document.image}}" style=" width: 100px;    margin-bottom: 2px;"> -->
+</div>
+                        <div class="video vid_o">
+                            <video controls (click)="toggleVideo()" #videoPlayer>
+                                <source src="https://s3.us-east-2.amazonaws.com/hippabucci/{{document.uservideo}}" type="video/mp4" />
+                            </video>
+                        </div>
+                    </td>
     </tr>
 
     <tr class="odd" style="background: #fac701;border: none;height:35px">
 
-      <td colspan="5">Signed By: :</td>
-<td>
+      <td style="text-align: left; padding-left: 10px" colspan="5">Signed By: : {{document.firstName}}({{document.email}})</td>
+<td style="text-align: right; padding-right: 10px">
     
-    {{document.firstName}}({{document.email}})
-    From: {{document.email}}
+    
+    From: {{document.from}}
 </td>
 
     </tr>

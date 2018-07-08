@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService, UserDetails } from '../authentication.service';
@@ -14,6 +14,7 @@ export class DocumentdetailComponent implements OnInit {
   documentdetail: any;
    details: any;
    fullname: any;
+   @ViewChild('videoPlayer') videoplayer: any;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -45,4 +46,7 @@ export class DocumentdetailComponent implements OnInit {
     });
   }
 
+  toggleVideo(event: any) {
+    this.videoplayer.nativeElement.play();
+}
 }

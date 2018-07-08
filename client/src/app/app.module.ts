@@ -57,6 +57,7 @@ import { LandingComponent } from './landing/landing.component';
 import { NewDocumentComponent } from './new-document/new-document.component';
 import { NewsignpdfComponent } from './newsignpdf/newsignpdf.component';
 import { ScrollToModule } from 'ng2-scroll-to-el';
+import { VideorecComponent } from './videorec/videorec.component';
 
 // import { ConfirmComponent } from './confirm/confirm.component';
 // .component.spec
@@ -69,6 +70,7 @@ const routes: Routes = [
   { path: 'pendingdoc', component: PendingDocComponent },
   { path: 'completeddoc', component: CompletedDocComponent },
   { path: 'header', component: HeaderComponent },
+  { path: 'videorec',component:VideorecComponent},
   // { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -124,7 +126,8 @@ const routes: Routes = [
     PendingDocComponent,
     CompletedDocComponent,
     ConfirmComponent,
-    LandingComponent
+    LandingComponent,
+    VideorecComponent
     // AddparticipantdialogComponent
     ],
   imports: [

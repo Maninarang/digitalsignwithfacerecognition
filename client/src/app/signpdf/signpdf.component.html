@@ -9,6 +9,7 @@
         <div class="capimg" *ngIf="webcamImage">
             <img [src]="webcamImage.imageAsDataUrl" name="image" [(ngModel)]="credentials.image" ngDefaultControl>
         </div>
+      
 
         <div *ngIf="!camera" class="fropicture">
             <div class="capimg tooltip12" *ngIf="!webcamImage">

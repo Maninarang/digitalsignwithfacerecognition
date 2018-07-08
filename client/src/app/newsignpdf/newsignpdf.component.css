@@ -19,6 +19,12 @@
     width :430px !important;
 }
 
+.video {
+    box-shadow: 1px 6px 10px 2px rgba(35, 35, 35, 0.62);
+    height: 240px;
+    width: 320px;
+  }
+
 .loginform-outerdiv{
     width: 100%;
     float: left;
@@ -433,7 +439,7 @@ video {
 }
 .error-msg-div {
     text-align: center;
-    color: #f00;
+    color: #7b0303;
 }
 
 
@@ -526,4 +532,21 @@ video {
     .newwithposition .formdiv .signbtn{
         width: 100%;
     }
+}
+
+.senddbtn{
+    width: 250px;
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+    background-color: #515904;
+    border: 1px solid #fff;
+    -webkit-box-shadow: 0px 0px 9px 0px #333;
+    box-shadow: 0px 0px 9px 0px #333;
+    border-radius: 2px;
+    margin: 20px 0;
+}
+.senddbtn:hover{
+    box-shadow: none;
+    transition: .5s;
 }

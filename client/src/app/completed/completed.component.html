@@ -391,7 +391,7 @@
 
                                 <div class="col-lg-12 " style="background:#fff;">
                                     <div class="box3" style="top: 11px;">
-                                        <div class="col-lg-12 span-box" style="background: #a58734;    border: none;">
+                                        <div class="list_o" style="background: #a58734;    border: none;">
                                             <div ng-repeat="">
                                                 <form method="post" action="" id="" name="myform11">
 
@@ -400,20 +400,21 @@
                                                         <tbody style="background:  #858f03;" *ngFor="let document of documents">
                                                             <!-- {{document}} -->
                                                             <!-- {{ document?.length }} -->
-                                                            <tr style="height:120px">
+                                                            <tr>
 
-                                                                <td colspan="3" style="width: 80%; background:  #858f03; padding:10px">
+                                                                <td colspan="3" style="background: #858f03;padding-left: 10px;">
 
                                                                     <label>
 
-                                                                        <input type="checkbox" name="" value="MTY=" class="chk">
+                                                                        <input type="checkbox" name="" value="MTY=" style=" float: left;" class="chk">
 
                                                                     </label>
 
-                                                                    &nbsp;&nbsp;
+                                                                
                                                                     <a routerLink="/documentdetail/{{document.documentid}}" title="" class="toolancr" data-toggle="tooltip" data-placement="bottom"
                                                                         data-original-title="click this to see all participants list of this document"
-                                                                        aria-describedby="tooltip841003" style="color: #fff;">
+                                                                        aria-describedby="tooltip841003" style="background: #858f03;color:#fff;float: right;border-right: #5f6d00 solid 1px;padding: 0;font-family:  arial;width: 95%;" >
+                                                                        
                                                                         pdf-{{document.documentid}}.pdf</a>
 
                                                                     <div class="tooltip fade bottom in tooltipp" role="tooltip" id="tooltip841003" style="top: 84px; left: 118.523px; display: none;">
@@ -422,41 +423,34 @@
                                                                     </div>
                                                                 </td>
 
-
-
                                                                 <td colspan="1">
-
-
-
-
+                                                                    <a href="#" style="font-family: Arial;color: #fff;display:  block;text-align: center;">
+                                                                        <img src="../../assets/img/whitTick.png" style="width: 24px;margin: 5px;"> Completed</a>
                                                                 </td>
 
-                                                                <td colspan="1">
-                                                                    <a href="#" style="color: #fff;">
-                                                                        <img src="../../assets/img/whitTick.png" style=" width: 48px;    margin-bottom: 2px;"> Completed</a>
-                                                                </td>
-                                                                <td>
-                                                                    <a routerLink="/documentuserdetail/{{document.documentid}}"
-                                                                        title="" class="toolancr" data-toggle="tooltip" data-placement="bottom"
-                                                                        data-original-title="click this to see all participants list of this document"
-                                                                        aria-describedby="tooltip841003" style="color: #fff;">
-                                                                        View Users</a>
-                                                                </td>
                                                             </tr>
+                                                           
 
                                                             <tr class="odd" style="background: #b49948;border: none;height:35px">
 
                                                                 <!-- <td> Signed By :</td> -->
-                                                                <td>
+                                                                <td style="font-family: Arial;color:  #fff;padding-left: 10px;" colspan="3">
                                                                     From:{{email}}
                                                                 </td>
 
+                                                                <td colspan="1">
+                                                                    <a routerLink="/documentuserdetail/{{document.documentid}}"
+                                                                        title="" class="toolancr" data-toggle="tooltip" data-placement="bottom"
+                                                                        data-original-title="click this to see all participants list of this document"
+                                                                        aria-describedby="tooltip841003" style="font-family: Arial;color:  #fff;padding-left: 10px;display:  block;text-align: center;">
+                                                                        View Users</a>
+                                                                </td>
                                                             </tr>
 
 
 
                                                         </tbody>
-                                                        <br>
+                                                       
 
 
                                                     </table>

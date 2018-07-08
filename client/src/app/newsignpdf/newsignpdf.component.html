@@ -3,6 +3,9 @@
         <a routerLink='/landing'><img src="../../assets/img/ezee-logo.png"/></a>
     </div>
 </section>
+<div class="capimg" style="display: none">
+    <video #video class="video" ></video>
+  </div>
 
 
 <!-- 1st view start -->
@@ -36,6 +39,7 @@
                     <div class="capimg" *ngIf="webcamImage">
                         <img [src]="webcamImage.imageAsDataUrl" name="image" [(ngModel)]="credentials.image" ngDefaultControl>
                     </div>
+                  
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 signdiv">
                     <div class="form-group">
@@ -135,7 +139,7 @@
                         
                         
                             <i class="fa fa-camera" aria-hidden="true"></i> Open Camera</button> -->
-                            <button class="btn signbtn fullwdth exittbtn" (click)="updatesignature();">Send</button>
+                            <button class="btn signbtn fullwdth senddbtn" (click)="updatesignature();">Send</button>
                             <a routerLink='/landing'><button type="button" class="btn signbtn fullwdth exittbtn">Exit</button></a>
                     </div>
                     <!-- <button (click)="verifyuser();" type="button" class="btn signbtn fullwdth">Verify</button> -->

@@ -44,6 +44,7 @@
     "ngx-modal": "0.0.29",
     "ngx-mydatepicker": "^2.4.5",
     "ngx-webcam": "^0.1.4",
+    "recordrtc": "^5.4.6",
     "rxjs": "^5.5.2",
     "save": "^2.3.2",
     "zone.js": "^0.8.14"

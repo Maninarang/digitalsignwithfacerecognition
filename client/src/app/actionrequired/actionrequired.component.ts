@@ -29,7 +29,7 @@ export class ActionrequiredComponent implements OnInit {
       .subscribe(data => {
        this.documentdetail = data;
        this.documents = this.documentdetail.data;
-       console.log(this.documents);
+    //   console.log(this.documents);
       });
     });
   }

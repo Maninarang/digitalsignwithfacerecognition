@@ -141,7 +141,7 @@ img.img-responsive.img2 {
 
 @media only screen and (min-width : 1650px) and (max-width:2202px) {
 .container {
-    width: 1908px !important;
+    width: 1510px !important;
 }
 .table-striped th {
     /* font-size: 27px !important; */
@@ -221,6 +221,16 @@ p.pt {
     .modal-dialog {
         width: 800px !important;
     }
+    .capimg {
+		height: 810px !important;
+	}
+	.fropicture .regimg {
+		top: 805px !important;
+	}
+	.lockdiv{
+		padding: 245px 0 198px !important;
+    }
+    
 
 }
 
@@ -344,4 +354,8 @@ p.pt {
         width: 94%;
         margin: auto 0;
     }  
+}
+
+.webcam-wrapper {
+    display: block !important;    
 }

@@ -12,7 +12,6 @@ var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
 var pdftohtml = require('pdftohtmljs');
 var base64Img = require('base64-img');
-var pdftoimage = require('pdftoimage');
 var urlencodedParser = bodyParser.urlencoded({
   extended: true
 })
@@ -24,13 +23,14 @@ var auth = jwt({
   secret: 'MY_SECRET',
   userProperty: 'payload'
 });
+const requestIp = require('request-ip');
 var PDFImage = require("pdf-image").PDFImage;
 var createHTML = require('create-html');
 
 
 router.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 1000000 }));   // { extended: true} to parse everything.if false it will parse only String
 router.use(bodyParser.json({ limit: '50mb' }));
-
+router.use(requestIp.mw())
 router.use(cors())
 var ctrlProfile = require('../controllers/profile');
 var ctrlAuth = require('../controllers/authentication');
@@ -47,7 +47,7 @@ router.post('/upload', upload);
 router.post('/delete', userdelete);
 router.post('/email', useremail);
 
-
+router.post('/sendmail', sendmail);
 
 function update(req, res) {
   //  console.log(req.body)
@@ -141,7 +141,98 @@ function userdelete(req, res) {
     }
   })
 }
+// ======================================================================/
+function sendmail(req, res) {
+  console.log("i m in sendmail function", req.body)
+  var toEmailAddress = req.body.to;
+  var onlydate = new Date().toUTCString()
+  console.log("onlydate->", onlydate)
 
+  var mailAccountUser = 'signup.ezeesteve@gmail.com'
+  var mailAccountPassword = 'steve@098'
+  var fromEmailAddress = 'signup.ezeesteve@gmail.com' 
+  var transport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: mailAccountUser,
+      pass: mailAccountPassword
+    }
+  })
+  var uri = req.body.url;
+  var lastslashindex = uri.lastIndexOf('/');
+  var result = uri.substring(lastslashindex + 1);
+  var url = 'https://mybitrade.com/confirm/' + result;
+
+  //  var x ='https://mybitrade.com:3001/images/5ae6a99e1bf48a65c66d0d5e/image_1525066142567.jpg';
+  if (req.body.imageurl == 'none') {
+    var click = "<div>Image Not Avalible</div>";
+
+  }
+  else {
+    var click = "<div><img src='" + req.body.imageurl + "' style='height:130px'/></div>";
+
+  }
+
+  // var img= "<div><img src='"+ x +"'/></div>";
+
+  var template = '<body><table width="100%" cellpadding="0" cellspacing="0">' +
+    ' <tbody><tr><td valign="top" align="center">' +
+    '<table width="90%" border="0" style="font-family:Myriad Pro;border:30px solid #858f03">' +
+    '<tbody> <tr><td valign="top"><table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">' +
+    '  <tbody>  <tr><td height="3" colspan="2"></td> </tr><tr>' +
+    '  <td style="width:50%!important" align="left" valign="middle">' +
+    click + '</td>' +
+    '<td align="right" valign="top"><table border="0" width="100%" align="left" cellspacing="2" height="120">' +
+    '<tbody> <tr><td height="50" style="border:none!important">' +
+    '<div style="border:10px solid #b59848;width:295px;height:170px;float:right;margin:1.5% 3% 1% 0%">' +
+    '<div style="width:280px;height:145px;border:2px solid #b59848;margin:auto;margin-top:1%;font-family:Verdana,Geneva,sans-serif;font-size:14px;padding:15px 0px 0px 5px">' +
+    'This email was sent to you from:<br><br>United States<div>Mobile: <span>7889259983</span> </div>' +
+    '<div>Email ID:  <span><a href="" target="_blank">info@gmail.com</a></span>' +
+    '</div></div> </div>  </td></tr></tbody></table></td> </tr></tbody> </table> </td> </tr>' +
+    '<tr> <td colspan="2"> <table width="100%" cellpadding="2" cellspacing="2" border="0" style="background:#f1f1f1">' +
+    '<tbody><tr><td colspan="6"><table width="100%" border="0" cellspacing="0" cellpadding="0">' +
+    ' <tbody> <tr style="background:#858f03;height:40px">' +
+    '<td style="width:60%!important;font-size:28px;padding-left:10px;color:#fff" colspan="2" valign="middle">Signing Participant Invitation</td>' +
+    '<td style="width:40%!important;padding-right:10px;color:#fff" align="right" valign="middle">' +
+    '<strong>Date: </strong>&nbsp;<span tabindex="0"><span>' + onlydate + '</span></span>' +
+    '</td></tr> </tbody></table></td></tr><tr>' +
+    '<td valign="top" colspan="6" align="center" style="font-family:Myriad Pro;font-size:14px;padding:10px 4px 5px 4px;color:#383838;line-height:22px">' +
+    '<table width="99%" border="0" cellspacing="0" cellpadding="0"><tbody> <tr>' +
+    '<td valign="top" style="text-align:left;padding-left:4px;padding-right:4px">' +
+    '<table width="100%" border="0" cellspacing="0" cellpadding="0">' +
+    '<tbody> <tr> <td style="font-family:Myriad Pro;font-size:15px;padding-top:10px"><strong>Dear ' + req.body.name + ',</strong></td>' +
+    ' </tr></tbody> </table></td></tr><tr>' +
+    '<td colspan="6" style="font-family:Myriad Pro;font-size:22px!important;padding:10px 4px 5px 4px">' +
+    'Your have been Registered Successfully.<br> Click the link below to verify and activate your account.<br>' +
+    '<strong><a href="' + url + '" target="_blank" >Click Here</a></strong> <br>If the link does not work, copy the below url and paste it to the address bar.' +
+    '</td></tr><tr><td colspan="6" style="font-family:Myriad Pro;font-size:15px;padding:10px 4px 0px 4px">EzeeSteve</td>' +
+    '</tr> <tr><td colspan="6" style="font-family:Myriad Pro;font-size:15px;padding:10px,4px,0px,4px">' +
+    url +
+    '</td> This Email was sent to you by:Team, EzeeSteve <br>   Email ID: info@ezeesteve.com</tr></tbody></table>	</td></tr></tbody></table></td> </tr>' +
+    '<tr><td colspan="2"><img src="https://mybitrade.com/assets/img/ezee-logo.png" style="width:80px;height:auto;float:right;margin:10px">' +
+    '</td></tr></tbody> </table></td> </tr> </tbody> </table> </body>';
+  var mail = {
+    from: fromEmailAddress,
+    to: toEmailAddress,
+    subject: "EzeeSteve Document Sign ",
+    html: template
+  }
+
+  transport.sendMail(mail, function (error, response) {
+    if (error) {
+      res.json({
+        success: error,
+        message: "Something went wrong.Please Try Again"
+      })
+    } else {
+      res.status(200).json({
+        message: 'Email Sent Successfully'
+      })
+    }
+
+    transport.close();
+  });
+}
 // =========================================================/
 function useremail(req, res) {
   var ts = new Date().getTime();
@@ -253,7 +344,7 @@ function upload(req, res) {
 
 router.post("/uploadfile", function (req, res) {
   //global.appRoot = path.resolve(__dirname);
-  console.log(global.appRoot)
+ // console.log(global.appRoot)
   // var str= global.appRoot;
   // var rest = str.substring(0, str.lastIndexOf("/") + 0);
   // var last = rest.substring(0, rest.lastIndexOf("/") + 1);
@@ -283,33 +374,21 @@ router.post("/uploadfile", function (req, res) {
           //   })
           const pdfImageOpts = {
             // outputDirectory: path.join(__dirname, './wmReports/images'),
-             convertExtension: 'jpg',
-             convertOptions: {
-               '-colorspace': 'RGB',
-               '-interlace': 'none',
-               '-density': '300',
-               '-quality': '100'
-             }
-           };
-           var pdfImage = new PDFImage(path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf',pdfImageOpts);
-          //  pdftoimage(pdfImage, {
-          //   format: 'jpeg',  // png, jpeg, tiff or svg, defaults to png
-          //   prefix: 'pdf',  // prefix for each image except svg, defaults to input filename
-          //   outdir: ts   // path to output directory, defaults to current directory
-          // })
-          // .then(function(){
-          //   res.status(200).json({
-          //         // file:"http://127.0.0.1:3000/html/"+new_name+".html"
-          //         path: '/uploadedpdf/' + ts + '/' + 'pdf.pdf',
-          //         pdfid: ts
-    
-          //       })
-          //     })
-          // .catch(function(err){
-          //   res.status(503).json({
-          //         error: "Something went Wrong.Please Try Agiain.."
-          //       })    
-          //         });
+            convertExtension: 'jpg',
+            convertOptions: {
+              '-colorspace': 'RGB',
+              '-interlace': 'none',
+              '-density': '300',
+              '-quality': '100'
+            }
+          };
+          var pdfImage = new PDFImage(path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf', pdfImageOpts);
+          //  var pdfImage = new PDFImage((path.join(__basedir, '/uploadedpdf/uploadedpdf/') + ts + '/' + 'pdf.pdf'), {
+          //   convertOptions: {
+          //     //  "-resize": "2000x2000",
+          //     "-quality": "100"
+          //   }
+          // });
           pdfImage.convertFile().then(function (imagePaths) {
             res.status(200).json({
               // file:"http://127.0.0.1:3000/html/"+new_name+".html"
@@ -350,37 +429,39 @@ router.get("/userlist/:userId/:docId", function (req, res) {
   var userlist = [];
   var userdata = [];
   var count = 0;
-  Document.find({ userid: req.params.userId, documentid: req.params.docId }, 'usertosign', function (err, users) {
-    if (err) {
-      res.status(400).json({
-        data: err
-      })
-    } else {
-      //  console.log(users)
-      for (let i = 0; i < users.length; i++) {
-        userlist.push({ id: users[i].usertosign });
-      }
-      for (let i = 0; i < userlist.length; i++) {
-        Contact.findOne({ _id: userlist[i].id }, 'firstName lastName email', function (err, contact) {
-          if (err) {
-            res.status(400).json({
-              data: err
-            })
-          } else {
-
-            //  console.log(userlist)
-            userdata.push({ _id: contact._id, firstName: contact.firstName, lastName: contact.lastName, email: contact.email })
-            count++;
-            if (count === userlist.length) {
-              res.status(200).json({
-                data: userdata
-              })
-            }
-          }
+  Document.find({ userid: req.params.userId, documentid: req.params.docId },
+    'usertosign', function (err, users) {
+      if (err) {
+        res.status(400).json({
+          data: err
         })
+      } else {
+        console.log(users)
+        for (let i = 0; i < users.length; i++) {
+          userlist.push({ id: users[i].usertosign });
+        }
+        console.log(userlist);
+        for (let i = 0; i < userlist.length; i++) {
+          Contact.findOne({ _id: userlist[i].id }, 'firstName lastName email', function (err, contact) {
+            if (err) {
+              res.status(400).json({
+                data: err
+              })
+            } else {
+
+              //  console.log(userlist)
+              userdata.push({ _id: contact._id, firstName: contact.firstName, lastName: contact.lastName, email: contact.email })
+              count++;
+              if (count === userlist.length) {
+                res.status(200).json({
+                  data: userdata
+                })
+              }
+            }
+          })
+        }
       }
-    }
-  })
+    })
 })
 
 // -------------------------  get user detail ---------------------------- //
@@ -470,6 +551,20 @@ router.post('/savehtml', function (req, res) {
 
 router.post('/senddocument', function (req, res) {
 
+  var uemail, uphonenumber, uimage;
+  User.findOne({ _id: req.body.userid }, 'phonenumber email image', function (err, userdetail) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      uemail = userdetail.email;
+      uphonenumber = userdetail.phonenumber;
+      uimage = userdetail.image;
+    }
+
+  })
+
   Document.update({ documentid: req.body.pdfid }, { $set: { documenthtml: req.body.html } }, { multi: true }, function (err, update) {
     if (err) {
       res.status(400).json({
@@ -489,11 +584,12 @@ router.post('/senddocument', function (req, res) {
                 message: err
               })
             } else {
-              Contact.findOne({ _id: doc.usertosign }, 'email', function (err, data) {
+              Contact.findOne({ _id: doc.usertosign }, 'email firstName lastName', function (err, data) {
                 var toEmailAddress = data.email;
-                var mailAccountUser = 'work.jagveer@gmail.com'
-                var mailAccountPassword = 'jagveer@123'
-                var fromEmailAddress = 'work.jagveer@gmail.com'
+
+                var mailAccountUser = 'signingrequest.ezeesteve@gmail.com'
+                var mailAccountPassword = 'steve@098'
+                var fromEmailAddress = 'signingrequest.ezeesteve@gmail.com'
                 var transport = nodemailer.createTransport({
                   service: 'gmail',
                   auth: {
@@ -501,11 +597,57 @@ router.post('/senddocument', function (req, res) {
                     pass: mailAccountPassword
                   }
                 })
+                if (uimage == 'none') {
+                  var click = "<div>Image Not Avalible</div>";
+
+                }
+                else {
+                  var imageurl = 'https://mybitrade.com:3001/images/' + req.body.userid + '/' + uimage;
+                  var click = "<div><img src='" + imageurl + "' style='height:130px'/></div>";
+
+                }
+                var url = 'https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/' + doc.usertosign;
+
+                var onlydate = new Date().toUTCString()
+                var template = '<body><table width="100%" cellpadding="0" cellspacing="0">' +
+                  ' <tbody><tr><td valign="top" align="center">' +
+                  '<table width="90%" border="0" style="font-family:Myriad Pro;border:30px solid #858f03">' +
+                  '<tbody> <tr><td valign="top"><table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">' +
+                  '  <tbody>  <tr><td height="3" colspan="2"></td> </tr><tr>' +
+                  '  <td style="width:50%!important" align="left" valign="middle">' +
+                  click + '</td>' +
+                  '<td align="right" valign="top"><table border="0" width="100%" align="left" cellspacing="2" height="120">' +
+                  '<tbody> <tr><td height="50" style="border:none!important">' +
+                  '<div style="border:10px solid #b59848;width:295px;height:170px;float:right;margin:1.5% 3% 1% 0%">' +
+                  '<div style="width:280px;height:145px;border:2px solid #b59848;margin:auto;margin-top:1%;font-family:Verdana,Geneva,sans-serif;font-size:14px;padding:15px 0px 0px 5px">' +
+                  'This email was sent to you from:<br><br>United States<div>Mobile: <span>' + uphonenumber + '</span> </div>' +
+                  '<div>Email ID:  <span><a>' + uemail + '</a></span>' +
+                  '</div></div> </div>  </td></tr></tbody></table></td> </tr></tbody> </table> </td> </tr>' +
+                  '<tr> <td colspan="2"> <table width="100%" cellpadding="2" cellspacing="2" border="0" style="background:#f1f1f1">' +
+                  '<tbody><tr><td colspan="6"><table width="100%" border="0" cellspacing="0" cellpadding="0">' +
+                  ' <tbody> <tr style="background:#858f03;height:40px">' +
+                  '<td style="width:60%!important;font-size:28px;padding-left:10px;color:#fff" colspan="2" valign="middle">Signing Participant Invitation</td>' +
+                  '<td style="width:40%!important;padding-right:10px;color:#fff" align="right" valign="middle">' +
+                  '<strong>Date: </strong>&nbsp;<span tabindex="0"><span>' + onlydate + '</span></span>' +
+                  '</td></tr> </tbody></table></td></tr><tr>' +
+                  '<td valign="top" colspan="6" align="center" style="font-family:Myriad Pro;font-size:14px;padding:10px 4px 5px 4px;color:#383838;line-height:22px">' +
+                  '<table width="99%" border="0" cellspacing="0" cellpadding="0"><tbody> <tr>' +
+                  '<td valign="top" style="text-align:left;padding-left:4px;padding-right:4px">' +
+                  '<table width="100%" border="0" cellspacing="0" cellpadding="0">' +
+                  '<tbody> <tr> <td style="font-family:Myriad Pro;font-size:15px;padding-top:10px"><strong>Dear ' + data.firstName + ' ' + data.lastName + ',</strong></td>' +
+                  ' </tr></tbody> </table></td></tr><tr>' +
+                  '<td colspan="6" style="font-family:Myriad Pro;font-size:22px!important;padding:10px 4px 5px 4px">' +
+                  'This email is an invitation to participate as a signing party in an EzeeSteve E-signature document si.gning<br>' +
+                  '<strong><a href="' + url + '" target="_blank" >Click Here</a></strong>to view and sign the document in your web browser.' +
+                  '</td></tr><tr><td colspan="6" style="font-family:Myriad Pro;font-size:15px;padding:10px 4px 0px 4px">After you sign you will receive an email that contains an electronic copy for your records.</td>' +
+                  '</tr> </tbody></table>	</td></tr></tbody></table></td> </tr>' +
+                  '<tr><td colspan="2"><img src="https://mybitrade.com/assets/img/ezee-logo.png" style="width:80px;height:auto;float:right;margin:10px">' +
+                  '</td></tr></tbody> </table></td> </tr> </tbody> </table> </body>';
                 var mail = {
                   from: fromEmailAddress,
                   to: toEmailAddress,
                   subject: "EzeeSteve Document Sign ",
-                  html: '<p>Click <a href="https://mybitrade.com/signpdf/' + doc._id + '/' + req.body.userid + '/' + doc.usertosign +'">here</a></p>'
+                  html: template
                 }
 
                 transport.sendMail(mail, function (error, response) {
@@ -566,7 +708,7 @@ router.post('/senddocument', function (req, res) {
 //           from: fromEmailAddress,
 //           to: toEmailAddress,
 //           subject: "EzeeSteve Document Sign ",
-//           html: '<p>Click <a href="https://mybitrade.com:4200/signpdf/' +  document._id + '">here</a></p>' 
+//           html: '<p>Click <a href="https://mybitrade.com:4200/newsign/' +  document._id + '">here</a></p>' 
 //         }
 
 //         transport.sendMail(mail, function (error, response) {
@@ -695,9 +837,21 @@ router.post('/addnewparticipant', function (req, res) {
       })
     } else {
       if (count > 0) {
-        res.status(200).json({
-          message: 2                    // 2 = user already in your contact list
-        })
+        Contact.findOne({ email: req.body.email, userId: req.body.userId }, function (err, user) {
+          if (user) {
+            res.status(200).json({
+              message: 2,
+              id: user._id                  // 2 = user already in your contact list
+            })
+          }
+          else {
+            res.status(400).json({
+              message: err
+            });
+          }
+
+        });
+
       } else {
         contact.save(function (err, contact) {
           if (err) {
@@ -797,28 +951,54 @@ router.post('/addusertodocument', function (req, res) {
 
 
 router.post('/updatedoc', function (req, res) {
-  Document.findOne({ _id: req.body.docid }, 'documentid', function (err, doc) {
+  console.log(req.body.reciptemail)
+  var uemail, uphonenumber, uimage;
+  const ip = req.clientIp;
+  console.log(ip);
+ 
+ 
+  // var res = str.replace("::ffff:", "");
+  // var ip="res";
+  // console.log(ip);
+  User.findOne({ _id: req.body.userid }, 'phonenumber email image', function (err, userdetail) {
     if (err) {
       res.status(400).json({
         message: err
       })
     } else {
+      uemail = userdetail.email;
+      uphonenumber = userdetail.phonenumber;
+      uimage = userdetail.image;
+    }
+
+  })
+  Document.findOne({ _id: req.body.docid }, 'documentid', function (err, doc) {
+    if (err) {
+      res.status(400).json({
+        message: err,
+        error: "here5"
+      })
+    } else {
+      var did=doc.documentid;
       Document.updateOne({ _id: req.body.docid, userid: req.body.userid }, { $set: { actionrequired: 'Signed' } }, function (err, status) {
         if (err) {
           res.status(400).json({
-            message: err
+            message: err,
+            error: "here4"
           })
         } else {
-          Document.update({ documentid: doc.documentid }, { $set: { documenthtml: req.body.html, signedTime: Date.now } }, { multi: true }, function (err, update) {
+          Document.update({ documentid: doc.documentid }, { $set: { documenthtml: req.body.html, signedTime: Date() } }, { multi: true }, function (err, update) {
             if (err) {
               res.status(400).json({
-                message: err
+                message: err,
+                error: "here3"
               })
             } else {
               Document.findOne({ documentid: doc.documentid, user: { $ne: req.body.userid }, actionrequired: 'Not Signed' }, 'usertosign', function (err, user) {
                 if (err) {
                   res.status(400).json({
-                    message: err
+                    message: err,
+                    error: "here2"
                   })
                 } else {
                   if (!user) {
@@ -829,13 +1009,15 @@ router.post('/updatedoc', function (req, res) {
                     Contact.findOne({ _id: user.usertosign }, 'email', function (err, contact) {
                       if (err) {
                         res.status(400).json({
-                          message: err
+                          message: err,
+                          error: "here1"
                         })
                       } else {
+                        console.log(contact.email)
                         var toEmailAddress = contact.email;
-                        var mailAccountUser = 'work.jagveer@gmail.com'
-                        var mailAccountPassword = 'jagveer@123'
-                        var fromEmailAddress = 'work.jagveer@gmail.com'
+                        var mailAccountUser = 'signingreceipt.ezeesteve@gmail.com'
+                        var mailAccountPassword = 'steve@098'
+                        var fromEmailAddress = 'signingreceipt.ezeesteve@gmail.com'
                         var transport = nodemailer.createTransport({
                           service: 'gmail',
                           auth: {
@@ -843,11 +1025,59 @@ router.post('/updatedoc', function (req, res) {
                             pass: mailAccountPassword
                           }
                         })
+
+                        if (uimage == 'none') {
+                          var click = "<div>Image Not Avalible</div>";
+
+                        }
+                        else {
+                          var imageurl = 'https://mybitrade.com:3001/images/' + req.body.userid + '/' + uimage;
+                          var click = "<div><img src='" + imageurl + "' style='height:130px'/></div>";
+
+                        }
+                        var url = 'https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/' + user.usertosign;
+
+                        var onlydate = new Date().toUTCString()
+                        //   var click= '<p>Click <a href="https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/'+user.usertosign+'">here</a></p>';
+                        var template = '<body><table width="100%" cellpadding="0" cellspacing="0">' +
+                          ' <tbody><tr><td valign="top" align="center">' +
+                          '<table width="90%" border="0" style="font-family:Myriad Pro;border:30px solid #858f03">' +
+                          '<tbody> <tr><td valign="top"><table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">' +
+                          '  <tbody>  <tr><td height="3" colspan="2"></td> </tr><tr>' +
+                          '  <td style="width:50%!important" align="left" valign="middle">' +
+                          click + '</td>' +
+                          '<td align="right" valign="top"><table border="0" width="100%" align="left" cellspacing="2" height="120">' +
+                          '<tbody> <tr><td height="50" style="border:none!important">' +
+                          '<div style="border:10px solid #b59848;width:295px;height:170px;float:right;margin:1.5% 3% 1% 0%">' +
+                          '<div style="width:280px;height:145px;border:2px solid #b59848;margin:auto;margin-top:1%;font-family:Verdana,Geneva,sans-serif;font-size:14px;padding:15px 0px 0px 5px">' +
+                          'This email was sent to you from:<br><br>United States<div>Mobile: <span>' + uphonenumber + '</span> </div>' +
+                          '<div>Email ID:  <span><a>' + uemail + '</a></span>' +
+                          '</div></div> </div>  </td></tr></tbody></table></td> </tr></tbody> </table> </td> </tr>' +
+                          '<tr> <td colspan="2"> <table width="100%" cellpadding="2" cellspacing="2" border="0" style="background:#f1f1f1">' +
+                          '<tbody><tr><td colspan="6"><table width="100%" border="0" cellspacing="0" cellpadding="0">' +
+                          ' <tbody> <tr style="background:#858f03;height:40px">' +
+                          '<td style="width:60%!important;font-size:28px;padding-left:10px;color:#fff" colspan="2" valign="middle">Signing Participant Invitation</td>' +
+                          '<td style="width:40%!important;padding-right:10px;color:#fff" align="right" valign="middle">' +
+                          '<strong>Date: </strong>&nbsp;<span tabindex="0"><span>' + onlydate + '</span></span>' +
+                          '</td></tr> </tbody></table></td></tr><tr>' +
+                          '<td valign="top" colspan="6" align="center" style="font-family:Myriad Pro;font-size:14px;padding:10px 4px 5px 4px;color:#383838;line-height:22px">' +
+                          '<table width="99%" border="0" cellspacing="0" cellpadding="0"><tbody> <tr>' +
+                          '<td valign="top" style="text-align:left;padding-left:4px;padding-right:4px">' +
+                          '<table width="100%" border="0" cellspacing="0" cellpadding="0">' +
+                          '<tbody> <tr> <td style="font-family:Myriad Pro;font-size:15px;padding-top:10px"><strong>Dear ' + contact.firstName + ' ' + contact.lastName + ',</strong></td>' +
+                          ' </tr></tbody> </table></td></tr><tr>' +
+                          '<td colspan="6" style="font-family:Myriad Pro;font-size:22px!important;padding:10px 4px 5px 4px">' +
+                          'This email is an invitation to participate as a signing party in an EzeeSteve E-signature document si.gning<br>' +
+                          '<strong><a href="' + url + '" target="_blank" >Click Here</a></strong>to view and sign the document in your web browser.' +
+                          '</td></tr><tr><td colspan="6" style="font-family:Myriad Pro;font-size:15px;padding:10px 4px 0px 4px">After you sign you will receive an email that contains an electronic copy for your records.</td>' +
+                          '</tr> </tbody></table>	</td></tr></tbody></table></td> </tr>' +
+                          '<tr><td colspan="2"><img src="https://mybitrade.com/assets/img/ezee-logo.png" style="width:80px;height:auto;float:right;margin:10px">' +
+                          '</td></tr></tbody> </table></td> </tr> </tbody> </table> </body>';
                         var mail = {
                           from: fromEmailAddress,
                           to: toEmailAddress,
                           subject: "EzeeSteve Document Sign ",
-                          html: '<p>Click <a href="https://mybitrade.com/signpdf/' + user._id + '/' + req.body.userid + '/' + user.usertosign + '">here</a></p>'
+                          html: template
                         }
 
                         transport.sendMail(mail, function (error, response) {
@@ -864,6 +1094,215 @@ router.post('/updatedoc', function (req, res) {
 
                           transport.close();
                         });
+                        // ================================================
+                        // sucess mail userdetail.email
+                        // ========================================================
+                        console.log("here",uemail)
+                        
+                        var uemail = uemail;
+                        var mailAccountUser = 'signingreceipt..ezeesteve@gmail.com'
+                        var mailAccountPassword = 'steve@098'
+                        var fromEmailAddress = 'signingreceipt..ezeesteve@gmail.com'
+                        var transport = nodemailer.createTransport({
+                          service: 'gmail',
+                          auth: {
+                            user: mailAccountUser,
+                            pass: mailAccountPassword
+                          }
+                        })
+
+                        if (uimage == 'none') {
+                          var click = "<div>Image Not Avalible</div>";
+
+                        }
+                        else {
+                          var imageurl = 'https://mybitrade.com:3001/images/' + req.body.userid + '/' + uimage;
+                          var click = "<div><img src='" + imageurl + "' style='height:130px'/></div>";
+
+                        }
+                        var url = 'https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/' + user.usertosign;
+
+                        var onlydate = new Date().toUTCString()
+                        //   var click= '<p>Click <a href="https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/'+user.usertosign+'">here</a></p>';
+                        var template = '<body><table width="100%" cellpadding="0" cellspacing="0">'+
+                        '<tbody><tr><td valign="top" class="m_7195789729905264023heading" align="center">'+
+                      ' <table width="90%" border="0" style="font-family:Myriad Pro;border:30px solid #858f03">'+
+                       '<tbody><tr><td valign="top" class="m_7195789729905264023heading">'+
+                       '<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">'+
+                       '<tbody> <tr><td height="3" colspan="2"></td></tr>'+
+                       '<tr><td style="width:50%!important" align="left" valign="middle">'+
+                       '<img src="http://www.ezeesteve.com/images/signature.png"style="width:30%" class="CToWUd">'+
+                       '</td><td align="right" valign="top">'+
+                        '<table border="0" width="100%" align="left" cellspacing="2" height="120">'+
+                         '<tbody><tr><td height="50" style="border:none!important"></td>'+
+                         '</tr></tbody></table> </td></tr></tbody></table></td></tr> <tr>'+
+                        '<td colspan="2"><table width="100%" cellpadding="2" cellspacing="2" border="0" style="background:#f1f1f1">'+
+                    
+                       '<tbody><tr><td colspan="6"><table width="100%" border="0" cellspacing="0" cellpadding="0">'+
+                       '<tbody><tr style="background:#858f03;height:40px"><td style="width:60%!important;font-size:28px;padding-left:10px;color:#fff" colspan="2" valign="middle">Sender Signature Receipt</td>'+
+                      '<td style="width:40%!important;padding-right:10px;color:#fff" align="right" valign="middle">'+
+                      '<strong>Date: </strong>&nbsp;<span class="aBn" data-term="goog_305617764"tabindex="0">'+
+                        '<span class="aQJ">'+onlydate+'</span></span></td></tr></tbody> </table></td></tr><tr>'+
+                       ' <td valign="top" colspan="2" align="center" style="font-family:Myriad Pro;font-size:14px;padding:10px 4px 5px 4px;color:#383838;line-height:22px">'+
+                      '<table width="99%" border="0" cellspacing="0" cellpadding="0">'+
+                       '<tbody><tr> <td valign="top" style="text-align:left;padding-left:4px;padding-right:4px">'+
+                        '<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>'+
+                        '<td style="font-family:Verdana,Arial,Helvetica,sans-serif;text-align:justify" colspan="3">This receipt contains verifiable proof of your'+
+                        'EzeeSteve transaction. The holder of thisreceipt has proof of delivery, message and official time of signature.</td>'+
+                        '</tr>  <tr><td colspan="3"><strong>Message Statistics</strong> </td></tr><tr>'+
+                        '<td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px;width:30%">'+
+                        ' <strong>Email ID</strong> </td><td style="width:5%">&nbsp;</td>'+
+                        '<td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                        '<a href="mailto:'+uemail+'"target="_blank">'+uemail+'</a> </td>'+
+                        '</tr>  <tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                        '<strong>File Name</strong></td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+did+'.pdf</td>'+
+                       '</tr><tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                        '<strong>Signed By</strong></td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                       '<a href="mailto:'+req.body.reciptemail+'"target="_blank">'+req.body.reciptemail+'</a></td></tr><tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                       '<strong>Signed Date</strong> </td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+onlydate+'</td>'+
+                       '</tr> <tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                       '<strong>IP</strong></td> <td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+ip+'</td>'+
+                      '</tr> <tr> <td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                     '<strong>Download</strong></td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">Download signed document please'+
+                     '</td></tr><tr><td colspan="3">&nbsp;</td></tr></tbody></table></td></tr></tbody></table> </td></tr></tbody></table></td>'+
+                    '</tr> <tr> </tr> <tr> <td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px"'+
+                    'colspan="3"><strong>Thanks &amp; Regards</strong></td> </tr><tr>'+
+                    '<td style="font-family:Myriad Pro;font-size:15px;padding:10px 4px 5px 8px;line-height:24px" colspan="2">j <br><div>'+
+                    '  <strong>Email ID: </strong>'+
+                    ' <a href="mailto:'+uemail+'" target="_blank">'+uemail+'</a></div></td></tr><tr>'+
+                    ' <td colspan="2"><img src="http://www.ezeesteve.com/images/ezee.png"style="width:80px;height:25px;float:right;margin:10px" class="CToWUd">'+
+                    '</td> </tr></tbody></table></td></tr></tbody></table> </body>';
+                        var mail = {
+                          from: fromEmailAddress,
+                          to: uemail,
+                          subject: "EzeeSteve Document Sign ",
+                          html: template
+                        }
+
+                        transport.sendMail(mail, function (error, response) {
+                          if (error) {
+                            res.json({
+                              success: error,
+                              message: "Something went wrong.Please Try Again"
+                            })
+                          } else {
+                            res.status(200).json({
+                              message: 'Success'
+                            })
+                          }
+
+                          transport.close();
+                        });
+
+                        User.findOne({_id:req.body.userid},function(err,mainuser){
+                          if(err) {
+                            res.status(400).json({
+                              message: err
+                            })
+                          } else {
+                            var toEmailAddress = mainuser.email;
+                            var mailAccountUser = 'signingrequest.ezeesteve@gmail.com'
+                            var mailAccountPassword = 'steve@098'
+                            var fromEmailAddress = 'signingrequest.ezeesteve@gmail.com'
+                            var transport = nodemailer.createTransport({
+                              service: 'gmail',
+                              auth: {
+                                user: mailAccountUser,
+                                pass: mailAccountPassword
+                              }
+                            })
+                          
+                            if (uimage == 'none') {
+                              var click = "<div>Image Not Avalible</div>";
+                          
+                            }
+                            else {
+                              var imageurl = 'https://mybitrade.com:3001/images/' + req.body.userid + '/' + uimage;
+                              var click = "<div><img src='" + imageurl + "' style='height:130px'/></div>";
+                          
+                            }
+                            var url = 'https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/' + user.usertosign;
+                          
+                            var onlydate = new Date().toUTCString()
+                            //   var click= '<p>Click <a href="https://mybitrade.com/newsign/' + doc._id + '/' + req.body.userid + '/'+user.usertosign+'">here</a></p>';
+                            var template = '<body><table width="100%" cellpadding="0" cellspacing="0">'+
+                            '<tbody><tr><td valign="top" class="m_7195789729905264023heading" align="center">'+
+                          ' <table width="90%" border="0" style="font-family:Myriad Pro;border:30px solid #858f03">'+
+                           '<tbody><tr><td valign="top" class="m_7195789729905264023heading">'+
+                           '<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">'+
+                           '<tbody> <tr><td height="3" colspan="2"></td></tr>'+
+                           '<tr><td style="width:50%!important" align="left" valign="middle">'+
+                           '<img src="http://www.ezeesteve.com/images/signature.png"style="width:30%" class="CToWUd">'+
+                           '</td><td align="right" valign="top">'+
+                            '<table border="0" width="100%" align="left" cellspacing="2" height="120">'+
+                             '<tbody><tr><td height="50" style="border:none!important"></td>'+
+                             '</tr></tbody></table> </td></tr></tbody></table></td></tr> <tr>'+
+                            '<td colspan="2"><table width="100%" cellpadding="2" cellspacing="2" border="0" style="background:#f1f1f1">'+
+                          
+                           '<tbody><tr><td colspan="6"><table width="100%" border="0" cellspacing="0" cellpadding="0">'+
+                           '<tbody><tr style="background:#858f03;height:40px"><td style="width:60%!important;font-size:28px;padding-left:10px;color:#fff" colspan="2" valign="middle">Sender Signature Receipt</td>'+
+                          '<td style="width:40%!important;padding-right:10px;color:#fff" align="right" valign="middle">'+
+                          '<strong>Date: </strong>&nbsp;<span class="aBn" data-term="goog_305617764"tabindex="0">'+
+                            '<span class="aQJ">'+onlydate+'</span></span></td></tr></tbody> </table></td></tr><tr>'+
+                           ' <td valign="top" colspan="2" align="center" style="font-family:Myriad Pro;font-size:14px;padding:10px 4px 5px 4px;color:#383838;line-height:22px">'+
+                          '<table width="99%" border="0" cellspacing="0" cellpadding="0">'+
+                           '<tbody><tr> <td valign="top" style="text-align:left;padding-left:4px;padding-right:4px">'+
+                            '<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>'+
+                            '<td style="font-family:Verdana,Arial,Helvetica,sans-serif;text-align:justify" colspan="3">This receipt contains verifiable proof of your'+
+                            'EzeeSteve transaction. The holder of thisreceipt has proof of delivery, message and official time of signature.</td>'+
+                            '</tr>  <tr><td colspan="3"><strong>Message Statistics</strong> </td></tr><tr>'+
+                            '<td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px;width:30%">'+
+                            ' <strong>Email ID</strong> </td><td style="width:5%">&nbsp;</td>'+
+                            '<td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                            '<a href="mailto:'+toEmailAddress+'"target="_blank">'+toEmailAddress+'</a> </td>'+
+                            '</tr>  <tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                            '<strong>File Name</strong></td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+did+'.pdf</td>'+
+                           '</tr><tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                            '<strong>Signed By</strong></td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                           '<a href="mailto:'+toEmailAddress+'"target="_blank">'+toEmailAddress+'</a></td></tr><tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                           '<strong>Signed Date</strong> </td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+onlydate+'</td>'+
+                           '</tr> <tr><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                           '<strong>IP</strong></td> <td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+ip+'</td>'+
+                          '</tr> <tr> <td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">'+
+                          '<strong>Download</strong></td><td>&nbsp;</td><td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px">Download signed document please'+
+                          '</td></tr><tr><td colspan="3">&nbsp;</td></tr></tbody></table></td></tr></tbody></table> </td></tr></tbody></table></td>'+
+                          '</tr> <tr> </tr> <tr> <td style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:12px;font-weight:inherit;padding-top:5px;margin-left:5px;margin-right:5px"'+
+                          'colspan="3"><strong>Thanks &amp; Regards</strong></td> </tr><tr>'+
+                          '<td style="font-family:Myriad Pro;font-size:15px;padding:10px 4px 5px 8px;line-height:24px" colspan="2">j <br><div>'+
+                          '  <strong>Email ID: </strong>'+
+                          ' <a href="mailto:'+toEmailAddress+'" target="_blank">'+toEmailAddress+'</a></div></td></tr><tr>'+
+                          ' <td colspan="2"><img src="http://www.ezeesteve.com/images/ezee.png"style="width:80px;height:25px;float:right;margin:10px" class="CToWUd">'+
+                          '</td> </tr></tbody></table></td></tr></tbody></table> </body>';
+                            var mail = {
+                              from: fromEmailAddress,
+                              to: toEmailAddress,
+                              subject: "EzeeSteve Document Sign ",
+                              html: template
+                            }
+                          
+                            transport.sendMail(mail, function (error, response) {
+                              if (error) {
+                                res.json({
+                                  success: error,
+                                  message: "Something went wrong.Please Try Again"
+                                })
+                              } else {
+                                res.status(200).json({
+                                  message: 'Success'
+                                })
+                              }
+                          
+                              transport.close();
+                            });
+                          }
+                      
+                        })
+                        // ------------------------------------------------------------------------------------------------------------
+                        // recipt
+                        // ----------------------------------------------------------------------------------
+                        console.log("here",req.body.reciptemail)
+                        
+                     
                       }
 
                     })
@@ -879,30 +1318,52 @@ router.post('/updatedoc', function (req, res) {
     }
   })
 })
+// ===============================================================================================
+router.get('/confirmuser/:userid', function (req, res) {
+  console.log(req.params)
+  var userid = req.params.userid;
+  User.findOneAndUpdate(
+    { _id: userid },
+    { $set: { status: "verified" } }, function (err, suc) {
+      if (err) {
+        res.status(400).json({
+          message: err,
 
+        })
+      }
+      else {
+        console.log(suc)
+        res.status(200).json({
+          message: "verified sucessfully",
+          data: suc
+        })
+      }
+    })
+})
+// =================================================================================================
 
 router.get('/documentdetail/:documentid', function (req, res) {
-  console.log('sad')
+ // console.log('sad')
   // console.log(req.params.documentid)
   var detailed = [];
   var pdfdata = '';
-  var count =0;
-  Document.find({ _id: req.params.documentid }, function (err, data) {
+  var count = 0;
+  Document.find({ documentid: req.params.documentid }, function (err, data) {
     if (err) {
       res.status(400).json({
         message: err,
-        mssg:"assssqdwe"
+        mssg: "assssqdwe"
       })
     }
     else {
       pdfdata = data;
-      var len =data.length;
+      var len = data.length;
       for (let i = 0; i < data.length; i++) {
         User.find({ _id: data[i].userid }, function (err, user) {
           if (err) {
             res.status(400).json({
               message: err,
-              msg:"df"
+              msg: "df"
             })
           }
           else {
@@ -912,27 +1373,28 @@ router.get('/documentdetail/:documentid', function (req, res) {
               if (err) {
                 res.status(400).json({
                   message: err,
-                  msg:"dfsd"
+                  msg: "dfsd"
                 })
               }
               else {
-                console.log("length-",result.length);
+                console.log("length-", result.length);
                 console.log(i)
-                for(let j=0;j< result.length; j++){
+                for (let j = 0; j < result.length; j++) {
                   detailed.push({
                     userid: result[j]._id,
                     firstName: result[j].firstName,
                     lastName: result[j].lastName,
                     email: result[j].email,
-                    documentid: pdfdata[j].documentid,
-                    actionrequired: pdfdata[j].actionrequired,
-                    expiration: pdfdata[j].expiration,
-                    from: userdata[j].email
-
+                    documentid: pdfdata[i].documentid,
+                    actionrequired: pdfdata[i].actionrequired,
+                    expiration: pdfdata[i].expiration,
+                    from: userdata[j].email,
+                    image: pdfdata[i].userimage,
+                    uservideo: pdfdata[i].uservideo
 
                   })
                 }
-                count ++;
+                count++;
                 // data[i].push({userid:result._id,name:result.firstName+" "+result.lastName})
                 // if (result != '') {
 
@@ -952,10 +1414,12 @@ router.get('/documentdetail/:documentid', function (req, res) {
                 //   // console.log("------------------"+ JSON.stringify(detailed) +"-------------------")
 
                 // }
-              } 
-              if(len == count){res.status(200).json({
-                data: detailed
-              })}
+              }
+              if (len == count) {
+                res.status(200).json({
+                  data: detailed
+                })
+              }
             })
 
           }
@@ -1043,15 +1507,18 @@ router.get('/mydocuments/:userid', function (req, res) {
         documents.push({ id: doc[i].documentid, documentstatus: doc[i].documentstatus })
       }
       for (let i = 0; i < documents.length; i++) {
-       console.log(documents.length);
-       console.log(documents[i].id)
+        console.log(documents.length);
+        console.log(documents[i].id)
         Document.findOne({ documentid: documents[i].id, actionrequired: 'Not Signed' }, 'dateadded', function (err, docs) {
           if (err) {
             res.status(400).json({
               message: err
             })
           } else {
-            console.log(docs)
+            if(!docs) {
+              count++;
+            } else {
+          //  console.log(docs)
             var date = docs.dateadded.toDateString().substr(4, 12);
             var time = docs.dateadded.getHours() + ':' + docs.dateadded.getMinutes() + ':' + docs.dateadded.getSeconds();
             var documentstatus = documents[i].documentstatus;
@@ -1070,6 +1537,7 @@ router.get('/mydocuments/:userid', function (req, res) {
               })
             }
           }
+        }
         })
       }
     }
@@ -1077,32 +1545,37 @@ router.get('/mydocuments/:userid', function (req, res) {
 
 })
 
+
 //-------------------------------- update user signed image ------------------------------ //
 
 router.post('/signeduserimage', function (req, res) {
-Document.findOne({_id:req.body.docid,usertosign:req.body.userid},function(err,doc){
-  if(err) {
-    res.status(400).json({
-      message:err
-    })
-  } else {
-    var imagename = req.body.imagename+'.jpg';
-    Document.updateOne({_id:req.body.docid,usertosign:req.body.userid},{$set:{userimage:imagename}}, function (err, result) {
-      if (err) {
-        res.status('400').json({
-          message:err
-        })
-      }
-      else {
-        res.status(200).json({
-          message: 'Success'
-        })
-      }
-  //}
-})  
-  }
-})
-})
 
+  //var str = req.body.imagename;
+  var url = req.body.imagename.split('/');;
+  // console.log( url[ url.length - 1 ] ); // 2
+  // console.log( url[ url.length - 2 ] + '/' + url[ url.length - 1 ]); 
+  Document.findOne({ _id: req.body.docid, usertosign: req.body.userid }, function (err, doc) {
+    if (err) {
+      res.status(400).json({
+        message: err
+      })
+    } else {
+      var imagename = url[url.length - 2] + '/' + url[url.length - 1] + '.jpg';
+      Document.updateOne({ _id: req.body.docid, usertosign: req.body.userid }, { $set: { userimage: imagename } }, function (err, result) {
+        if (err) {
+          res.status('400').json({
+            message: err
+          })
+        }
+        else {
+          res.status(200).json({
+            message: 'Success'
+          })
+        }
+        //}
+      })
+    }
+  })
+})
 
 module.exports = router;

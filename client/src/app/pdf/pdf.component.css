@@ -917,6 +917,11 @@ top: 320.141px; //apni */
     width: 26%;
     float: left;
 }  
+.innerfixed{
+    overflow-y: auto;
+    width: 100%;
+    float: left;
+}
 
 .partpnt_poup{
     position: relative;

@@ -19,6 +19,7 @@
         <div class="boxdiv">
             <div class="col-md-4 col-sm-5 col-xs-12">
                 <div class="fixedposition">
+                    <div class="innerfixed">
                     <div class="electronicsig-div">
                         <img src="../../assets/img/elec.png" />
                     </div>
@@ -112,7 +113,8 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 pd0">
                                 <div class="btn2">
-                                    <a style="cursor: pointer;" class="mobilehomebtn1" (click)="instructionModal.open()" data-placement="right">
+                                        <!-- <a style="cursor: pointer;" class="mobilehomebtn1" (click)="instructionModal.open()" data-placement="right"> -->
+                                                <a   (click)="showinstructions = !showinstructions" style="cursor: pointer;" class="mobilehomebtn1" data-placement="right">
 
                                         <button>Instructions</button>
                                     </a>
@@ -120,7 +122,7 @@
                                 </div>
                             </div>
 
-                            <!-- <li style="list-style:none; cursor:pointer;" class="toggle">
+                            <li style="list-style:none; cursor:pointer;" class="toggle">
 
 
 
@@ -151,7 +153,7 @@
 
                                 </ul>
 
-                            </li> -->
+                            </li>
 
                         </div>
                         <div class="btndiv">
@@ -169,6 +171,7 @@
                             </div>
                         </div>
 
+                    </div>
                     </div>
                 </div>
             </div>

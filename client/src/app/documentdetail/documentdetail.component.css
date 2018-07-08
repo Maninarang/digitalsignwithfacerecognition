@@ -6,6 +6,19 @@
 .logimg img{
     width: 200px;
 }
+.img_o , .vid_o{ width:50%; float: left;}
+
+
+.person_img, .vid_o video{
+    width: 95%;
+    margin: 5px;
+    display: block;
+}
+.completed_box img {
+    width: 19px;
+    margin: 0 auto;
+    display: block;
+}
 
 .jsttext{
     text-align: center;
