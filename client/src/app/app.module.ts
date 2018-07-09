@@ -22,6 +22,8 @@ import { LoadingModule } from 'ngx-loading';
 import {SlideshowModule} from 'ng-simple-slideshow';
 //  import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { MatButtonModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { DragAndDropModule } from 'angular-draggable-droppable';
 import { ActionrequestComponent } from './actionrequest/actionrequest.component';
 import { DigitalSignComponent } from './digital-sign/digital-sign.component';
@@ -58,6 +60,7 @@ import { NewDocumentComponent } from './new-document/new-document.component';
 import { NewsignpdfComponent } from './newsignpdf/newsignpdf.component';
 import { ScrollToModule } from 'ng2-scroll-to-el';
 import { VideorecComponent } from './videorec/videorec.component';
+import { DicomviewerComponent } from './dicomviewer/dicomviewer.component';
 
 // import { ConfirmComponent } from './confirm/confirm.component';
 // .component.spec
@@ -90,7 +93,8 @@ const routes: Routes = [
   { path: 'documentdetail/:documentid', component: DocumentdetailComponent },
   { path: 'confirm/:userid', component: ConfirmComponent },
   { path: 'signpdf/:documentid/:userid/:usertosign', component: SignpdfComponent, canActivate: [AuthGuardService]},
-  { path: 'newsign/:documentid/:userid/:usertosign', component: NewsignpdfComponent, canActivate: [AuthGuardService]}
+  { path: 'newsign/:documentid/:userid/:usertosign', component: NewsignpdfComponent, canActivate: [AuthGuardService]},
+  { path: 'dicomviewer', component: DicomviewerComponent },
 
 ];
 
@@ -127,7 +131,8 @@ const routes: Routes = [
     CompletedDocComponent,
     ConfirmComponent,
     LandingComponent,
-    VideorecComponent
+    VideorecComponent,
+    DicomviewerComponent
     // AddparticipantdialogComponent
     ],
   imports: [
@@ -141,6 +146,8 @@ const routes: Routes = [
     ModalModule,
     PdfViewerModule,
     FileDropModule,
+    MatButtonModule,
+    MatProgressBarModule,
     LoadingModule,
     NgxCarouselModule,
     SlideshowModule,

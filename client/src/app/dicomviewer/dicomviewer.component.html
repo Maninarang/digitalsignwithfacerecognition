@@ -1,0 +1,14 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div>
+  <div id="dwv">
+
+    <input  #file type="file" (change)="fileChange($event)" class="fileUpload"  >
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px',fullScreenBackdrop: true }"></ngx-loading>
+
+    <div class="layerContainer">
+      <div class="dropBox"></div>
+      <canvas class="imageLayer">Only for HTML5 compatible browsers...</canvas>
+      <div class="drawDiv"></div>
+    </div>
+  </div>
+</div>
