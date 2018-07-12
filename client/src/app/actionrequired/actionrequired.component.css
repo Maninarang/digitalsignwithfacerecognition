@@ -1044,6 +1044,9 @@ display:none;
 }
 .box3{
     padding: 6px 20px 20px;
+    background: #a68734 !important;
+    margin-bottom: 20px;
+    border: none !important;
 }
 
 .box3 .search-btn {

@@ -187,7 +187,7 @@
          <input  #file type="file" (change)="fileChange($event)" class="fileUpload" style="display: none" >
        
           <button id="uploaddocbtn" type="button" (click)="file.click()" data-placement="bottom" data-toggle="tooltip" data-original-title="Browse or drag and drop pdf file here"></button>
-            <file-drop  (onFileDrop)="filedropped($event)" >
+            <file-drop  (onFileDrop)="filedropped($event)" class="filedroptext">
                   Drag file here or click the icon to upload PDF file
                         <!--<span>optional content (don't set headertext then)</span>-->
                   </file-drop>   
@@ -580,13 +580,23 @@
               
       </div>				  
               
-      <div class="form-group groups_group1 col-md-12 col-lg-12 col-sm-12 col-xs-12 mrginbtm">  
+      <div class="form-group groups_group1 col-md-6 col-lg-6 col-sm-12 col-xs-12 mrginbtm">  
        
       <span id="expirationdate" style="margin-top:0px;">
                
-       <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label2" style="float: left;">Expiration Date</label>
-                
-      <div class="col-lg-9" style="margin-top:0px;">
+       <label for="inputEmail" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 control-label2" style="float: left;">Expiration Date</label>
+          
+       <div class="checkbox">
+        <!-- <label>
+            <input type="checkbox"> Remember me
+        </label> -->
+        <label class="container56"> Priority
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+    </div>
+
+      <div class="col-lg-6" style="margin-top:0px;">
            <input type="checkbox" (change)="defauldate($event)" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" [(ngModel)]="showexpdate"> </div>             
           
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">	</div>
@@ -611,6 +621,29 @@
       </span>
             
     </div>	
+
+    <div class="form-group groups_group1 col-md-6 col-lg-6 col-sm-12 col-xs-12 mrginbtm">  
+       
+        <span style="margin-top:0px;">
+                 
+         <!-- <label for="inputEmail" class="col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label2" style="float: left;">Priority</label>
+                  
+        <div class="col-lg-9" style="margin-top:0px;">
+             <input type="checkbox" (change)="defauldate($event)" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;"> </div>              -->
+          <div class="checkbox">
+              <!-- <label>
+                  <input type="checkbox"> Remember me
+              </label> -->
+              <label class="container56"> Priority
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
+          </div>
+     
+        
+        </span>
+              
+    </div>
 
 
     <!-- <div class="form-group groups_group1" style="margin-left:-3%;">
@@ -734,7 +767,7 @@
 </section>
 
 
-<footer>
+<footer id="footer">
   <div class="container">
       <div class="col-md-2 col-sm-2 col-xs-12">
           <div class="msgimgdiv">

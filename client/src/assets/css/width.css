@@ -38,25 +38,39 @@ img.img-responsive.logo {
     width: 100%;
 }
 a .pt567 {
-    
-    /* font-size: 40px !important; */
-  
+    font-size: 30px !important;
+    padding: 15px 7px;
 }
 span.title2 {
     color: #fff;
-    /* font-size: 40px !important; */
+    font-size: 30px !important;
 }
-
+.list-part2{
+    padding: 10px 7px;
+    height: auto;
+}
+p.pt10 {
+    font-size: 45px  !important;
+    margin-top: 23px !important;
+    margin-bottom: 16px !important;
+}
+.iconimg img {
+    width: 36px !important;
+}
+  
 .img-portfolio2 {
-    width: 100%;
+    width: 100% !important;
 }
 span.title {
     color: #fff;
     /* font-size: 40px !important; */
 }
 span.pt6 {
-   
-    /* font-size: 35px; */
+    padding: 0 15px !important;
+    font-size: 30px !important;
+}
+.nav > li > a {
+    padding: 13px 15px !important;
 }
 .nav-tabs6 .fa {
     color: #fff;
@@ -70,8 +84,7 @@ span.pt6 {
     /* font-size: 30px; */
 }
 p.pt10 {
-    color: #fff;
-    font-size: 50px;
+    /* font-size: 50px ; */
    
 }
 .form-control {
@@ -106,10 +119,8 @@ img.img {
     width: 200px;
 }
 .tab-content {
-    margin-left: 60px;
-    background: #fff;
-    width: 92%;
-    margin-bottom: 5%;
+    margin-left: 60px!important;
+    margin-bottom: 110px !important;
 }
 p.pt {
     /* font-size: 30px; */
@@ -216,7 +227,7 @@ p.pt {
         width: auto;
     }
     .logimg img {
-        width: 210px !important;
+        width: 340px !important;
     }
     .modal-dialog {
         width: 800px !important;
@@ -230,8 +241,143 @@ p.pt {
 	.lockdiv{
 		padding: 245px 0 198px !important;
     }
-    
-
+    .list-part-home {
+        margin-top: 0px;
+        padding: 12px 22px !important;
+        font-size: 20px;
+    }
+    .slideshow-container .arrow-container .arrow {
+        width: 40px !important;
+        height: 40px !important;
+        border-top: 12px solid #00000066 !important;
+        border-left: 12px solid #00000066 !important;
+    }
+    p.pt {
+        font-size: 23px;
+    }
+    .log-reg-btn button{
+        font-size: 31px !important;
+        padding: 16px !important;
+    }
+    .ezeelogintext p {
+        font-size: 54px !important;
+        padding: 20px 0 30px !important;
+    }
+    .ezeelogintext img{
+        width: 158px !important;
+    }
+    .ezeelogintext {
+        padding: 40px !important;
+    }
+    .formdiv .form-group input {
+        height: 66px;
+        font-size: 25px !important;
+        margin-bottom: 30px;
+        padding: 6px 22px;
+        border: 2px solid #b59748;
+    }
+    .formdiv .form-group span{
+        right: 32px !important;
+        top: 16px !important;
+        font-size: 25px;
+    }
+    .error-msg {
+        font-size: 21px;
+    }
+    .checkbox label, .radio label {
+        font-size: 28px;
+    }
+    .formdiv .form-group p {
+        font-size: 28px;
+    }
+    .fropicture .regimg {
+        width: 220px !important;
+    }
+    .formdiv .signbtn img {
+        width: 64px !important;
+    }
+    .formdiv .signbtn{
+        width: 565px !important;
+        padding: 18px !important;
+        font-size: 33px !important;
+    }
+    .jsttext {
+        font-size: 30px !important;
+    }
+    .copyrighttext p {
+        font-size: 22px;
+    }
+    #footer {
+        padding: 10px 0px 10px 0 !important;
+    }
+    .social-icondiv ul {
+        padding: 7px 0 !important;
+    }
+    #footer {
+        padding: 10px 0px 10px 0 !important;
+    }
+    .loginform-outerdiv{
+        padding: 40px !important;
+    }
+    .log-reg-btn .log {
+        margin-bottom: 35px !important;
+    }
+    .formdiv form {
+        padding: 0 80px !important;
+    }
+    .formdiv {
+        padding-bottom: 45px !important;
+    }
+    .container56 {
+        padding-left: 55px !important;
+    }
+    .checkmark {
+        height: 35px !important;
+        width: 35px !important;
+    }
+    .container56 .checkmark:after {
+        left: 13px !important;
+        top: 7px !important;
+        width: 10px !important;
+        height: 17px !important;
+        border-width: 0 4px 4px 0 !important;
+    }
+    .logimg {
+        padding: 350px 20px !important;
+    }
+    .caret {
+        border-top: 13px dashed !important;
+        border-right: 10px solid transparent !important;
+        border-left: 10px solid transparent !important;
+    }
+    .mobiledownarrow {
+        width: 55px;
+        height: 64px;
+        padding: 22px 10px;
+    }
+    .mobilemenu>li>a {
+        padding: 6px 20px !important;
+        font-size: 24px !important;
+    }
+    span.title {
+        font-size: 38px !important;
+    }
+    .fa-user.list5 {
+        color: #fff;
+        font-size: 36px;
+    }
+    #uploaddocbtn {
+        height: 126px;
+        background-size: 100px;
+        background-position-y: 18px;
+    }
+    .box-part {
+        padding: 24px !important;
+        border: 7px #a68734 solid;
+    }
+    .filedroptext{
+        font-size: 43px !important;
+    }
 }
 
 @media only screen and (min-width : 2643px) and (max-width:2652px) {
@@ -357,5 +503,6 @@ p.pt {
 }
 
 .webcam-wrapper {
-    display: block !important;    
+    display: block !important;  
+    margin: 0 15px;  
 }

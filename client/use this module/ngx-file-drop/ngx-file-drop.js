@@ -1729,7 +1729,10 @@ FileComponent.decorators = [
       margin: auto;
       height: 500px;
       border: 2px dotted #0782d0;
-      border-radius: 30px; }
+      border-radius: 30px;
+      text-align: center;
+      font-size: 20px;
+     }
 
     .content {
       color: #0782d0;

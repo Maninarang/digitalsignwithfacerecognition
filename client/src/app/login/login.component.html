@@ -130,9 +130,19 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="checkbox">
+                            <!-- <div class="checkbox">
                                 <label>
                                     <input type="checkbox"> Remember me</label>
+                            </div> -->
+
+                            <div class="checkbox">
+                                <!-- <label>
+                                    <input type="checkbox"> Remember me
+                                </label> -->
+                                <label class="container56"> Remember me
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                  </label>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -180,7 +190,7 @@
                   
                             <!-- <button *ngIf="shwlogin" [disabled]="!formCtrl.form.valid" type="submit" class="btn btn-default signbtn">
                                 <img src="../../assets/img/ezee-wyt.png" /> Sign In</button> -->
-                                <button [disabled]="!formCtrl.form.valid"  type="submit" class="btn signbtn">
+                                <button [disabled]="!formCtrl.form.valid"  type="submit" class="btn signbtn pulse-button">
                                     <img src="../../assets/img/ezee-wyt.png" /> Sign In</button>
                         </div>
 
@@ -216,7 +226,7 @@
     </div>
 </section>
 
-<footer>
+<footer id="footer">
     <div class="container">
         <div class="col-md-2 col-sm-2 col-xs-12">
             <div class="msgimgdiv">
