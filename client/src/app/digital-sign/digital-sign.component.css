@@ -1048,7 +1048,7 @@ display:none;
     }
     .mobbgginner .tablediv {
         overflow: auto;
-        font-size: 26px  !important;
+        font-size: 28px  !important;
         margin-bottom: 40px  !important;
     }
     .bottom-nextbtn {
@@ -1057,6 +1057,50 @@ display:none;
     }
     .particiapnt34 {
         font-size: 34px;
+    }
+    .container56 {
+        padding-left: 60px !important;
+    }
+    .tablediv thead > tr > th {
+        padding: 14px !important;
+    }
+    .partagselect, .partag, #partagcontact {
+        font-size: 36px !important;
+        line-height: 60px !important;
+    }
+     .btn {
+        padding: 11px 22px !important;
+    }
+    .partpnt_poup .btn-danger, .partpnt_poup .btn-success{
+        font-size: 26px !important;
+        padding: 11px 22px !important;
+    }
+
+    .partbg{
+        font-size: 35px; 
+    }
+     .form-control {
+        height: 74px !important;
+        padding: 6px 20px !important;
+        font-size: 30px !important;
+    }
+    .fontlabel {
+        font-size: 34px !important;
+    }
+    .frmgrp .form-group {
+        margin-bottom: 30px !important;
+    }
+    .infographic-box span {
+        font-size: 33px !important;
+    }
+    .myradiodiv label {
+        margin-top: 6px;
+        font-size: 30px;
+    }
+    .contact {
+        padding: 15px;
+        margin-top: 15px;
+        font-size: 35px;
     }
 }
 /* The container */
@@ -1125,4 +1169,7 @@ display:none;
 }
 .container56 .checkbox label {
     padding-left: 35px;
+}
+.calinnerdiv {
+    padding: 0 13px;
 }

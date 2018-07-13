@@ -585,39 +585,11 @@
       <span id="expirationdate" style="margin-top:0px;">
                
        <label for="inputEmail" class="col-lg-6 col-md-6 col-sm-6 col-xs-12 control-label2" style="float: left;">Expiration Date</label>
-          
-       <div class="checkbox">
-        <!-- <label>
-            <input type="checkbox"> Remember me
-        </label> -->
-        <label class="container56"> Priority
-            <input type="checkbox">
-            <span class="checkmark"></span>
-          </label>
-    </div>
-
-      <div class="col-lg-6" style="margin-top:0px;">
-           <input type="checkbox" (change)="defauldate($event)" name="chk" style="margin-top: 10px;height:20px;width: 20px; border: 3px #b49948 solid;" [(ngModel)]="showexpdate"> </div>             
-          
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">	</div>
-       <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top:10px;">				  
-                    
-          
-     <div *ngIf="showexpdate">
-           <input class="form-control pannel calinput" #date placeholder="Select a date" ngx-mydatepicker name="mydate"
-                  [(ngModel)]="model" [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)"/>
-   
-          
-              
-               <button type="button" class="calbtn" (click)="dp.toggleCalendar()">
-                  <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-               </button>
-           </div>
        
-
-
-      </div>
-      
+        <div class="col-lg-6" style="margin-top:0px;">
+           <input type="checkbox" (change)="defauldate($event)" name="chk" [(ngModel)]="showexpdate"> 
+        </div>             
+        
       </span>
             
     </div>	
@@ -643,6 +615,19 @@
         
         </span>
               
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:10px;">				  
+        <div *ngIf="showexpdate" class="calinnerdiv">
+         <input class="form-control pannel calinput" #date placeholder="Select a date" ngx-mydatepicker name="mydate"
+                [(ngModel)]="model" [options]="myOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)"/>
+ 
+        
+            
+             <button type="button" class="calbtn" (click)="dp.toggleCalendar()">
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+             </button>
+         </div>
     </div>
 
 
