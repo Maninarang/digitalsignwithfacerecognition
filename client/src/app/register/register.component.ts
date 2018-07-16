@@ -101,7 +101,7 @@ export class RegisterComponent {
   // this.credentials.phonenumber=null;
   // this.credentials.image=null;
   scrollToTop(element) {
-    console.log("element",element);
+    // console.log("element",element);
     this.scrollService.scrollTo(element);
 }
   checkmail() {
@@ -190,7 +190,7 @@ export class RegisterComponent {
 
     }
     //this.passworderror =s
-    console.log(s);
+    // console.log(s);
   }
 
   blurr() {
@@ -219,10 +219,10 @@ export class RegisterComponent {
     // console.log(this.phoneerror)
   }
   register() {
-    console.log('im---');
+    // console.log('im---');
     if (this.withoutImage != null) {
       this.credentials.image = 'none';
-      console.log('yoyo');
+      // console.log('yoyo');
     }
 
     if (this.credentials.image === '') {
@@ -237,12 +237,28 @@ export class RegisterComponent {
       this.auth.register(this.credentials).subscribe(
 
         user => {
-          console.log(user.image);
+          // console.log(user.image);
           if (user.image === 'none') {
-            console.log('you');
-
+            // console.log('you');
+            const newreq = this.http.post('https://mybitrade.com:3001/api/sendmail', {
+              id: user.id,
+              imageurl: user.imgurl,
+              to: user.to,
+              name: user.name,
+              // url: 'https://mybitrade.com/confirm/' + user.id
+               url: 'https://mybitrade.com/confirm/' + user.id
+            })
+              .subscribe(
+                // tslint:disable-next-line:no-shadowed-variable
+                res => {
+                  this.loading = false;
+                  // this.error = 'Your Face Was Not Detected.Please Try Again';
+                  this.userregistered = user.to;
+                  localStorage.clear();
+                }
+              );
             this.loading = false;
-            console.log(user);
+            console.log(user.to);
             this.userregistered = user.to;
             this.credentials.lname = null;
             this.credentials.email = null;
@@ -256,10 +272,11 @@ export class RegisterComponent {
             // this.router.navigateByUrl('/digital_sign');
             localStorage.clear();
           } else {
-            console.log('me');
-            console.log(user);
+            // console.log('me');
+            // console.log(user);
+           // console.log(user.to);
             const userimage = user.image + '.jpg';
-            console.log('imageis->', userimage);
+            // console.log('imageis->', userimage);
             const req = this.http.get('https://mybitrade.com:5000/api/detect?filename=' + userimage)
 
               .subscribe(
@@ -296,6 +313,7 @@ export class RegisterComponent {
                         }
                       );
                     this.userregistered = user.to;
+                    console.log(this.userregistered);
                     this.credentials.lname = null;
                     this.credentials.email = null;
                     this.credentials.fname = null;
@@ -305,7 +323,7 @@ export class RegisterComponent {
                     this.credentials.image = null;
                     this.webcamImage = null;
                     localStorage.clear();
-                    this.scrollToTop(top);
+                   // this.scrollToTop(top);
                     // this.credentials = null;
                     // this.router.navigateByUrl('/digital_sign');
                   }
@@ -319,8 +337,8 @@ export class RegisterComponent {
         }, (err) => {
           this.loading = false;
           this.data = err;
-          console.log(this.data);
-          console.error(this.data.error);
+          // console.log(this.data);
+          // console.error(this.data.error);
           console.error(this.data.error.err);
           if (this.data.error.err.code === 11000) {
             this.mailerror = 'User With Email or Phone Number Already Registered !!!';

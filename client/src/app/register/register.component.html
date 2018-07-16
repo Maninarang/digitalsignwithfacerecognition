@@ -17,7 +17,7 @@
                 </a>
 
                 <a href='/login'>
-                    <div class='list-part-home loginbtn' style="padding: 8px;color: #b59848;">LOG IN
+                    <div class='list-part-home loginbtn' style="padding: 8px;color: #b59848;">LOGhgccvIN
 
                     </div>
                 </a>
@@ -47,9 +47,9 @@
                 </li>
 
             </div>
-            <div *ngIf="userregistered" #top class="registersuccessmsg">
+            <!-- <div *ngIf="userregistered" class="registersuccessmsg">
                 To verify your profile , Check your registered email and follow the process .
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -81,6 +81,9 @@
                     <a routerLink="/login">
                         <button class="reg">Sign In</button>
                     </a>
+                </div>
+                <div *ngIf="userregistered" class="registersuccessmsg">
+                    To verify your profile , Check your registered email and follow the process .
                 </div>
                 <div class="formdiv">
                    
