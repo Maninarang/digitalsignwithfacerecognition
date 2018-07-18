@@ -60,7 +60,7 @@ import { NewDocumentComponent } from './new-document/new-document.component';
 import { NewsignpdfComponent } from './newsignpdf/newsignpdf.component';
 import { ScrollToModule } from 'ng2-scroll-to-el';
 import { VideorecComponent } from './videorec/videorec.component';
-import { DicomviewerComponent } from './dicomviewer/dicomviewer.component';
+// import { DicomviewerComponent } from './dicomviewer/dicomviewer.component';
 
 // import { ConfirmComponent } from './confirm/confirm.component';
 // .component.spec
@@ -94,7 +94,7 @@ const routes: Routes = [
   { path: 'confirm/:userid', component: ConfirmComponent },
   { path: 'signpdf/:documentid/:userid/:usertosign', component: SignpdfComponent, canActivate: [AuthGuardService]},
   { path: 'newsign/:documentid/:userid/:usertosign', component: NewsignpdfComponent, canActivate: [AuthGuardService]},
-  { path: 'dicomviewer', component: DicomviewerComponent },
+ // { path: 'dicomviewer', component: DicomviewerComponent },
 
 ];
 
@@ -132,7 +132,7 @@ const routes: Routes = [
     ConfirmComponent,
     LandingComponent,
     VideorecComponent,
-    DicomviewerComponent
+   // DicomviewerComponent
     // AddparticipantdialogComponent
     ],
   imports: [

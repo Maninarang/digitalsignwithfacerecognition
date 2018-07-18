@@ -673,6 +673,9 @@ footer {
     font-family: verdana !important;
     color: #FF0000;
 }
+.strongpassword {
+    color:green !important;
+}
 .myrulesli strong{
     font-size:13px;
 }

@@ -82,7 +82,8 @@
                         <button class="reg">Sign In</button>
                     </a>
                 </div>
-                <div *ngIf="userregistered" class="registersuccessmsg">
+                <div #top *ngIf="userregistered" class="registersuccessmsg">
+                        <!-- <div   class="registersuccessmsg"> -->
                     To verify your profile , Check your registered email and follow the process .
                 </div>
                 <div class="formdiv">
@@ -139,7 +140,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="Number" id='number' (blur)='number()' placeholder="Mobile Number*" [(ngModel)]="credentials.phonenumber"
+                                <input type="text" class="form-control" name="Number" id='number' (keypress)="onlynumber($event)" (blur)='number()' placeholder="Mobile Number*" [(ngModel)]="credentials.phonenumber"
                                     required>
                                 <!-- <input type="text" class="form-control" id="" placeholder="Mobile Number"> -->
                                 <span>
@@ -164,7 +165,7 @@
                             </div>
                             <!-- start pswd_info -->
                             <div class="pwdrules" *ngIf="jagveer">
-                                <div class="errorline">{{passworderrorr}}</div>
+                                <div class="errorline" [ngClass]="{'strongpassword': passworderrorr=='Strong'}">{{passworderrorr}}</div>
                                 <div class="strength0"></div>
                                 <div class="myrulesli">
                                     <strong>Strong Password Tips:</strong>
@@ -265,7 +266,6 @@
                                 <img src="../../assets/img/ezee-wyt.png" /> Register
                             </button>
                         </div>
-
                     </form>
 <div *ngIf="withoutImage" >
     <p class="jsttext">Or</p>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild,ElementRef} from '@angular/core';
 import { AuthenticationService, TokenPayload } from '../authentication.service';
 import { Router } from '@angular/router';
 import { WebCamComponent } from 'ack-angular-webcam';
@@ -50,6 +50,7 @@ export class RegisterComponent {
   public userregistered = null;
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
+  @ViewChild('top') public messagescroll:ElementRef;
 
   public triggerSnapshot(): void {
     this.trigger.next();
@@ -84,6 +85,11 @@ export class RegisterComponent {
       router.navigate(['digital_sign']);
     }
   }
+
+   moveToSpecificView() {
+        this.messagescroll.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+ 
+}
 
   registerwithoutimage() {
     if (this.withoutImage === 'Selected') {
@@ -123,7 +129,7 @@ export class RegisterComponent {
   lname() {
     const empty = this.credentials.lname.length;
     if (empty < 1) {
-      this.lnameerror = 'Please enter the lastname';
+      this.lnameerror = 'Please enter the Last Name';
       const element: HTMLElement = document.getElementById('lname') as HTMLElement;
       //  element.focus();
     } else {
@@ -133,7 +139,7 @@ export class RegisterComponent {
   fname() {
     const empty = this.credentials.fname.length;
     if (empty < 1) {
-      this.fnameerror = 'Please enter the Firstname';
+      this.fnameerror = 'Please enter the First Name';
       const element: HTMLElement = document.getElementById('fname') as HTMLElement;
       //  element.focus();
     } else {
@@ -178,11 +184,11 @@ export class RegisterComponent {
 
     }
     else if (s == 3) {
-      this.passworderror = 'Normal';
-      this.passworderrorr = 'Normal';
+      this.passworderror = 'Good';
+      this.passworderrorr = 'Good';
 
     }
-    else if (s == 4) {
+    else if (s == 4 && length>=8) {
       //this.jagveer=false;
       this.passworderror = '';
       this.passworderrorr = 'Strong';
@@ -196,6 +202,15 @@ export class RegisterComponent {
   blurr() {
     this.jagveer = false;
 
+  }
+
+  onlynumber(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
   cpassword() {
@@ -255,6 +270,7 @@ export class RegisterComponent {
                   // this.error = 'Your Face Was Not Detected.Please Try Again';
                   this.userregistered = user.to;
                   localStorage.clear();
+                  this.moveToSpecificView();
                 }
               );
             this.loading = false;
@@ -310,6 +326,7 @@ export class RegisterComponent {
                           //this.error = 'Your Face Was Not Detected.Please Try Again';
                           this.userregistered = user.to;
                           localStorage.clear();
+                          this.moveToSpecificView();
                         }
                       );
                     this.userregistered = user.to;
