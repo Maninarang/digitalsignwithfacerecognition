@@ -153,6 +153,11 @@ export class PdfComponent implements OnInit {
     $('#stickit').css('display', 'block');
 
   }
+
+
+
+
+  
   adddroppablehandler() {
     // alert();
     let droppablediv = '';
@@ -239,7 +244,11 @@ export class PdfComponent implements OnInit {
             // $('.canvas-element .form-group').remove();
           } else if ($.trim(ui.draggable[0].innerText) == 'Text') {
             // tslint:disable-next-line:max-line-length
-            canvasElement.append('<div class="dell ' + userid + '" style="text-align: right;"><i style="font-size:24px" class="fa">&#xf00d;</i></div><input class="appended ' + userid + ' ' + cls + '" style="border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;border: 3px solid black;margin-left: 3px;min-width: 28px;height: 45px;padding: 0 10px; type="text"/>');
+            canvasElement.append('<div class="dell ' + userid + '" style="text-align: right;"><i style="font-size:24px" class="fa">&#xf00d;</i></div><textarea  rows="1" style="border-radius: 5px 5px 5px 5px;-moz-border-radius: 5px 5px 5px 5px;-webkit-border-radius: 5px 5px 5px 5px;border: 3px solid black;margin-left: 3px;min-width: 28px;height: 45px;  padding: 0 10px;resize:none;" class="gettext appended ' + userid + ' ' + cls + '" ></textarea>');
+            $(document).on('blur', '.gettext', function () {
+              $(this).html($(this).val() as any)
+          });
+            
             // $('.canvas-element .form-group').remove();
           }
           canvasElement.css({
@@ -258,7 +267,7 @@ export class PdfComponent implements OnInit {
         // this.dragged = 'dragged';
         $('#stickit').css('display', 'block');
         $('.gethtml').one('click', '.dell', function () {
-          alert("hey!");
+        //  alert("hey!");
         
 
           var classes = $(this).attr('class').split(" ");
@@ -266,10 +275,10 @@ export class PdfComponent implements OnInit {
 
 
           var numItems = $('.' + classes[1]).length;
-          alert(numItems);
+      //    alert(numItems);
           // return ;
           if ((numItems / 2) == 1) {
-            alert("1");
+         //   alert("1");
           //   //items.pop(classes[1]);
             var index = items.indexOf(classes[1]);
             if (index !== -1) items.splice(index, 1)

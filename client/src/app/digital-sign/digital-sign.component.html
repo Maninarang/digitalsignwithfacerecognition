@@ -683,9 +683,9 @@
                  </tr>
                </thead>
                <tbody>
-                 <tr *ngFor="let contact of contacts ; let i = index">
+                 <tr *ngFor="let contact of contacts ; let i = index;let l =last;">
                      <td>{{contact.name}}</td>
-                     <td>{{i+1}}</td>
+                     <td>{{i+1}}<button *ngIf="(i==0 || !l) && contacts?.length != 1" (click)="changepriority(i,i+1)" type="button">Down</button><button *ngIf="i !=0" (click)="changepriority(i,i-1)" type="button">Up</button></td>
                      <td *ngIf="contact.type">{{contact.type}}</td>
                      <td *ngIf="!contact.type">Remote Signer</td>
                      

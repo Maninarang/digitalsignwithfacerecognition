@@ -218,6 +218,22 @@ export class DigitalSignComponent implements OnInit {
     this.error = null;
   }
 
+  changepriority(nowpriority,newpriority) {
+  const name = this.contacts[nowpriority].name;
+  const id = this.contacts[nowpriority].id;
+  const type= this.contacts[nowpriority].type;
+  const email= this.contacts[nowpriority].email;
+  this.contacts[nowpriority].name = this.contacts[newpriority].name;
+  this.contacts[nowpriority].id = this.contacts[newpriority].id;
+  this.contacts[nowpriority].type = this.contacts[newpriority].type;
+  this.contacts[nowpriority].email = this.contacts[newpriority].email;
+  this.contacts[newpriority].name = name;
+  this.contacts[newpriority].id = id;
+  this.contacts[newpriority].type = type;
+  this.contacts[newpriority].email = email;
+
+  }
+
   // ------------------------ add new participant --------------------- //
 
   addnewparticipant() {

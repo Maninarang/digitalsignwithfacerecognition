@@ -9,13 +9,17 @@
     border: 1px solid #6d7704;
 }
 .imgsize img {
-    width: 100%;
+    /* width: 100%;
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    margin: auto;
+    margin: auto; */
+    width: auto;
+    height: 100%;
+    display: inline;
+    margin: 0 auto;
 }
 .profileimg {
     width: 18px;
